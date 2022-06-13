@@ -43,3 +43,13 @@ release/moc_ftagsdef.cpp
 *.Release
 *.Debug
 LICENSE
+debug/qrc_resources.cpp
+debug/moc_predefs.h
+debug/moc_mainwindow.cpp
+debug/moc_ftsettings.cpp
+debug/moc_ftprint.cpp
+debug/moc_ftoverview.cpp
+debug/moc_ftoperate.cpp
+debug/moc_ftmodmov.cpp
+debug/moc_ftagsstock.cpp
+debug/moc_ftagsmov.cpp

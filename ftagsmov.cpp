@@ -11,8 +11,8 @@
 #include <QMessageBox>
 
 
-//#include <QDebug>
-//#include <QSqlError>
+#include <QDebug>
+#include <QSqlError>
 
 //#define CLIENTE_GENERICO 783
 
@@ -159,13 +159,13 @@ void FTagsMov::setup()
         p2=QPixmap::fromImage(img2.img);
         ui->lbImage2->setPixmap(p2);
 
-        connect(this,SIGNAL(refresh_img()),this,SLOT(refresh()));
+        connect(this,SIGNAL(refresh_img()),this,SLOT (refresh()));
 
 
 
     }
 
-    emit on_rbAll_toggled(true);
+    on_rbAll_toggled(true);
 
 
     ui->pbChooseImage->setEnabled(false);
@@ -178,7 +178,7 @@ void FTagsMov::getProdotti(int pidcliente)
     QString sql;
     QSqlQuery q(db);
 
-     QSettings settings("ctags.ini",QSettings::IniFormat);
+    QSettings settings("ctags.ini",QSettings::IniFormat);
 
     GENERIC_CUSTOMER=settings.value("generic_customer_id").toInt();
 
@@ -232,13 +232,13 @@ void FTagsMov::save()
     q.prepare(sql);
     QString nbarcode=ui->leBarcode->text();
     int idprodotto=0;
-     if(ui->cbGenericProduct->isChecked()){
+    if(ui->cbGenericProduct->isChecked()){
 
-         idprodotto=GENERIC_PRODUCT;
+        idprodotto=GENERIC_PRODUCT;
 
     }else{
-          idprodotto=modprodotti->index(ui->cbProdotto->currentIndex(),0).data(0).toInt();
-     }
+        idprodotto=modprodotti->index(ui->cbProdotto->currentIndex(),0).data(0).toInt();
+    }
     int idcliente=modclienti->index(ui->cbClienti->currentIndex(),0).data(0).toInt();
     int idtipo=modtipi->index(ui->cbTipo->currentIndex(),0).data(0).toInt();
     QString spec=ui->leSpecifica->text();
@@ -265,19 +265,19 @@ void FTagsMov::save()
     if(QMessageBox::question(nullptr,QApplication::applicationName(),"Salvare?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
     {
 
-    db.transaction();
+        db.transaction();
 
-    if(q.exec())
-    {
-        db.commit();
-        emit tag_saved();
-       // qDebug()<<"SAVED";
-    }
-    else
-    {
-        db.rollback();
-      //  qDebug()<<q.lastError().text();
-    }
+        if(q.exec())
+        {
+            db.commit();
+            emit tag_saved();
+            // qDebug()<<"SAVED";
+        }
+        else
+        {
+            db.rollback();
+            //  qDebug()<<q.lastError().text();
+        }
     }
     else
     {
@@ -291,33 +291,33 @@ void FTagsMov::chooseImage()
 
     QString filename= QFileDialog::getOpenFileName(nullptr,"Scegli immagine","","tutti(*.*);;JPEG(*.jpg,*.jpeg);;PNG(*.png);;TIFF(*.tif)");
 
-       // QString s_images=QString();
+    // QString s_images=QString();
 
-        if(ui->rb1->isChecked()){
+    if(ui->rb1->isChecked()){
 
-            QImage image(filename);
-            img1.path=filename;
-            img1.img=image;
-            sl_immagini[0]=img1.path;
+        QImage image(filename);
+        img1.path=filename;
+        img1.img=image;
+        sl_immagini[0]=img1.path;
 
-            QPixmap pixmap=QPixmap::fromImage(image);
-            ui->lbImage1->setPixmap(pixmap);
+        QPixmap pixmap=QPixmap::fromImage(image);
+        ui->lbImage1->setPixmap(pixmap);
 
-        }
-        else if(ui->rb2->isChecked())
-        {
+    }
+    else if(ui->rb2->isChecked())
+    {
 
-            QImage image(filename);
-            img2.path=filename;
-            img2.img=image;
-            sl_immagini[1]=img2.path;
+        QImage image(filename);
+        img2.path=filename;
+        img2.img=image;
+        sl_immagini[1]=img2.path;
 
         //    qDebug()<<"chooseImage"<<sl_immagini.size();
 
-            QPixmap pixmap1=QPixmap::fromImage(image);
-            ui->lbImage2->setPixmap(pixmap1);
+        QPixmap pixmap1=QPixmap::fromImage(image);
+        ui->lbImage2->setPixmap(pixmap1);
 
-        }
+    }
 
 
 
@@ -326,6 +326,8 @@ void FTagsMov::chooseImage()
 
 void FTagsMov::img_reset()
 {
+    qDebug()<<"img_reset";
+
     if (ui->rbAll->isChecked())
     {
         img1.img=QImage();
@@ -346,60 +348,44 @@ void FTagsMov::img_reset()
         img2.path=QString();
     }
 
-    emit refresh_img();
+
+    refresh();
 }
 
 void FTagsMov::refresh()
 {
+    qDebug()<<"refresh()";
+
     if(ui->rb1->isChecked()){
 
-        QImage image(img1.img);
-      //  img1.path=img1.path;
-        img1.img=image;
+        //   QImage image(img1.img);
         sl_immagini[0]=img1.path;
 
-        QPixmap pixmap=QPixmap::fromImage(image);
-        ui->lbImage1->setPixmap(pixmap);
+        QPixmap pixmap1=QPixmap::fromImage(img1.img);
+        ui->lbImage1->setPixmap(pixmap1);
 
     }
     else if(ui->rb2->isChecked())
     {
 
-        QImage image(img2.path);
-
-        img2.img=image;
         sl_immagini[1]=img2.path;
 
-    //    qDebug()<<"chooseImage"<<sl_immagini.size();
-
-        QPixmap pixmap1=QPixmap::fromImage(image);
-        ui->lbImage2->setPixmap(pixmap1);
+        QPixmap pixmap2=QPixmap::fromImage(img2.img);
+        ui->lbImage2->setPixmap(pixmap2);
 
     }
     else if(ui->rbAll->isChecked()){
 
 
-        QImage image(img1.img);
-      //  img1.path=img1.path;
-        img1.img=image;
+        QImage image1(img1.path);
         sl_immagini[0]=img1.path;
-
-        QPixmap pixmap=QPixmap::fromImage(image);
-        ui->lbImage1->setPixmap(pixmap);
+        QPixmap pixmap1=QPixmap::fromImage(image1);
+        ui->lbImage1->setPixmap(pixmap1);
 
         QImage image2(img2.path);
-
-        img2.img=image;
         sl_immagini[1]=img2.path;
-
-    //    qDebug()<<"chooseImage"<<sl_immagini.size();
-
-        QPixmap pixmap1=QPixmap::fromImage(image2);
-        ui->lbImage2->setPixmap(pixmap1);
-
-
-
-
+        QPixmap pixmap2=QPixmap::fromImage(image2);
+        ui->lbImage2->setPixmap(pixmap2);
 
     }
 
@@ -426,13 +412,13 @@ void FTagsMov::on_pbSave_clicked()
     save();
 
     close();
-   ui->pbMov->setEnabled(true);
+    ui->pbMov->setEnabled(true);
 }
 
 
 void FTagsMov::on_pbChooseImage_clicked()
 {
-   // ui->rb1->setChecked(true);
+    // ui->rb1->setChecked(true);
 
 
     chooseImage();
@@ -456,7 +442,7 @@ void FTagsMov::on_rb1_toggled(bool checked)
     ui->lbImage2->setMaximumWidth(this->size().width());
     ui->lbImage2->setMaximumHeight(800);
 
-     ui->pbChooseImage->setEnabled(checked);
+    ui->pbChooseImage->setEnabled(checked);
 
 
 }
@@ -514,16 +500,16 @@ void FTagsMov::on_pbMov_clicked()
 
 void FTagsMov::on_cbGenericProduct_toggled(bool checked)
 {
-   ui->cbProdotto->setEnabled(!checked);
+    ui->cbProdotto->setEnabled(!checked);
 }
 
 
 void FTagsMov::on_pbReset_clicked()
 {
 
-       if (QMessageBox::question(nullptr,QApplication::applicationName(),"resettare le immagini?", (QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok))
-       {
-             img_reset();
-       }
+    if (QMessageBox::question(nullptr,QApplication::applicationName(),"resettare le immagini?", QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
+    {
+        img_reset();
+    }
 }
 
