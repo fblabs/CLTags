@@ -195,6 +195,8 @@ public:
         tvTags->horizontalHeader()->setCascadingSectionResizes(true);
         tvTags->horizontalHeader()->setStretchLastSection(true);
         tvTags->verticalHeader()->setVisible(false);
+        tvTags->verticalHeader()->setCascadingSectionResizes(true);
+        tvTags->verticalHeader()->setHighlightSections(false);
 
         horizontalLayout_2->addWidget(tvTags);
 
@@ -204,9 +206,12 @@ public:
         tvTags_mov->setAlternatingRowColors(true);
         tvTags_mov->setSelectionMode(QAbstractItemView::SingleSelection);
         tvTags_mov->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tvTags_mov->setSortingEnabled(true);
         tvTags_mov->horizontalHeader()->setCascadingSectionResizes(true);
+        tvTags_mov->horizontalHeader()->setProperty("showSortIndicator", QVariant(true));
         tvTags_mov->horizontalHeader()->setStretchLastSection(true);
         tvTags_mov->verticalHeader()->setVisible(false);
+        tvTags_mov->verticalHeader()->setCascadingSectionResizes(true);
 
         horizontalLayout_2->addWidget(tvTags_mov);
 

@@ -51,14 +51,16 @@ void FTOverview::setup()
 
     ui->tvTags->setModel(tagsmod);
 
-    ui->tvTags->horizontalHeader()->sectionResizeMode(QHeaderView::ResizeToContents);
+    ui->tvTags->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    ui->tvTags->horizontalHeader()->setCascadingSectionResizes(true);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
-    ui->tvTags->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
-    ui->tvTags->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
+    ui->tvTags->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Interactive);
+    ui->tvTags->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Interactive);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(3,QHeaderView::ResizeToContents);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(4,QHeaderView::ResizeToContents);
-    ui->tvTags->horizontalHeader()->setSectionResizeMode(6,QHeaderView::ResizeToContents);
+    ui->tvTags->horizontalHeader()->setSectionResizeMode(6,QHeaderView::Interactive);
     ui->tvTags->setColumnHidden(5,true);
+    ui->tvTags->horizontalHeader()->setStretchLastSection(true);
 
     connect(ui->tvTags->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(findTagsMov()));
     clientimod=new QSqlTableModel(nullptr,db);
@@ -115,9 +117,25 @@ void FTOverview::findTagsMov()
     ui->tvTags_mov->setColumnHidden(7,true);
     ui->tvTags_mov->setColumnHidden(9,true);
 
-    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(4,QHeaderView::Stretch);
-    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(6,QHeaderView::Stretch);
-    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(8,QHeaderView::Stretch);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(1,QHeaderView::ResizeToContents);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(2,QHeaderView::ResizeToContents);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(3,QHeaderView::ResizeToContents);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(4,QHeaderView::Interactive);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(5,QHeaderView::ResizeToContents);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(6,QHeaderView::Interactive);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(7,QHeaderView::Interactive);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(8,QHeaderView::Interactive);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(9,QHeaderView::Interactive);
+    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(10,QHeaderView::Interactive);
+    ui->tvTags_mov->horizontalHeader()->setStretchLastSection(true);
+    ui->tvTags_mov->horizontalHeader()->setCascadingSectionResizes(true);
+
+
+
+    ui->tvTags_mov->horizontalHeader()->setStretchLastSection(true);
 
    // qDebug()<<q.lastQuery();
 

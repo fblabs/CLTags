@@ -579,6 +579,5 @@ void FTagsMov::on_pbNew_clicked()
 {
     resetUI();
     azione=0;
-    setup();
 }
 
