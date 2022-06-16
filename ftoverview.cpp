@@ -12,7 +12,7 @@
 
 #include <QSqlError>
 
-#include <QDebug>
+//#include <QDebug>
 #include "ftprint.h"
 
 
@@ -38,7 +38,7 @@ void FTOverview::setup()
     tagsmod->setRelation(2,QSqlRelation("prodotti","ID","descrizione"));
     tagsmod->setRelation(3,QSqlRelation("tags_tipi","ID","descrizione"));
     tagsmod->select();
-    qDebug()<<tagsmod->query().lastQuery();
+  //  qDebug()<<tagsmod->query().lastQuery();
 
     tagsmod->setHeaderData(0,Qt::Horizontal,"BARCODE");
     tagsmod->setHeaderData(1,Qt::Horizontal,"CLIENTE");
@@ -79,9 +79,9 @@ void FTOverview::setup()
     QModelIndex ix=tagsmod->index(0,0);
     ui->tvTags->setCurrentIndex(ix);
 
-    qDebug()<<"seTAP: "<<tagsmod->query().executedQuery();
+    ui->tvTags->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
 
-    emit on_pbNoFilters_clicked();
+     on_pbNoFilters_clicked();
 
 
 
@@ -105,7 +105,7 @@ void FTOverview::findTagsMov()
     q.bindValue(":idprodotto", tagsmod->index(ui->tvTags->currentIndex().row(),3).data(0).toString());
     if (!q.exec())
     {
-        qDebug()<<q.lastError().text()<<q.lastQuery();
+      //  qDebug()<<q.lastError().text()<<q.lastQuery();
     }
     tagsmovmod->setQuery(q);
     ui->tvTags_mov->setModel(tagsmovmod);
@@ -119,13 +119,13 @@ void FTOverview::findTagsMov()
     ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(6,QHeaderView::Stretch);
     ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(8,QHeaderView::Stretch);
 
-    qDebug()<<q.lastQuery();
+   // qDebug()<<q.lastQuery();
 
 }
 
 void FTOverview::refresh()
 {
-    qDebug()<<"REFRESH";
+   // qDebug()<<"REFRESH";
     QModelIndex current=ui->tvTags->currentIndex();
     tagsmod->select();
     ui->tvTags->setCurrentIndex(current);
@@ -164,7 +164,7 @@ void FTOverview::on_tvTags_doubleClicked(const QModelIndex &index)
 {
     FTagsMov *f=new FTagsMov(1,tagsmod->index(index.row(),0).data(0).toString(),tagsmod->index(index.row(),2).data(0).toString(),db);
 
-    qDebug()<<tagsmod->index(index.row(),5).data(0).toString()<<tagsmod->index(index.row(),2).data(0).toString();
+  //  qDebug()<<tagsmod->index(index.row(),5).data(0).toString()<<tagsmod->index(index.row(),2).data(0).toString();
     connect(f,SIGNAL(tag_saved()),this,SLOT(refresh()));
     f->show();
 
@@ -264,6 +264,7 @@ void FTOverview::getProdotti(int client_id)
 void FTOverview::on_pbNoFilters_clicked()
 {
  tagsmod->setFilter(QString());
+ ui->leBarcode->setText(QString());
 }
 
 
@@ -328,12 +329,18 @@ void FTOverview::buildFilter()
 
         }
 
-       // filter="relTblAl_1.ragione_sociale='"+ui->cbCliente->currentText()+"'";
+
+    if(ui->rbBarcode->isChecked())
+    {
+        filter="barcode like '"+ui->leBarcode->text()+"%'";
+    }
 
 
 
 
-    qDebug()<<"BUILD FILTER: "<<filter<<filter<<tagsmod->filter()<<tagsmod->lastError().text();
+
+
+  //  qDebug()<<"BUILD FILTER: "<<filter<<filter<<tagsmod->filter()<<tagsmod->lastError().text();
     tagsmod->setFilter(filter);
 
     if(tagsmod->rowCount()<1)

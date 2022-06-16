@@ -15,6 +15,7 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -47,6 +48,7 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QLineEdit *leSpecifica;
+    QGridLayout *gridLayout;
     QFormLayout *formLayout;
     QLabel *label_6;
     QTextEdit *teNote;
@@ -64,6 +66,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *pbSave;
     QPushButton *pbMov;
+    QPushButton *pbNew;
     QPushButton *pbClose;
 
     void setupUi(QWidget *FTagsMov)
@@ -71,7 +74,7 @@ public:
         if (FTagsMov->objectName().isEmpty())
             FTagsMov->setObjectName(QString::fromUtf8("FTagsMov"));
         FTagsMov->setWindowModality(Qt::ApplicationModal);
-        FTagsMov->resize(1021, 642);
+        FTagsMov->resize(1021, 936);
         FTagsMov->setMinimumSize(QSize(0, 0));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/7627459_app_tools_logo_apple_reminders_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -174,6 +177,11 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_3);
 
+        gridLayout = new QGridLayout();
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+
+        verticalLayout_2->addLayout(gridLayout);
+
         formLayout = new QFormLayout();
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
         label_6 = new QLabel(FTagsMov);
@@ -192,8 +200,8 @@ public:
         teNote->setObjectName(QString::fromUtf8("teNote"));
         sizePolicy.setHeightForWidth(teNote->sizePolicy().hasHeightForWidth());
         teNote->setSizePolicy(sizePolicy);
-        teNote->setMinimumSize(QSize(0, 100));
-        teNote->setMaximumSize(QSize(16777215, 100));
+        teNote->setMinimumSize(QSize(0, 0));
+        teNote->setMaximumSize(QSize(16777215, 16777215));
         teNote->setBaseSize(QSize(0, 100));
         teNote->setAutoFillBackground(false);
 
@@ -317,11 +325,20 @@ public:
 
         horizontalLayout->addWidget(pbMov);
 
+        pbNew = new QPushButton(FTagsMov);
+        pbNew->setObjectName(QString::fromUtf8("pbNew"));
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/resources/icons/8721738_add_plus_+_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbNew->setIcon(icon5);
+        pbNew->setIconSize(QSize(32, 32));
+
+        horizontalLayout->addWidget(pbNew);
+
         pbClose = new QPushButton(FTagsMov);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon6);
         pbClose->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbClose);
@@ -354,6 +371,7 @@ public:
         lbImage2->setText(QString());
         pbSave->setText(QCoreApplication::translate("FTagsMov", "Salva", nullptr));
         pbMov->setText(QCoreApplication::translate("FTagsMov", "Operazioni", nullptr));
+        pbNew->setText(QCoreApplication::translate("FTagsMov", "Nuovo", nullptr));
         pbClose->setText(QCoreApplication::translate("FTagsMov", "Chiudi", nullptr));
     } // retranslateUi
 

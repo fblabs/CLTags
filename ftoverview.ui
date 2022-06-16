@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1264</width>
+    <width>1349</width>
     <height>519</height>
    </rect>
   </property>
@@ -36,6 +36,16 @@
         <string>Sigilli</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="rbBarcode">
+       <property name="text">
+        <string>Barcode</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leBarcode"/>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">

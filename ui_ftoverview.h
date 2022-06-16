@@ -17,6 +17,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
@@ -33,6 +34,8 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QRadioButton *rbLabels;
     QRadioButton *rbSigilli;
+    QRadioButton *rbBarcode;
+    QLineEdit *leBarcode;
     QVBoxLayout *verticalLayout_2;
     QRadioButton *rbCust;
     QRadioButton *rbNoCust;
@@ -65,7 +68,7 @@ public:
     {
         if (FTOverview->objectName().isEmpty())
             FTOverview->setObjectName(QString::fromUtf8("FTOverview"));
-        FTOverview->resize(1264, 519);
+        FTOverview->resize(1349, 519);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/8644322_graphic_chart_graph_bam_icon (1).png"), QSize(), QIcon::Normal, QIcon::Off);
         FTOverview->setWindowIcon(icon);
@@ -83,6 +86,16 @@ public:
         rbSigilli->setObjectName(QString::fromUtf8("rbSigilli"));
 
         horizontalLayout_3->addWidget(rbSigilli);
+
+        rbBarcode = new QRadioButton(FTOverview);
+        rbBarcode->setObjectName(QString::fromUtf8("rbBarcode"));
+
+        horizontalLayout_3->addWidget(rbBarcode);
+
+        leBarcode = new QLineEdit(FTOverview);
+        leBarcode->setObjectName(QString::fromUtf8("leBarcode"));
+
+        horizontalLayout_3->addWidget(leBarcode);
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
@@ -290,6 +303,7 @@ public:
         FTOverview->setWindowTitle(QCoreApplication::translate("FTOverview", "Panoramica", nullptr));
         rbLabels->setText(QCoreApplication::translate("FTOverview", "Etichette", nullptr));
         rbSigilli->setText(QCoreApplication::translate("FTOverview", "Sigilli", nullptr));
+        rbBarcode->setText(QCoreApplication::translate("FTOverview", "Barcode", nullptr));
         rbCust->setText(QCoreApplication::translate("FTOverview", "Cliente", nullptr));
         rbNoCust->setText(QCoreApplication::translate("FTOverview", "No Cliente", nullptr));
         rbAnyProd->setText(QCoreApplication::translate("FTOverview", "Prodotto", nullptr));

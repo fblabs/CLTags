@@ -9,10 +9,12 @@
 #include <QCompleter>
 #include <QSettings>
 #include <QMessageBox>
+#include <QMouseEvent>
+#include "ftimage.h"
 
 
-#include <QDebug>
-#include <QSqlError>
+/*#include <QDebug>
+#include <QSqlError>*/
 
 //#define CLIENTE_GENERICO 783
 
@@ -34,6 +36,9 @@ FTagsMov::FTagsMov(int pazione, QString pbarcode, QString pdescprodotto, QSqlDat
     GENERIC_PRODUCT=settings.value("generic_product_id").toInt();
 
     ui->setupUi(this);
+    ui->lbImage1->installEventFilter(this);
+    ui->lbImage2->installEventFilter(this);
+
     db=pdb;
     azione=pazione;
     barcode=pbarcode;
@@ -66,9 +71,13 @@ void FTagsMov::on_pbClose_clicked()
     close();
 }
 
+
+
 void FTagsMov::setup()
 {
 
+
+    connect(this,SIGNAL(imageClicked(QString)),this,SLOT(showImage(QString)));
 
     modtipi=new QSqlTableModel(nullptr,db);
     modtipi->setTable("tags_tipi");
@@ -94,6 +103,7 @@ void FTagsMov::setup()
 
     if(azione==1)
     {
+        ui->pbNew->setVisible(false);
         QSqlQuery q(db);
         QString sql ="select tags_tipi.descrizione as tipo, clienti.ragione_sociale as clienti, prodotti.descrizione as prodotto, tags.barcode, tags.specifica,tags.immagine,tags.note\
                 from tags,tags_tipi,anagrafica as clienti,prodotti\
@@ -271,12 +281,13 @@ void FTagsMov::save()
         {
             db.commit();
             emit tag_saved();
-            // qDebug()<<"SAVED";
+            ui->pbNew->setVisible(true);
+
         }
         else
         {
             db.rollback();
-            //  qDebug()<<q.lastError().text();
+           QMessageBox::information(nullptr,QApplication::applicationName(),"Errore salvando i dati",QMessageBox::Ok);
         }
     }
     else
@@ -326,7 +337,7 @@ void FTagsMov::chooseImage()
 
 void FTagsMov::img_reset()
 {
-    qDebug()<<"img_reset";
+    //qDebug()<<"img_reset";
 
     if (ui->rbAll->isChecked())
     {
@@ -354,7 +365,7 @@ void FTagsMov::img_reset()
 
 void FTagsMov::refresh()
 {
-    qDebug()<<"refresh()";
+   // qDebug()<<"refresh()";
 
     if(ui->rb1->isChecked()){
 
@@ -411,8 +422,16 @@ void FTagsMov::on_pbSave_clicked()
 {
     save();
 
-    close();
+    QMessageBox::information(nullptr,QApplication::applicationName(),"I dati sono stati salvati",QMessageBox::Ok);
+
+
     ui->pbMov->setEnabled(true);
+
+    if(azione==0)
+    {
+        ui->pbNew->setVisible(true);
+
+    }
 }
 
 
@@ -494,8 +513,10 @@ void FTagsMov::on_rbAll_toggled(bool checked)
 void FTagsMov::on_pbMov_clicked()
 {
     FTOperate *f=new FTOperate(db,ui->leBarcode->text());
+
     f->show();
 }
+
 
 
 void FTagsMov::on_cbGenericProduct_toggled(bool checked)
@@ -511,5 +532,53 @@ void FTagsMov::on_pbReset_clicked()
     {
         img_reset();
     }
+}
+
+void FTagsMov::showImage(const QString path)
+{
+
+    FTImage *f=new FTImage(path);
+    f->show();
+    //qDebug()<<"showimage";
+}
+
+void FTagsMov::resetUI()
+{
+    ui->teNote->setPlainText(QString());
+    ui->leSpecifica->setText(QString());
+    ui->leBarcode->setText(QString());
+    img_reset();
+}
+
+bool FTagsMov::eventFilter(QObject *obj, QEvent *evt)
+{
+
+
+    if(obj==ui->lbImage1 && evt->type()==QEvent::MouseButtonDblClick)
+    {
+
+           //qDebug()<<"event label1";
+           emit imageClicked(img1.path);
+
+
+     }
+     if  (obj==ui->lbImage2 && evt->type()== QEvent::MouseButtonDblClick)
+    {
+        //qDebug()<<"event label2";
+        emit imageClicked(img2.path);
+    }
+
+    return QObject::eventFilter(obj,evt);
+
+}
+
+
+
+
+void FTagsMov::on_pbNew_clicked()
+{
+    resetUI();
+    azione=0;
+    setup();
 }
 

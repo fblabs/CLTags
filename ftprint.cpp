@@ -1,10 +1,11 @@
 #include "ftprint.h"
-#include <QDebug>
+//#include <QDebug>
 #include "ui_ftprint.h"
 #include <QAbstractItemModel>
 #include <QFileDialog>
 #include <QPrinter>
 #include <QDesktopServices>
+#include <QTextStream>
 
 FTPrint::FTPrint(QAbstractItemModel *pmod,QString ptitle, QStringList pcolnames,QList<int>phiddencols, QWidget *parent) :
     QWidget(parent),

@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     ftagsmov.cpp \
     ftagsstock.cpp \
+    ftimage.cpp \
     ftmodmov.cpp \
     ftoperate.cpp \
     ftoverview.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     ftagsmov.h \
     ftagsstock.h \
+    ftimage.h \
     ftmodmov.h \
     ftoperate.h \
     ftoverview.h \
@@ -32,6 +34,7 @@ HEADERS += \
 FORMS += \
     ftagsmov.ui \
     ftagsstock.ui \
+    ftimage.ui \
     ftmodmov.ui \
     ftoperate.ui \
     ftoverview.ui \

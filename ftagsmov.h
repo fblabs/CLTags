@@ -43,11 +43,16 @@ private slots:
 
     void on_pbMov_clicked();
 
-
-
     void on_cbGenericProduct_toggled(bool checked);
 
     void on_pbReset_clicked();
+
+    void showImage(const QString path);
+
+    void resetUI();
+
+
+    void on_pbNew_clicked();
 
 private:
     Ui::FTagsMov *ui;
@@ -65,12 +70,15 @@ private:
     QString s_images;
     int GENERIC_CUSTOMER;
     int GENERIC_PRODUCT;
+protected:
+     bool eventFilter(QObject *obj, QEvent *evt);
 
 
 
 signals:
   void  tag_saved();
   void refresh_img();
+  void imageClicked(const QString path);
 
 
 

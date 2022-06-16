@@ -97,10 +97,11 @@ void MainWindow::setup()
     {
        qDebug()<<"DATABEIS NON APERTO";
        readSettings();
+       if(db.open()){qDebug()<<"DATABEIS APERTO";}else{;}
 
     }
 
-    if(db.open()){qDebug()<<"DATABEIS APERTO";}else{;}
+
 }
 
 

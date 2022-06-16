@@ -3,8 +3,8 @@
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 #include <QSqlTableModel>
-#include <QDebug>
-#include <QSqlError>
+//#include <QDebug>
+//#include <QSqlError>
 
 FTModMov::FTModMov(int pid,QSqlDatabase pdb,QWidget *parent) :
     QWidget(parent),
@@ -28,7 +28,7 @@ void FTModMov::setup()
     q.prepare(sql);
     q.bindValue(":pid",id);
     q.exec();
-    qDebug()<<q.lastError().text();
+    //qDebug()<<q.lastError().text();
 
     QSqlQueryModel *mod=new QSqlQueryModel();
     mod->setQuery(q);
@@ -96,12 +96,12 @@ void FTModMov::save()
     db.transaction();
    if( q.exec())
    {
-       qDebug()<<"OK";
+       //qDebug()<<"OK";
        db.commit();
        emit mod_mov_done();
    }else{
 
-      qDebug()<<"ERORRE!"<<q.lastError().text()<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt()<<"azione="<<azione;
+       // qDebug()<<"ERORRE!"<<q.lastError().text()<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt()<<"azione="<<azione;
        db.rollback();
 
    }
