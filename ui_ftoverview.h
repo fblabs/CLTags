@@ -61,8 +61,8 @@ public:
     QPushButton *pushButton;
     QPushButton *pbClose;
     QSpacerItem *horizontalSpacer_2;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QWidget *FTOverview)
     {
@@ -94,6 +94,7 @@ public:
 
         leBarcode = new QLineEdit(FTOverview);
         leBarcode->setObjectName(QString::fromUtf8("leBarcode"));
+        leBarcode->setClearButtonEnabled(true);
 
         horizontalLayout_3->addWidget(leBarcode);
 

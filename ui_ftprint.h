@@ -75,7 +75,7 @@ public:
 
     void retranslateUi(QWidget *FTPrint)
     {
-        FTPrint->setWindowTitle(QCoreApplication::translate("FTPrint", "Form", nullptr));
+        FTPrint->setWindowTitle(QCoreApplication::translate("FTPrint", "Stampa", nullptr));
         pbPrint->setText(QCoreApplication::translate("FTPrint", "Stampa", nullptr));
         pbClose->setText(QCoreApplication::translate("FTPrint", "Chiudi", nullptr));
     } // retranslateUi

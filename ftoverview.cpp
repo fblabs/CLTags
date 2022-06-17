@@ -8,6 +8,7 @@
 #include <QCompleter>
 #include <QSqlQuery>
 #include <QSqlTableModel>
+#include <QDate>
 #include <QSettings>
 
 #include <QSqlError>
@@ -220,7 +221,23 @@ void FTOverview::on_pbPrint_clicked()
     coltitles<<"BARCODE"<<"CLIENTE"<<"PRODOTTO"<<"TIPO"<<"SPECIFICA"<<"IMMAGINE"<<"GIACENZA"<<"NOTE";
     QList<int> hiddencols;
     hiddencols<<5;
-    FTPrint *f=new FTPrint(modToPrint,"ETICHETTE",coltitles,hiddencols);
+
+    QString title=QString();
+
+   if (ui->rbLabels->isChecked())
+   {
+       title=QDate::currentDate().toString().toUpper() + " - ETICHETTE";
+   }
+   else if (ui->rbSigilli->isChecked())
+   {
+       title=QDate::currentDate().toString().toUpper() + " - SIGILLI";
+   }
+   else if (ui->rbBarcode->isChecked())
+   {
+       title=QDate::currentDate().toString().toUpper() + " - ETICHETTE E SIGILLI";
+   }
+
+    FTPrint *f=new FTPrint(modToPrint,title,coltitles,hiddencols);
     f->show();
 }
 
@@ -380,4 +397,11 @@ void FTOverview::on_pbFilter_clicked()
 
 
 
+
+
+void FTOverview::on_leBarcode_returnPressed()
+{
+    ui->rbBarcode->setChecked(true);
+    buildFilter();
+}
 

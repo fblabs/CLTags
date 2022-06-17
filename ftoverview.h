@@ -59,6 +59,7 @@ private slots:
    void on_pbFilter_clicked();
 
 
+   void on_leBarcode_returnPressed();
 };
 
 #endif // FTOVERVIEW_H

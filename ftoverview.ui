@@ -45,7 +45,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="leBarcode"/>
+      <widget class="QLineEdit" name="leBarcode">
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -455,7 +459,7 @@
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>
