@@ -29,6 +29,7 @@ FTImage::~FTImage()
 
 void FTImage::on_pbClose_clicked()
 {
+    emit transfer_Barcode(ui->leBarcode->text());
     close();
 }
 

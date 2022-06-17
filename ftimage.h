@@ -20,6 +20,8 @@ private slots:
 
 private:
     Ui::FTImage *ui;
+signals:
+    void transfer_Barcode(const QString pBarcode);
 };
 
 #endif // FTIMAGE_H

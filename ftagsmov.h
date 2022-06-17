@@ -51,6 +51,8 @@ private slots:
 
     void resetUI();
 
+    void setBarcode(const QString pbarcode);
+
 
     void on_pbNew_clicked();
 

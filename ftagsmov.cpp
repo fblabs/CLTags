@@ -538,8 +538,9 @@ void FTagsMov::showImage(const QString path)
 {
 
     FTImage *f=new FTImage(path);
+    connect(f,SIGNAL(transfer_Barcode(QString)),this,SLOT(setBarcode(QString)));
     f->show();
-    //qDebug()<<"showimage";
+
 }
 
 void FTagsMov::resetUI()
@@ -548,6 +549,11 @@ void FTagsMov::resetUI()
     ui->leSpecifica->setText(QString());
     ui->leBarcode->setText(QString());
     img_reset();
+}
+
+void FTagsMov::setBarcode(const QString pbarcode)
+{
+    ui->leBarcode->setText(pbarcode);
 }
 
 bool FTagsMov::eventFilter(QObject *obj, QEvent *evt)
