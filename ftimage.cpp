@@ -33,3 +33,9 @@ void FTImage::on_pbClose_clicked()
     close();
 }
 
+
+void FTImage::on_pbCloseWindoiw_clicked()
+{
+    close();
+}
+

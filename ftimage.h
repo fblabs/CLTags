@@ -18,6 +18,8 @@ public:
 private slots:
     void on_pbClose_clicked();
 
+    void on_pbCloseWindoiw_clicked();
+
 private:
     Ui::FTImage *ui;
 signals:

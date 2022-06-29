@@ -32,6 +32,7 @@ public:
     QLabel *label_2;
     QLineEdit *leBarcode;
     QPushButton *pbClose;
+    QPushButton *pbCloseWindoiw;
     QSpacerItem *horizontalSpacer;
 
     void setupUi(QWidget *FTImage)
@@ -76,6 +77,15 @@ public:
 
         horizontalLayout->addWidget(pbClose);
 
+        pbCloseWindoiw = new QPushButton(FTImage);
+        pbCloseWindoiw->setObjectName(QString::fromUtf8("pbCloseWindoiw"));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbCloseWindoiw->setIcon(icon1);
+        pbCloseWindoiw->setIconSize(QSize(32, 32));
+
+        horizontalLayout->addWidget(pbCloseWindoiw);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
@@ -99,6 +109,7 @@ public:
         lbImage->setText(QString());
         label_2->setText(QCoreApplication::translate("FTImage", "Barcode:", nullptr));
         pbClose->setText(QCoreApplication::translate("FTImage", "Trasferisci e chiudi", nullptr));
+        pbCloseWindoiw->setText(QCoreApplication::translate("FTImage", "Chiudi", nullptr));
     } // retranslateUi
 
 };
