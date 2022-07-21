@@ -149,8 +149,38 @@ void FTOverview::refresh()
     tagsmod->select();
     ui->tvTags->setCurrentIndex(current);
 
+    QModelIndex curmov=ui->tvTags_mov->currentIndex();
+    tagsmovmod->query().exec( tagsmovmod->query().executedQuery());
+    ui->tvTags_mov->setCurrentIndex(curmov);
 
-    // tagsmovmod->query().exec();
+
+
+}
+
+void FTOverview::mod_mov(const QModelIndex index)
+{
+
+    QModelIndex ix=ui->tvTags->currentIndex();
+    int id=ui->tvTags_mov->model()->index(index.row(),0).data(0).toInt();
+    QString title=QString();
+
+
+    title=ui->tvTags_mov->model()->index(index.row(),6).data(0).toString() + " - " + ui->tvTags_mov->model()->index(index.row(),4).data(0).toString();
+
+    FTModMov *f=new FTModMov(id,db,title);
+    connect(f,SIGNAL(mod_mov_done()),this,SLOT(refresh()));
+    connect(f,SIGNAL(mod_mov_done()),this,SLOT(findTagsMov()));
+    f->show();
+    ui->tvTags->setCurrentIndex(ix);
+}
+
+void FTOverview::mod_tag(const QModelIndex index)
+{
+    FTagsMov *f=new FTagsMov(1,tagsmod->index(index.row(),0).data(0).toString(),tagsmod->index(index.row(),2).data(0).toString(),db);
+
+  // qDebug()<<tagsmod->index(index.row(),5).data(0).toString()<<tagsmod->index(index.row(),2).data(0).toString();
+    connect(f,SIGNAL(tag_saved()),this,SLOT(refresh()));
+    f->show();
 }
 
 
@@ -181,23 +211,16 @@ void FTOverview::on_pbDefinizioni_clicked()
 
 void FTOverview::on_tvTags_doubleClicked(const QModelIndex &index)
 {
-    FTagsMov *f=new FTagsMov(1,tagsmod->index(index.row(),0).data(0).toString(),tagsmod->index(index.row(),2).data(0).toString(),db);
 
-  //  qDebug()<<tagsmod->index(index.row(),5).data(0).toString()<<tagsmod->index(index.row(),2).data(0).toString();
-    connect(f,SIGNAL(tag_saved()),this,SLOT(refresh()));
-    f->show();
+     mod_tag(ui->tvTags->currentIndex());
 
 }
 
 
 void FTOverview::on_pbModTag_clicked()
 {
-    int row=ui->tvTags->currentIndex().row();
-    FTagsMov *f=new FTagsMov(1,tagsmod->index(row,0).data(0).toString(),tagsmod->index(row,2).data(0).toString(),db);
-
-
-    connect(f,SIGNAL(tag_saved()),this,SLOT(refresh()));
-    f->show();
+   //mod_mov(ui->tvTags->currentIndex());
+    mod_tag(ui->tvTags->currentIndex());
 }
 
 
@@ -205,11 +228,16 @@ void FTOverview::on_pbModTag_clicked()
 
 void FTOverview::on_tvTags_mov_doubleClicked(const QModelIndex &index)
 {
-    int id=ui->tvTags_mov->model()->index(index.row(),0).data(0).toInt();
+  /*  int id=ui->tvTags_mov->model()->index(index.row(),0).data(0).toInt();
+    QString title=QString();
+    title=ui->tvTags_mov->model()->index(index.row(),2).data(0).toString() + " - " + ui->tvTags_mov->model()->index(index.row(),3).data(0).toString();
 
-    FTModMov *f=new FTModMov(id,db);
+    FTModMov *f=new FTModMov(id,db,title);
     connect(f,SIGNAL(mod_mov_done()),this,SLOT(refresh()));
-    f->show();
+    f->show();*/
+
+
+    mod_mov(index);
 
 }
 
@@ -244,11 +272,13 @@ void FTOverview::on_pbPrint_clicked()
 
 void FTOverview::on_pushButton_clicked()
 {
-    int id=ui->tvTags_mov->model()->index(ui->tvTags_mov->currentIndex().row(),0).data(0).toInt();
+  /*  int id=ui->tvTags_mov->model()->index(ui->tvTags_mov->currentIndex().row(),0).data(0).toInt();
 
     FTModMov *f=new FTModMov(id,db);
     connect(f,SIGNAL(mod_mov_done()),this,SLOT(refresh()));
-    f->show();
+    f->show();*/
+
+    mod_mov(ui->tvTags_mov->currentIndex());
 }
 
 void FTOverview::getProdotti(int client_id)

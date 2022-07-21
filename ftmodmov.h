@@ -13,7 +13,7 @@ class FTModMov : public QWidget
     Q_OBJECT
 
 public:
-    explicit FTModMov(int pid=0,QSqlDatabase pdb=QSqlDatabase(),QWidget *parent = nullptr);
+    explicit FTModMov(int pid=0, QSqlDatabase pdb=QSqlDatabase(), QString ptitle=QString(), QWidget *parent = nullptr);
     ~FTModMov();
 
 private:

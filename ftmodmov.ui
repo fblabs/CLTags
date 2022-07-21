@@ -14,13 +14,23 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Modifica azione</string>
+   <string>Modifica operazione</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
     <normaloff>:/resources/icons/8704261_premium_toggle_icon.png</normaloff>:/resources/icons/8704261_premium_toggle_icon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QLabel" name="lbTitle">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 127);</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>

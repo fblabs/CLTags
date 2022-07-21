@@ -13,8 +13,8 @@
 #include "ftimage.h"
 
 
-/*#include <QDebug>
-#include <QSqlError>*/
+#include <QDebug>
+#include <QSqlError>
 
 //#define CLIENTE_GENERICO 783
 
@@ -282,12 +282,15 @@ void FTagsMov::save()
             db.commit();
             emit tag_saved();
             ui->pbNew->setVisible(true);
+            return ;
 
         }
         else
         {
             db.rollback();
-           QMessageBox::information(nullptr,QApplication::applicationName(),"Errore salvando i dati",QMessageBox::Ok);
+            qDebug()<<q.lastError().text();
+            QMessageBox::information(nullptr,QApplication::applicationName(),"Errore salvando i dati",QMessageBox::Ok);
+
         }
     }
     else

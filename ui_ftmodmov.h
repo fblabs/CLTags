@@ -30,6 +30,7 @@ class Ui_FTModMov
 {
 public:
     QVBoxLayout *verticalLayout_2;
+    QLabel *lbTitle;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_4;
     QDateEdit *dateEdit;
@@ -69,6 +70,12 @@ public:
         FTModMov->setWindowIcon(icon);
         verticalLayout_2 = new QVBoxLayout(FTModMov);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        lbTitle = new QLabel(FTModMov);
+        lbTitle->setObjectName(QString::fromUtf8("lbTitle"));
+        lbTitle->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 127);"));
+
+        verticalLayout_2->addWidget(lbTitle);
+
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         label_4 = new QLabel(FTModMov);
@@ -224,7 +231,8 @@ public:
 
     void retranslateUi(QWidget *FTModMov)
     {
-        FTModMov->setWindowTitle(QCoreApplication::translate("FTModMov", "Modifica azione", nullptr));
+        FTModMov->setWindowTitle(QCoreApplication::translate("FTModMov", "Modifica operazione", nullptr));
+        lbTitle->setText(QCoreApplication::translate("FTModMov", "TextLabel", nullptr));
         label_4->setText(QCoreApplication::translate("FTModMov", "Data:", nullptr));
         label->setText(QCoreApplication::translate("FTModMov", "Barcode:", nullptr));
         lbBarcode->setText(QString());

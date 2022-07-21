@@ -35,6 +35,8 @@ private slots:
    void setup();
    void findTagsMov();
    void refresh();
+   void mod_mov(const QModelIndex index);
+   void mod_tag(const QModelIndex index);
 
    void on_pbClose_clicked();
    void on_pbOperate_clicked();

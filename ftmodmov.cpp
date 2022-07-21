@@ -3,16 +3,18 @@
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 #include <QSqlTableModel>
-//#include <QDebug>
-//#include <QSqlError>
+#include <QDebug>
+#include <QSqlError>
+#include <QMessageBox>
 
-FTModMov::FTModMov(int pid,QSqlDatabase pdb,QWidget *parent) :
+FTModMov::FTModMov(int pid,QSqlDatabase pdb,QString ptitle,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FTModMov)
 {
     ui->setupUi(this);
     id=pid;
     db=pdb;
+    ui->lbTitle->setText(ptitle);
     setup();
 }
 
@@ -96,12 +98,12 @@ void FTModMov::save()
     db.transaction();
    if( q.exec())
    {
-       //qDebug()<<"OK";
+       qDebug()<<"OK";
        db.commit();
        emit mod_mov_done();
    }else{
 
-       // qDebug()<<"ERORRE!"<<q.lastError().text()<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt()<<"azione="<<azione;
+       qDebug()<<"ERORRE!"<<q.lastError().text()<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt()<<"azione="<<azione;
        db.rollback();
 
    }
@@ -111,8 +113,10 @@ void FTModMov::save()
 
 void FTModMov::on_pbSave_clicked()
 {
-
-    save();
+    if (QMessageBox::question(nullptr,QApplication::applicationName(),"Dati salvati",QMessageBox::Ok)==QMessageBox::Ok)
+    {
+        save();
+    }
     close();
 
 }
