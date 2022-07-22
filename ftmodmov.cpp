@@ -83,15 +83,19 @@ void FTModMov::save()
 
     q.bindValue(":data",ui->dateEdit->date());
     q.bindValue(":IDStampatore",ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt());
+    qDebug()<<"IDStampatore"<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt();
     int azione=0;
+    int amount=ui->leAmount->text().toInt();
     if(ui->rbCarico->isChecked())
-    {azione=1;}
+    {
+        azione=1;
+    }
     else if (ui->rbScarico->isChecked())
     {
         azione=2;
     }
     q.bindValue(":azione",azione);
-    q.bindValue(":amount",ui->leAmount->text().toInt());
+    q.bindValue(":amount",amount);
     q.bindValue(":note",ui->teNote->toPlainText());
     q.bindValue(":id",id);
 
@@ -99,11 +103,11 @@ void FTModMov::save()
    if( q.exec())
    {
        qDebug()<<"OK";
-       db.commit();
-       emit mod_mov_done();
+     db.commit();
+     emit mod_mov_done();
    }else{
 
-       qDebug()<<"ERORRE!"<<q.lastError().text()<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt()<<"azione="<<azione;
+       qDebug()<<"ERORRE!"<<q.lastError().text()<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt()<<"azione="<<azione<<"amount"<<amount;
        db.rollback();
 
    }
