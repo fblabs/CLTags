@@ -360,7 +360,7 @@ void FTOverview::buildFilter()
         filter="relTblAl_3.ID=1";
 
     }else{
-        ui->cbProdotto->setEnabled(false);
+      //  ui->cbProdotto->setEnabled(false);
         filter ="relTblAl_3.ID=2";
     }
 
@@ -392,7 +392,9 @@ void FTOverview::buildFilter()
 
 
 
-        }
+      }
+
+
 
 
     if(ui->rbBarcode->isChecked())
