@@ -13,6 +13,7 @@
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -47,6 +48,7 @@ public:
     QFrame *line_2;
     QPushButton *pbFilter;
     QPushButton *pbNoFilters;
+    QCheckBox *cbAttivi;
     QSpacerItem *horizontalSpacer_3;
     QHBoxLayout *horizontalLayout_2;
     QTableView *tvTags;
@@ -176,6 +178,12 @@ public:
         pbNoFilters->setIconSize(QSize(32, 32));
 
         horizontalLayout_3->addWidget(pbNoFilters);
+
+        cbAttivi = new QCheckBox(FTOverview);
+        cbAttivi->setObjectName(QString::fromUtf8("cbAttivi"));
+        cbAttivi->setChecked(true);
+
+        horizontalLayout_3->addWidget(cbAttivi);
 
         horizontalSpacer_3 = new QSpacerItem(1243, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -316,6 +324,7 @@ public:
         rbNoProd->setText(QCoreApplication::translate("FTOverview", "No Prodotto", nullptr));
         pbFilter->setText(QCoreApplication::translate("FTOverview", "Filtra", nullptr));
         pbNoFilters->setText(QCoreApplication::translate("FTOverview", "Annulla filtri", nullptr));
+        cbAttivi->setText(QCoreApplication::translate("FTOverview", "Attivi", nullptr));
         pbDefinizioni->setText(QCoreApplication::translate("FTOverview", "Definizioni", nullptr));
         pbModTag->setText(QCoreApplication::translate("FTOverview", "Modifica Selezionato", nullptr));
         pbPrint->setText(QCoreApplication::translate("FTOverview", "Stampa", nullptr));

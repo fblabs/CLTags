@@ -61,6 +61,7 @@ void FTOverview::setup()
     ui->tvTags->horizontalHeader()->setSectionResizeMode(4,QHeaderView::ResizeToContents);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(6,QHeaderView::Interactive);
     ui->tvTags->setColumnHidden(5,true);
+    ui->tvTags->setColumnHidden(8,true);
     ui->tvTags->horizontalHeader()->setStretchLastSection(true);
 
     connect(ui->tvTags->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(findTagsMov()));
@@ -330,6 +331,7 @@ void FTOverview::on_pbNoFilters_clicked()
 {
  tagsmod->setFilter(QString());
  ui->leBarcode->setText(QString());
+
 }
 
 
@@ -402,6 +404,15 @@ void FTOverview::buildFilter()
         filter="barcode like '"+ui->leBarcode->text()+"%'";
     }
 
+    if(ui->cbAttivi->isChecked()){
+
+        filter += " and stato>0";
+    }
+    else
+    {
+         filter += " and stato<1";
+    }
+
 
 
 
@@ -434,6 +445,12 @@ void FTOverview::on_pbFilter_clicked()
 void FTOverview::on_leBarcode_returnPressed()
 {
     ui->rbBarcode->setChecked(true);
+    buildFilter();
+}
+
+
+void FTOverview::on_cbAttivi_toggled(bool checked)
+{
     buildFilter();
 }
 

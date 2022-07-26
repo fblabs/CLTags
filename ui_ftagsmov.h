@@ -52,6 +52,8 @@ public:
     QFormLayout *formLayout;
     QLabel *label_6;
     QTextEdit *teNote;
+    QLabel *label_7;
+    QCheckBox *cbState;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
@@ -206,6 +208,16 @@ public:
         teNote->setAutoFillBackground(false);
 
         formLayout->setWidget(0, QFormLayout::FieldRole, teNote);
+
+        label_7 = new QLabel(FTagsMov);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, label_7);
+
+        cbState = new QCheckBox(FTagsMov);
+        cbState->setObjectName(QString::fromUtf8("cbState"));
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, cbState);
 
 
         verticalLayout_2->addLayout(formLayout);
@@ -362,6 +374,8 @@ public:
         label->setText(QCoreApplication::translate("FTagsMov", "Barcode:", nullptr));
         label_3->setText(QCoreApplication::translate("FTagsMov", "Specifica:", nullptr));
         label_6->setText(QCoreApplication::translate("FTagsMov", "Note:", nullptr));
+        label_7->setText(QCoreApplication::translate("FTagsMov", "Stato:", nullptr));
+        cbState->setText(QString());
         rbAll->setText(QCoreApplication::translate("FTagsMov", "Mostra tutto", nullptr));
         rb1->setText(QCoreApplication::translate("FTagsMov", "Immagine 1", nullptr));
         rb2->setText(QCoreApplication::translate("FTagsMov", "Immagine 2", nullptr));

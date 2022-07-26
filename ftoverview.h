@@ -62,6 +62,7 @@ private slots:
 
 
    void on_leBarcode_returnPressed();
+   void on_cbAttivi_toggled(bool checked);
 };
 
 #endif // FTOVERVIEW_H

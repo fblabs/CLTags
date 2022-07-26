@@ -105,7 +105,7 @@ void FTagsMov::setup()
     {
         ui->pbNew->setVisible(false);
         QSqlQuery q(db);
-        QString sql ="select tags_tipi.descrizione as tipo, clienti.ragione_sociale as clienti, prodotti.descrizione as prodotto, tags.barcode, tags.specifica,tags.immagine,tags.note\
+        QString sql ="select tags_tipi.descrizione as tipo, clienti.ragione_sociale as clienti, prodotti.descrizione as prodotto, tags.barcode, tags.specifica,tags.immagine,tags.note,tags.stato\
                 from tags,tags_tipi,anagrafica as clienti,prodotti\
                 where tags.barcode  =:barcode and clienti.cliente>0 and tags_tipi.ID=tags.IDtipo and clienti.ID=tags.IDCliente and prodotti.ID=tags.IDProdotto";
                 q.prepare(sql);
@@ -125,12 +125,13 @@ void FTagsMov::setup()
         ui->leSpecifica->setText(datamod->index(0,4).data(0).toString());
         ui->teNote->setText(datamod->index(0,6).data(0).toString());
 
+        ui->cbState->setChecked(datamod->index(0,7).data(0).toBool());
+
+
 
         s_images = datamod->index(0,5).data(0).toString();
 
         sl_immagini=s_images.split(separator);
-
-
 
 
         QPixmap p1,p2;
@@ -231,11 +232,11 @@ void FTagsMov::save()
 
     if(azione==0)
     {
-        sql="INSERT INTO `fbgmdb260`.`tags`(`barcode`,`IDProdotto`,`IDCliente`,`IDTipo`,`specifica`,`immagine`,`note`) VALUES (:barcode,:IDProdotto,:IDCliente,:IDTipo,:specifica,:immagine,:note)";
+        sql="INSERT INTO `fbgmdb260`.`tags`(`barcode`,`IDProdotto`,`IDCliente`,`IDTipo`,`specifica`,`immagine`,`note`,`stato`) VALUES (:barcode,:IDProdotto,:IDCliente,:IDTipo,:specifica,:immagine,:note,:stato)";
     }else{
 
 
-        sql="UPDATE `fbgmdb260`.`tags` SET`barcode`=:barcode,`IDProdotto`=:IDProdotto,`IDCliente`=:IDCliente,`IDTipo`=:IDTipo,`specifica`=:specifica,`immagine`=:immagine,`note`=:note WHERE barcode=:obarcode";
+        sql="UPDATE `fbgmdb260`.`tags` SET`barcode`=:barcode,`IDProdotto`=:IDProdotto,`IDCliente`=:IDCliente,`IDTipo`=:IDTipo,`specifica`=:specifica,`immagine`=:immagine,`note`=:note, stato=:stato WHERE barcode=:obarcode";
 
     }
 
@@ -257,6 +258,7 @@ void FTagsMov::save()
     sl_immagini=loc_immagini;
     QString lista_immagini= sl_immagini.join(separator);
     QString note=ui->teNote->toPlainText();
+    int stato=ui->cbState->isChecked();
 
 
 
@@ -267,6 +269,7 @@ void FTagsMov::save()
     q.bindValue(":specifica",spec);
     q.bindValue(":immagine",lista_immagini);
     q.bindValue(":note",note);
+    q.bindValue(":stato",stato);
     if(azione==1){
         q.bindValue(":obarcode",barcode);
 
