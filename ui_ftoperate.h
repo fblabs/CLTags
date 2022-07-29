@@ -33,6 +33,7 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QRadioButton *rbCarico;
     QRadioButton *rbScarico;
+    QLabel *lbTitle;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
     QDateEdit *deDate;
@@ -86,6 +87,12 @@ public:
 
 
         verticalLayout_3->addLayout(horizontalLayout_6);
+
+        lbTitle = new QLabel(FTOperate);
+        lbTitle->setObjectName(QString::fromUtf8("lbTitle"));
+        lbTitle->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 127);"));
+
+        verticalLayout_3->addWidget(lbTitle);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -251,6 +258,7 @@ public:
         FTOperate->setWindowTitle(QCoreApplication::translate("FTOperate", "Operazioni", nullptr));
         rbCarico->setText(QCoreApplication::translate("FTOperate", "Carico", nullptr));
         rbScarico->setText(QCoreApplication::translate("FTOperate", "Scarico", nullptr));
+        lbTitle->setText(QCoreApplication::translate("FTOperate", "TextLabel", nullptr));
         label->setText(QCoreApplication::translate("FTOperate", "Data:", nullptr));
         label_3->setText(QCoreApplication::translate("FTOperate", "Barcode:", nullptr));
         label_2->setText(QCoreApplication::translate("FTOperate", "Tipo:", nullptr));

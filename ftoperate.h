@@ -35,6 +35,11 @@ private slots:
 
     void on_rbCarico_toggled(bool checked);
 
+
+
+
+
+
 signals:
     void operation_saved();
 };

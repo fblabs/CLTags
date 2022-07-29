@@ -4,7 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QCompleter>
-//#include <QDebug>
+#include <QDebug>
 
 FTOperate::FTOperate(QSqlDatabase pdb, QString pbarcode, QWidget *parent) :
     QWidget(parent),
@@ -115,22 +115,25 @@ void FTOperate::on_pbClose_clicked()
 
 void FTOperate::on_leBarcode_returnPressed()
 {
-  //  qDebug()<<"SLOT";
-    QString sql=QString();
-    QSqlQuery q(db);
+  // qDebug()<<"SLOT";
+   QString sql=QString();
+   QString title=QString();
+   QSqlQuery q(db);
 
     sql="SELECT tags.IDCLIente,tags.IDProdotto,prodotti.descrizione,clienti.ragione_sociale AS CLIENTE,IDTipo,tags_tipi.descrizione, specifica\
             FROM tags, anagrafica as clienti, prodotti,tags_tipi\
             WHERE clienti.ID=tags.IDCliente AND prodotti.ID=tags.IDProdotto AND tags_tipi.ID=tags.IDTipo AND tags.barcode=:barcode";
     q.prepare(sql);
     q.bindValue(":barcode",barcode);
+    qDebug()<<q.lastError().text();
     if (q.exec())
     {
         q.next();
         int ixt=ui->cbTipo->findText(q.value(5).toString());
         ui->cbTipo->setCurrentIndex(ixt);
+        title=q.value(2).toString()+ " - " + q.value(3).toString();
 
-
+        ui->lbTitle->setText(title);
 
     }
 
@@ -144,4 +147,7 @@ void FTOperate::on_rbCarico_toggled(bool checked)
     ui->cbStampatore->setCurrentIndex(six);
 
 }
+
+
+
 
