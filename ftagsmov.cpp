@@ -258,7 +258,10 @@ void FTagsMov::save()
     sl_immagini=loc_immagini;
     QString lista_immagini= sl_immagini.join(separator);
     QString note=ui->teNote->toPlainText();
-    int stato=ui->cbState->isChecked();
+    int stato=0;
+
+     if (ui->cbState->isChecked()) stato=1;
+
 
 
 
