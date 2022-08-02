@@ -216,6 +216,7 @@ public:
 
         cbState = new QCheckBox(FTagsMov);
         cbState->setObjectName(QString::fromUtf8("cbState"));
+        cbState->setChecked(true);
 
         formLayout->setWidget(1, QFormLayout::FieldRole, cbState);
 
