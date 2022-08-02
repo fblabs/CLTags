@@ -33,6 +33,8 @@ FTOverview::~FTOverview()
 
 void FTOverview::setup()
 {
+
+
     tagsmod=new QSqlRelationalTableModel(nullptr);
     tagsmod->setTable("tags");
     tagsmod->setRelation(1,QSqlRelation("anagrafica","ID","ragione_sociale"));
@@ -86,10 +88,6 @@ void FTOverview::setup()
     ui->tvTags->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
 
      on_pbNoFilters_clicked();
-
-
-
-
 
 
 }

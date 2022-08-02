@@ -34,9 +34,11 @@ void FTPrint::modelToHtml(QString ptitle,QStringList pcolNames,QList<int>hiddenC
     QString bgcol=QString();
     QString title=QString();
 
+    QApplication::setOverrideCursor(Qt::CursorShape::WaitCursor);
+
 
     const int rowCount =mod->rowCount();
-    const int columnCount = mod->columnCount();
+    const int columnCount = mod->columnCount() - hiddenCols.size();
     const int cols=columnCount-hiddenCols.size();
     title =ptitle;
     out <<  "<html>\n<head>\n<meta Content=\"Text/html; charset=Windows-1251\">\n"<< "</head>\n<body bgcolor=#ffffff link=#5000A0>\n<table width=100% border=1 cellspacing=0 cellpadding=2>\n";
@@ -103,7 +105,9 @@ void FTPrint::modelToHtml(QString ptitle,QStringList pcolNames,QList<int>hiddenC
 
 
    ui->teDoc->setHtml(document->toHtml());
-   // delete document;
+
+   QApplication::setOverrideCursor(Qt::CursorShape::ArrowCursor);
+   //delete document;
 }
 
 void FTPrint::print()

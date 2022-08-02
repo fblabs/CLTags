@@ -33,6 +33,7 @@ public:
     {
         if (FTPrint->objectName().isEmpty())
             FTPrint->setObjectName(QString::fromUtf8("FTPrint"));
+        FTPrint->setWindowModality(Qt::ApplicationModal);
         FTPrint->resize(1176, 518);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/print-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
