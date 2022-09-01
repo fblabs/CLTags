@@ -101,7 +101,7 @@ void FTOverview::findTagsMov()
     sql="SELECT tags_mov.ID,tags_mov.data as DATA, tags.barcode as BARCODE,prodotti.ID as IDProdotto,prodotti.descrizione as PRODOTTO,clienti.ID as IDCliente,clienti.ragione_sociale as CLIENTE\
             ,stampatori.ID as IDStampatore,stampatori.ragione_sociale as STAMPATORE,azione as IDAZIONE,azioni.descrizione as AZIONE,tags_mov.amount as QUANT,tags_mov.note\
             FROM tags,tags_mov,anagrafica as stampatori,anagrafica as clienti,azioni,prodotti\
-            WHERE tags_mov.barcode=tags.barcode and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags.barcode =:barcode";
+            WHERE tags_mov.barcode=tags.barcode and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags.barcode =:barcode order by tags_mov.data DESC";
             q.prepare(sql);
     q.bindValue(":barcode", tagsmod->index(ui->tvTags->currentIndex().row(),0).data(0).toString());
     q.bindValue(":idprodotto", tagsmod->index(ui->tvTags->currentIndex().row(),3).data(0).toString());
