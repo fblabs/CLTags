@@ -13,7 +13,7 @@
 
 #include <QSqlError>
 
-//#include <QDebug>
+#include <QDebug>
 #include "ftprint.h"
 
 
@@ -41,7 +41,7 @@ void FTOverview::setup()
     tagsmod->setRelation(2,QSqlRelation("prodotti","ID","descrizione"));
     tagsmod->setRelation(3,QSqlRelation("tags_tipi","ID","descrizione"));
     tagsmod->select();
-  //  qDebug()<<tagsmod->query().lastQuery();
+    //  qDebug()<<tagsmod->query().lastQuery();
 
     tagsmod->setHeaderData(0,Qt::Horizontal,"BARCODE");
     tagsmod->setHeaderData(1,Qt::Horizontal,"CLIENTE");
@@ -87,7 +87,7 @@ void FTOverview::setup()
 
     ui->tvTags->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
 
-     on_pbNoFilters_clicked();
+    on_pbNoFilters_clicked();
 
 
 }
@@ -107,7 +107,7 @@ void FTOverview::findTagsMov()
     q.bindValue(":idprodotto", tagsmod->index(ui->tvTags->currentIndex().row(),3).data(0).toString());
     if (!q.exec())
     {
-      //  qDebug()<<q.lastError().text()<<q.lastQuery();
+        //  qDebug()<<q.lastError().text()<<q.lastQuery();
     }
     tagsmovmod->setQuery(q);
     ui->tvTags_mov->setModel(tagsmovmod);
@@ -137,13 +137,13 @@ void FTOverview::findTagsMov()
 
     ui->tvTags_mov->horizontalHeader()->setStretchLastSection(true);
 
-   // qDebug()<<q.lastQuery();
+    // qDebug()<<q.lastQuery();
 
 }
 
 void FTOverview::refresh()
 {
-   // qDebug()<<"REFRESH";
+    // qDebug()<<"REFRESH";
     QModelIndex current=ui->tvTags->currentIndex();
     tagsmod->select();
     ui->tvTags->setCurrentIndex(current);
@@ -177,7 +177,7 @@ void FTOverview::mod_tag(const QModelIndex index)
 {
     FTagsMov *f=new FTagsMov(1,tagsmod->index(index.row(),0).data(0).toString(),tagsmod->index(index.row(),2).data(0).toString(),db);
 
-  // qDebug()<<tagsmod->index(index.row(),5).data(0).toString()<<tagsmod->index(index.row(),2).data(0).toString();
+    // qDebug()<<tagsmod->index(index.row(),5).data(0).toString()<<tagsmod->index(index.row(),2).data(0).toString();
     connect(f,SIGNAL(tag_saved()),this,SLOT(refresh()));
     f->show();
 }
@@ -211,14 +211,14 @@ void FTOverview::on_pbDefinizioni_clicked()
 void FTOverview::on_tvTags_doubleClicked(const QModelIndex &index)
 {
 
-     mod_tag(ui->tvTags->currentIndex());
+    mod_tag(ui->tvTags->currentIndex());
 
 }
 
 
 void FTOverview::on_pbModTag_clicked()
 {
-   //mod_mov(ui->tvTags->currentIndex());
+    //mod_mov(ui->tvTags->currentIndex());
     mod_tag(ui->tvTags->currentIndex());
 }
 
@@ -227,7 +227,7 @@ void FTOverview::on_pbModTag_clicked()
 
 void FTOverview::on_tvTags_mov_doubleClicked(const QModelIndex &index)
 {
-  /*  int id=ui->tvTags_mov->model()->index(index.row(),0).data(0).toInt();
+    /*  int id=ui->tvTags_mov->model()->index(index.row(),0).data(0).toInt();
     QString title=QString();
     title=ui->tvTags_mov->model()->index(index.row(),2).data(0).toString() + " - " + ui->tvTags_mov->model()->index(index.row(),3).data(0).toString();
 
@@ -251,18 +251,18 @@ void FTOverview::on_pbPrint_clicked()
 
     QString title=QString();
 
-   if (ui->rbLabels->isChecked())
-   {
-       title=QDate::currentDate().toString().toUpper() + " - ETICHETTE";
-   }
-   else if (ui->rbSigilli->isChecked())
-   {
-       title=QDate::currentDate().toString().toUpper() + " - SIGILLI";
-   }
-   else if (ui->rbBarcode->isChecked())
-   {
-       title=QDate::currentDate().toString().toUpper() + " - ETICHETTE E SIGILLI";
-   }
+    if (ui->rbLabels->isChecked())
+    {
+        title=QDate::currentDate().toString().toUpper() + " - ETICHETTE";
+    }
+    else if (ui->rbSigilli->isChecked())
+    {
+        title=QDate::currentDate().toString().toUpper() + " - SIGILLI";
+    }
+    else if (ui->rbBarcode->isChecked())
+    {
+        title=QDate::currentDate().toString().toUpper() + " - ETICHETTE E SIGILLI";
+    }
 
     FTPrint *f=new FTPrint(modToPrint,title,coltitles,hiddencols);
     f->show();
@@ -271,7 +271,7 @@ void FTOverview::on_pbPrint_clicked()
 
 void FTOverview::on_pushButton_clicked()
 {
-  /*  int id=ui->tvTags_mov->model()->index(ui->tvTags_mov->currentIndex().row(),0).data(0).toInt();
+    /*  int id=ui->tvTags_mov->model()->index(ui->tvTags_mov->currentIndex().row(),0).data(0).toInt();
 
     FTModMov *f=new FTModMov(id,db);
     connect(f,SIGNAL(mod_mov_done()),this,SLOT(refresh()));
@@ -327,8 +327,8 @@ void FTOverview::getProdotti(int client_id)
 
 void FTOverview::on_pbNoFilters_clicked()
 {
- tagsmod->setFilter(QString());
- ui->leBarcode->setText(QString());
+    tagsmod->setFilter("");
+    ui->leBarcode->setText("");
 
 }
 
@@ -345,29 +345,37 @@ void FTOverview::on_cbCliente_currentIndexChanged(int index)
 
 void FTOverview::buildFilter()
 {
-    QString filter=QString();
+    QString filter="";
 
 
     QString stipo;
     ui->rbLabels->isChecked() ?  stipo= "and relTblAl_3.ID=1": stipo="and relTblAl_3.ID=2";
 
 
+    QString cust=ui->cbCliente->currentText();
+    if (cust.contains("'")){
+      cust=cust.replace("'","\\\'");
+    }
 
 
     if(ui->rbLabels->isChecked())
     {
-       ui->cbProdotto->setEnabled(true);
+        ui->cbProdotto->setEnabled(true);
         filter="relTblAl_3.ID=1";
 
+
     }else{
-      //  ui->cbProdotto->setEnabled(false);
+        //  ui->cbProdotto->setEnabled(false);
         filter ="relTblAl_3.ID=2";
     }
 
     if(ui->rbCust->isChecked())
     {
 
-          ui->rbLabels->isChecked()? filter="relTblAl_1.ragione_sociale='"+ui->cbCliente->currentText()+"' and relTblAl_3.ID=1": filter="relTblAl_1.ragione_sociale='"+ui->cbCliente->currentText()+"' and relTblAl_3.ID=2";
+
+
+
+        ui->rbLabels->isChecked()? filter="relTblAl_1.ragione_sociale='"+cust+"' and relTblAl_3.ID=1": filter="relTblAl_1.ragione_sociale='"+ui->cbCliente->currentText()+"' and relTblAl_3.ID=2";
 
     }
 
@@ -384,15 +392,15 @@ void FTOverview::buildFilter()
         {
 
 
-           ui->rbLabels->isChecked() ?  stipo= "and relTblAl_3.ID=1": stipo="and relTblAl_3.ID=2";
-           filter="relTblAl_1.ragione_sociale='"+ui->cbCliente->currentText()+"' and relTblAl_2.descrizione='"+ ui->cbProdotto->currentText() +"' "+stipo;
+            ui->rbLabels->isChecked() ?  stipo= "and relTblAl_3.ID=1": stipo="and relTblAl_3.ID=2";
+            filter="relTblAl_1.ragione_sociale='"+cust+"' and relTblAl_2.descrizione='"+ ui->cbProdotto->currentText() +"' "+stipo;
 
-          }
-
-
+        }
 
 
-      }
+
+
+    }
 
 
 
@@ -408,7 +416,7 @@ void FTOverview::buildFilter()
     }
     else
     {
-         filter += " and stato<1";
+        filter += " and stato<1";
     }
 
 
@@ -416,7 +424,7 @@ void FTOverview::buildFilter()
 
 
 
-  //  qDebug()<<"BUILD FILTER: "<<filter<<filter<<tagsmod->filter()<<tagsmod->lastError().text();
+    qDebug()<<"BUILD FILTER: "<<filter<<filter<<tagsmod->filter()<<tagsmod->lastError().text();
     tagsmod->setFilter(filter);
 
     if(tagsmod->rowCount()<1)
@@ -430,7 +438,7 @@ void FTOverview::buildFilter()
 
 void FTOverview::on_pbFilter_clicked()
 {
-   buildFilter();
+    buildFilter();
 }
 
 
