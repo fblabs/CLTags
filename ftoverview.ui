@@ -387,11 +387,40 @@
         </size>
        </property>
        <property name="text">
-        <string>Operazione</string>
+        <string>Carico</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/resources/icons/8707831_tool_icon.png</normaloff>:/resources/icons/8707831_tool_icon.png</iconset>
+         <normaloff>:/resources/icons/8721738_add_plus_+_icon.png</normaloff>:/resources/icons/8721738_add_plus_+_icon.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pb_Scarico">
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>130</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Scarico</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/resources/icons/Minus.PNG</normaloff>:/resources/icons/Minus.PNG</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -469,7 +498,7 @@
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

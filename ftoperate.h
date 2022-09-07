@@ -15,7 +15,7 @@ class FTOperate : public QWidget
     Q_OBJECT
 
 public:
-    explicit FTOperate(QSqlDatabase pdb=QSqlDatabase(),QString pbarcode=QString(),QWidget *parent = nullptr);
+    explicit FTOperate(const int p_action=-1,QSqlDatabase pdb=QSqlDatabase(),QString pbarcode=QString(),QWidget *parent = nullptr);
     ~FTOperate();
 
 private:
@@ -25,6 +25,7 @@ private:
     QSqlQueryModel *modbarcodes;
     QSqlTableModel *modstampatori;
     QSqlTableModel *modtipi;
+    int action;
 private slots:
     void setup();
     void saveOp();
@@ -34,10 +35,6 @@ private slots:
     void on_leBarcode_returnPressed();
 
     void on_rbCarico_toggled(bool checked);
-
-
-
-
 
 
 signals:

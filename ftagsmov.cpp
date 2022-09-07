@@ -521,9 +521,9 @@ void FTagsMov::on_rbAll_toggled(bool checked)
 
 void FTagsMov::on_pbMov_clicked()
 {
-    FTOperate *f=new FTOperate(db,ui->leBarcode->text());
+  //  FTOperate *f=new FTOperate(db,ui->leBarcode->text());
 
-    f->show();
+ //   f->show();
 }
 
 

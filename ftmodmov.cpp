@@ -45,9 +45,10 @@ void FTModMov::setup()
     if (mod->index(0,3).data(0).toInt()==1)
      {
         ui->rbCarico->setChecked(true);
+
      } else {
-        ui->rbScarico->setChecked(true);
-    }
+       ui->rbScarico->setChecked(true);
+     }
 
 
 
@@ -83,7 +84,7 @@ void FTModMov::save()
 
     q.bindValue(":data",ui->dateEdit->date());
     q.bindValue(":IDStampatore",ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt());
-    qDebug()<<"IDStampatore"<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt();
+   // qDebug()<<"IDStampatore"<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt();
     int azione=0;
     int amount=ui->leAmount->text().toInt();
     if(ui->rbCarico->isChecked())

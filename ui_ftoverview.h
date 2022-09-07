@@ -60,11 +60,12 @@ public:
     QPushButton *pbPrint;
     QSpacerItem *horizontalSpacer_4;
     QPushButton *pbOperate;
+    QPushButton *pb_Scarico;
     QPushButton *pushButton;
     QPushButton *pbClose;
     QSpacerItem *horizontalSpacer_2;
-    QButtonGroup *buttonGroup_2;
     QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_2;
 
     void setupUi(QWidget *FTOverview)
     {
@@ -273,17 +274,28 @@ public:
         pbOperate->setMinimumSize(QSize(130, 0));
         pbOperate->setMaximumSize(QSize(130, 16777215));
         QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/resources/icons/8707831_tool_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon6.addFile(QString::fromUtf8(":/resources/icons/8721738_add_plus_+_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         pbOperate->setIcon(icon6);
         pbOperate->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbOperate);
 
+        pb_Scarico = new QPushButton(FTOverview);
+        pb_Scarico->setObjectName(QString::fromUtf8("pb_Scarico"));
+        pb_Scarico->setMinimumSize(QSize(130, 0));
+        pb_Scarico->setMaximumSize(QSize(130, 16777215));
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/resources/icons/Minus.PNG"), QSize(), QIcon::Normal, QIcon::Off);
+        pb_Scarico->setIcon(icon7);
+        pb_Scarico->setIconSize(QSize(32, 32));
+
+        horizontalLayout->addWidget(pb_Scarico);
+
         pushButton = new QPushButton(FTOverview);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/resources/icons/Actions-configure-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/resources/icons/Actions-configure-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton->setIcon(icon8);
         pushButton->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pushButton);
@@ -292,9 +304,9 @@ public:
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
         pbClose->setMinimumSize(QSize(120, 0));
         pbClose->setMaximumSize(QSize(120, 16777215));
-        QIcon icon8;
-        icon8.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon9);
         pbClose->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbClose);
@@ -328,7 +340,8 @@ public:
         pbDefinizioni->setText(QCoreApplication::translate("FTOverview", "Definizioni", nullptr));
         pbModTag->setText(QCoreApplication::translate("FTOverview", "Modifica Selezionato", nullptr));
         pbPrint->setText(QCoreApplication::translate("FTOverview", "Stampa", nullptr));
-        pbOperate->setText(QCoreApplication::translate("FTOverview", "Operazione", nullptr));
+        pbOperate->setText(QCoreApplication::translate("FTOverview", "Carico", nullptr));
+        pb_Scarico->setText(QCoreApplication::translate("FTOverview", "Scarico", nullptr));
         pushButton->setText(QCoreApplication::translate("FTOverview", "Modifica operazione selezionata", nullptr));
         pbClose->setText(QCoreApplication::translate("FTOverview", "Chiudi", nullptr));
     } // retranslateUi

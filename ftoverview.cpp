@@ -193,7 +193,7 @@ void FTOverview::on_pbClose_clicked()
 void FTOverview::on_pbOperate_clicked()
 {
 
-    FTOperate *f=new FTOperate(db,ui->tvTags->model()->index(ui->tvTags->currentIndex().row(),0).data(0).toString());
+    FTOperate *f=new FTOperate(1,db,ui->tvTags->model()->index(ui->tvTags->currentIndex().row(),0).data(0).toString());
     connect(f,SIGNAL(operation_saved()),this,SLOT(refresh()));
 
     f->show();
@@ -458,5 +458,14 @@ void FTOverview::on_leBarcode_returnPressed()
 void FTOverview::on_cbAttivi_toggled(bool checked)
 {
     buildFilter();
+}
+
+
+void FTOverview::on_pb_Scarico_clicked()
+{
+    FTOperate *f=new FTOperate(2,db,ui->tvTags->model()->index(ui->tvTags->currentIndex().row(),0).data(0).toString());
+    connect(f,SIGNAL(operation_saved()),this,SLOT(refresh()));
+
+    f->show();
 }
 

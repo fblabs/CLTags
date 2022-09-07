@@ -20,6 +20,7 @@ private:
     Ui::FTModMov *ui;
     QSqlDatabase db;
     int id;
+    int action;
 
 private slots:
     void setup();

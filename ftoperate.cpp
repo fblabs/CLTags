@@ -6,19 +6,24 @@
 #include <QCompleter>
 #include <QDebug>
 
-FTOperate::FTOperate(QSqlDatabase pdb, QString pbarcode, QWidget *parent) :
+FTOperate::FTOperate(const int p_action, QSqlDatabase pdb, QString pbarcode, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FTOperate)
 {
     ui->setupUi(this);
     db=pdb;
     barcode=pbarcode;
+    action=p_action;
     setup();
 
 }
 
 void FTOperate::setup()
 {
+
+    if(action==1) ui->rbCarico->setChecked(true);
+    if(action==2) ui->rbScarico->setChecked(true);
+
 
     ui->deDate->setDate(QDate::currentDate());
     ui->leBarcode->setText(barcode);
@@ -64,7 +69,7 @@ void FTOperate::saveOp()
     q.bindValue(":data",ui->deDate->date());
     q.bindValue(":barcode",ui->leBarcode->text());
     q.bindValue(":IDStampatore",ui->cbStampatore->model()->index(ui->cbStampatore->currentIndex(),0).data().toInt());
-    int azione=0;
+    int azione=action;
     ui->rbCarico->isChecked() ? azione=1:azione=2;
     q.bindValue(":azione",azione);
     q.bindValue(":amount",ui->leAmount->text().toInt());
