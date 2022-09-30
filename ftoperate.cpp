@@ -21,9 +21,6 @@ FTOperate::FTOperate(const int p_action, QSqlDatabase pdb, QString pbarcode, QWi
 void FTOperate::setup()
 {
 
-    if(action==1) ui->rbCarico->setChecked(true);
-    if(action==2) ui->rbScarico->setChecked(true);
-
 
     ui->deDate->setDate(QDate::currentDate());
     ui->leBarcode->setText(barcode);
@@ -53,6 +50,11 @@ void FTOperate::setup()
     ui->cbTipo->setModel(modtipi);
     ui->cbTipo->setModelColumn(1);
 
+
+    if(action==1) ui->rbCarico->setChecked(true);
+    if(action==2) ui->rbScarico->setChecked(true);
+
+
     emit ui->leBarcode->returnPressed();
 
 
@@ -69,7 +71,7 @@ void FTOperate::saveOp()
     q.bindValue(":data",ui->deDate->date());
     q.bindValue(":barcode",ui->leBarcode->text());
     q.bindValue(":IDStampatore",ui->cbStampatore->model()->index(ui->cbStampatore->currentIndex(),0).data().toInt());
-    int azione=action;
+    int azione;
     ui->rbCarico->isChecked() ? azione=1:azione=2;
     q.bindValue(":azione",azione);
     q.bindValue(":amount",ui->leAmount->text().toInt());
@@ -147,10 +149,11 @@ void FTOperate::on_leBarcode_returnPressed()
 
 void FTOperate::on_rbCarico_toggled(bool checked)
 {
-  //  ui->cbStampatore->setVisible(checked);
+   // ui->cbStampatore->setVisible(checked);
+    if(!checked){
     int six=ui->cbStampatore->findText("NESSUNO STAMPATORE");
     ui->cbStampatore->setCurrentIndex(six);
-
+    }
 }
 
 

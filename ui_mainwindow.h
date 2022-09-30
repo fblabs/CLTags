@@ -161,7 +161,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.3.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.4.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
         pushButton->setText(QString());
         pbOverview->setText(QString());
         pbMov->setText(QString());
