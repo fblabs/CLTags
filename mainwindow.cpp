@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ftagsmov.h"
+#include "ftcommands.h"
 #include "ftoverview.h"
+#include "ftsettings.h"
 #include <QSqlDatabase>
 #include <QSettings>
 #include <QDebug>
@@ -51,13 +53,6 @@ void MainWindow::on_pbOverview_clicked()
 }
 
 
-void MainWindow::on_pushButton_clicked()
-{
-    FTSettings *sets=new FTSettings();
-    connect(sets,SIGNAL(setup_done()),this,SLOT(setup()));
-    sets->show();
-}
-
 void MainWindow::readSettings()
 {
     QSettings settings("ctags.ini",QSettings::IniFormat);
@@ -105,4 +100,29 @@ void MainWindow::setup()
 }
 
 
+
+
+void MainWindow::on_pbLabels_clicked()
+{
+   FtCommands *f=new FtCommands(db);
+   QPoint x=QCursor::pos();
+   QPoint pcorrect(x.x(),x.y()-200);
+
+   f->move(pcorrect);
+   f->show();
+}
+
+
+void MainWindow::on_pnContainers_clicked()
+{
+
+}
+
+
+void MainWindow::on_pbSettings_clicked()
+{
+    FTSettings *sets=new FTSettings();
+    connect(sets,SIGNAL(setup_done()),this,SLOT(setup()));
+    sets->show();
+}
 

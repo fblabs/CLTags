@@ -51,8 +51,18 @@ void FTOperate::setup()
     ui->cbTipo->setModelColumn(1);
 
 
-    if(action==1) ui->rbCarico->setChecked(true);
-    if(action==2) ui->rbScarico->setChecked(true);
+    if(action==1){
+        ui->rbCarico->setChecked(true);
+        ui->cbStampatore->setVisible(true);
+        ui->label_4->setVisible(true);
+    }
+    if(action==2){
+
+        ui->rbScarico->setChecked(true);
+        ui->cbStampatore->setVisible(false);
+         ui->label_4->setVisible(false);
+
+     }
 
 
     emit ui->leBarcode->returnPressed();
@@ -150,9 +160,22 @@ void FTOperate::on_leBarcode_returnPressed()
 void FTOperate::on_rbCarico_toggled(bool checked)
 {
    // ui->cbStampatore->setVisible(checked);
-    if(!checked){
     int six=ui->cbStampatore->findText("NESSUNO STAMPATORE");
     ui->cbStampatore->setCurrentIndex(six);
+
+    if(checked)
+   {
+      /* int six=ui->cbStampatore->findText("NESSUNO STAMPATORE");
+       ui->cbStampatore->setCurrentIndex(six);*/
+       ui->cbStampatore->setVisible(true);
+       ui->label_4->setVisible(true);
+   }
+
+    if(!checked){
+
+        ui->rbScarico->setChecked(true);
+        ui->cbStampatore->setVisible(false);
+        ui->label_4->setVisible(false);
     }
 }
 

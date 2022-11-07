@@ -86,6 +86,7 @@ void FTOverview::setup()
     ui->tvTags->setCurrentIndex(ix);
 
     ui->tvTags->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
+    connect(ui->cbCliente->lineEdit(),SIGNAL(returnPressed()),this,SLOT(buildFilter()));
 
     on_pbNoFilters_clicked();
 
@@ -339,6 +340,8 @@ void FTOverview::on_cbCliente_currentIndexChanged(int index)
     int cx=ui->cbCliente->model()->index(index,0).data(0).toInt();
     getProdotti(cx);
 
+    buildFilter();
+
 
 }
 
@@ -354,7 +357,7 @@ void FTOverview::buildFilter()
 
     QString cust=ui->cbCliente->currentText();
     if (cust.contains("'")){
-      cust=cust.replace("'","\\\'");
+        cust=cust.replace("'","\\\'");
     }
 
 
@@ -442,12 +445,6 @@ void FTOverview::on_pbFilter_clicked()
 }
 
 
-
-
-
-
-
-
 void FTOverview::on_leBarcode_returnPressed()
 {
     ui->rbBarcode->setChecked(true);
@@ -467,5 +464,44 @@ void FTOverview::on_pb_Scarico_clicked()
     connect(f,SIGNAL(operation_saved()),this,SLOT(refresh()));
 
     f->show();
+}
+
+
+
+
+void FTOverview::on_rbLabels_toggled(bool checked)
+{
+    if (checked){buildFilter();}
+}
+
+
+void FTOverview::on_rbCust_toggled(bool checked)
+{
+    if (checked) {buildFilter();}
+}
+
+
+void FTOverview::on_rbAnyProd_toggled(bool checked)
+{
+    if (checked){buildFilter();}
+}
+
+
+void FTOverview::on_rbNoCust_toggled(bool checked)
+{
+    if (checked){buildFilter();}
+}
+
+
+void FTOverview::on_rbSigilli_toggled(bool checked)
+{
+    if (checked){buildFilter();}
+}
+
+
+
+void FTOverview::on_rbNoProd_toggled(bool checked)
+{
+     if (checked){buildFilter();}
 }
 

@@ -82,7 +82,7 @@
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CLTags &lt;span style=&quot; font-size:20pt;&quot;&gt;1.4.&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;001&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CLTags &lt;span style=&quot; font-size:20pt;&quot;&gt;1.5.&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;001&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -107,7 +107,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pbSettings">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -119,6 +119,9 @@
           <width>50</width>
           <height>50</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Impostazioni</string>
         </property>
         <property name="text">
          <string/>
@@ -139,33 +142,33 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pbOverview">
+       <widget class="QPushButton" name="pbLabels">
         <property name="minimumSize">
          <size>
-          <width>50</width>
-          <height>50</height>
+          <width>65</width>
+          <height>65</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>50</width>
-          <height>50</height>
+          <width>65</width>
+          <height>65</height>
          </size>
         </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
+        <property name="toolTip">
+         <string>Etichette e sigilli</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/resources/icons/8644322_graphic_chart_graph_bam_icon (1).png</normaloff>:/resources/icons/8644322_graphic_chart_graph_bam_icon (1).png</iconset>
+          <normaloff>:/resources/icons/7898568_discount_sale_icon.png</normaloff>:/resources/icons/7898568_discount_sale_icon.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>64</width>
-          <height>64</height>
+          <width>65</width>
+          <height>65</height>
          </size>
         </property>
         <property name="flat">
@@ -174,30 +177,33 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pbMov">
+       <widget class="QPushButton" name="pnContainers">
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>50</height>
+          <width>65</width>
+          <height>65</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>50</width>
-          <height>50</height>
+          <width>65</width>
+          <height>65</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Gestione vasi e tappi</string>
         </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/resources/icons/7627459_app_tools_logo_apple_reminders_icon.png</normaloff>:/resources/icons/7627459_app_tools_logo_apple_reminders_icon.png</iconset>
+          <normaloff>:/resources/icons/Wood-4-icon.png</normaloff>:/resources/icons/Wood-4-icon.png</iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>48</width>
-          <height>48</height>
+          <width>65</width>
+          <height>65</height>
          </size>
         </property>
         <property name="flat">
@@ -209,7 +215,7 @@
        <widget class="QPushButton" name="pbExit">
         <property name="minimumSize">
          <size>
-          <width>100</width>
+          <width>65</width>
           <height>65</height>
          </size>
         </property>

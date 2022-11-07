@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QSqlDatabase>
 
-#include "ftsettings.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,10 +26,14 @@ private slots:
 
        void on_pbOverview_clicked();
 
-       void on_pushButton_clicked();
-
        void readSettings();
        void setup();
+
+       void on_pbLabels_clicked();
+
+       void on_pnContainers_clicked();
+
+       void on_pbSettings_clicked();
 
 private:
     Ui::MainWindow *ui;

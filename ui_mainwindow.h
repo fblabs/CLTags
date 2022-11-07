@@ -34,9 +34,9 @@ public:
     QLabel *label_2;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton;
-    QPushButton *pbOverview;
-    QPushButton *pbMov;
+    QPushButton *pbSettings;
+    QPushButton *pbLabels;
+    QPushButton *pnContainers;
     QPushButton *pbExit;
     QStatusBar *statusbar;
 
@@ -95,46 +95,45 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(50, 50));
-        pushButton->setMaximumSize(QSize(50, 50));
+        pbSettings = new QPushButton(centralwidget);
+        pbSettings->setObjectName(QString::fromUtf8("pbSettings"));
+        pbSettings->setMinimumSize(QSize(50, 50));
+        pbSettings->setMaximumSize(QSize(50, 50));
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/resources/icons/8712748_setting_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton->setIcon(icon1);
-        pushButton->setIconSize(QSize(64, 64));
-        pushButton->setFlat(true);
+        pbSettings->setIcon(icon1);
+        pbSettings->setIconSize(QSize(64, 64));
+        pbSettings->setFlat(true);
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(pbSettings);
 
-        pbOverview = new QPushButton(centralwidget);
-        pbOverview->setObjectName(QString::fromUtf8("pbOverview"));
-        pbOverview->setMinimumSize(QSize(50, 50));
-        pbOverview->setMaximumSize(QSize(50, 50));
-        pbOverview->setAutoFillBackground(false);
+        pbLabels = new QPushButton(centralwidget);
+        pbLabels->setObjectName(QString::fromUtf8("pbLabels"));
+        pbLabels->setMinimumSize(QSize(65, 65));
+        pbLabels->setMaximumSize(QSize(65, 65));
         QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/resources/icons/8644322_graphic_chart_graph_bam_icon (1).png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbOverview->setIcon(icon2);
-        pbOverview->setIconSize(QSize(64, 64));
-        pbOverview->setFlat(true);
+        icon2.addFile(QString::fromUtf8(":/resources/icons/7898568_discount_sale_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbLabels->setIcon(icon2);
+        pbLabels->setIconSize(QSize(65, 65));
+        pbLabels->setFlat(true);
 
-        horizontalLayout->addWidget(pbOverview);
+        horizontalLayout->addWidget(pbLabels);
 
-        pbMov = new QPushButton(centralwidget);
-        pbMov->setObjectName(QString::fromUtf8("pbMov"));
-        pbMov->setMinimumSize(QSize(0, 50));
-        pbMov->setMaximumSize(QSize(50, 50));
+        pnContainers = new QPushButton(centralwidget);
+        pnContainers->setObjectName(QString::fromUtf8("pnContainers"));
+        pnContainers->setMinimumSize(QSize(65, 65));
+        pnContainers->setMaximumSize(QSize(65, 65));
         QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/resources/icons/7627459_app_tools_logo_apple_reminders_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbMov->setIcon(icon3);
-        pbMov->setIconSize(QSize(48, 48));
-        pbMov->setFlat(true);
+        icon3.addFile(QString::fromUtf8(":/resources/icons/Wood-4-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pnContainers->setIcon(icon3);
+        pnContainers->setIconSize(QSize(65, 65));
+        pnContainers->setFlat(true);
 
-        horizontalLayout->addWidget(pbMov);
+        horizontalLayout->addWidget(pnContainers);
 
         pbExit = new QPushButton(centralwidget);
         pbExit->setObjectName(QString::fromUtf8("pbExit"));
-        pbExit->setMinimumSize(QSize(100, 65));
+        pbExit->setMinimumSize(QSize(65, 65));
         pbExit->setMaximumSize(QSize(100, 65));
         QIcon icon4;
         icon4.addFile(QString::fromUtf8(":/resources/icons/8712836_fire_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -161,10 +160,19 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.4.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
-        pushButton->setText(QString());
-        pbOverview->setText(QString());
-        pbMov->setText(QString());
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.5.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
+#if QT_CONFIG(tooltip)
+        pbSettings->setToolTip(QCoreApplication::translate("MainWindow", "Impostazioni", nullptr));
+#endif // QT_CONFIG(tooltip)
+        pbSettings->setText(QString());
+#if QT_CONFIG(tooltip)
+        pbLabels->setToolTip(QCoreApplication::translate("MainWindow", "Etichette e sigilli", nullptr));
+#endif // QT_CONFIG(tooltip)
+        pbLabels->setText(QString());
+#if QT_CONFIG(tooltip)
+        pnContainers->setToolTip(QCoreApplication::translate("MainWindow", "Gestione vasi e tappi", nullptr));
+#endif // QT_CONFIG(tooltip)
+        pnContainers->setText(QString());
         pbExit->setText(QCoreApplication::translate("MainWindow", "ESci", nullptr));
     } // retranslateUi
 

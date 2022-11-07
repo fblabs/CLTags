@@ -64,6 +64,14 @@ private slots:
    void on_leBarcode_returnPressed();
    void on_cbAttivi_toggled(bool checked);
    void on_pb_Scarico_clicked();
+
+   void on_rbLabels_toggled(bool checked);
+   void on_rbCust_toggled(bool checked);
+   void on_rbAnyProd_toggled(bool checked);
+   void on_rbNoCust_toggled(bool checked);
+   void on_rbSigilli_toggled(bool checked);
+
+   void on_rbNoProd_toggled(bool checked);
 };
 
 #endif // FTOVERVIEW_H

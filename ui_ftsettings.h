@@ -150,7 +150,7 @@ public:
 
     void retranslateUi(QWidget *FTSettings)
     {
-        FTSettings->setWindowTitle(QCoreApplication::translate("FTSettings", "Form", nullptr));
+        FTSettings->setWindowTitle(QCoreApplication::translate("FTSettings", "Impostazioni", nullptr));
         label->setText(QCoreApplication::translate("FTSettings", "Server:", nullptr));
         label_4->setText(QCoreApplication::translate("FTSettings", "Password:", nullptr));
         label_2->setText(QCoreApplication::translate("FTSettings", "Ciente generico:", nullptr));
