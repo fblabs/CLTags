@@ -505,3 +505,9 @@ void FTOverview::on_rbNoProd_toggled(bool checked)
      if (checked){buildFilter();}
 }
 
+
+void FTOverview::on_cbProdotto_currentIndexChanged(int index)
+{
+    buildFilter();
+}
+

@@ -27,13 +27,14 @@ private slots:
        void on_pbOverview_clicked();
 
        void readSettings();
+
        void setup();
 
        void on_pbLabels_clicked();
 
-       void on_pnContainers_clicked();
-
        void on_pbSettings_clicked();
+
+       void on_pbContainers_clicked();
 
 private:
     Ui::MainWindow *ui;

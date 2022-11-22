@@ -12,6 +12,7 @@ FTSettings::FTSettings(QWidget *parent) :
     ui->leServer->setText(settings.value("server").toString());
     ui->lePassword->setText(settings.value("pwd").toString());
     ui->leGenericCustomerID->setText(settings.value("generic_customer_id").toString());
+    ui->leGenericSupplier->setText(settings.value("generic_supplier_id").toString());
     ui->leGenericProductID->setText(settings.value("generic_product_id").toString());
 
 
@@ -28,6 +29,7 @@ void FTSettings::on_pbSave_clicked()
      settings.setValue("server",ui->leServer->text());
      settings.setValue("pwd",ui->lePassword->text());
      settings.setValue("generic_customer_id",ui->leGenericCustomerID->text());
+     settings.setValue("generic_supplier_id",ui->leGenericSupplier->text());
      settings.setValue("generic_product_id",ui->leGenericProductID->text());
 
      emit setup_done();

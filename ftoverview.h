@@ -72,6 +72,7 @@ private slots:
    void on_rbSigilli_toggled(bool checked);
 
    void on_rbNoProd_toggled(bool checked);
+   void on_cbProdotto_currentIndexChanged(int index);
 };
 
 #endif // FTOVERVIEW_H

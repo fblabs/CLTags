@@ -35,6 +35,9 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_2;
     QLineEdit *leGenericCustomerID;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *label_5;
+    QLineEdit *leGenericSupplier;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QLineEdit *leGenericProductID;
@@ -48,7 +51,7 @@ public:
         if (FTSettings->objectName().isEmpty())
             FTSettings->setObjectName(QString::fromUtf8("FTSettings"));
         FTSettings->setWindowModality(Qt::ApplicationModal);
-        FTSettings->resize(400, 178);
+        FTSettings->resize(400, 234);
         verticalLayout = new QVBoxLayout(FTSettings);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -100,6 +103,22 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout_2);
+
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+        label_5 = new QLabel(FTSettings);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setMinimumSize(QSize(130, 0));
+
+        horizontalLayout_6->addWidget(label_5);
+
+        leGenericSupplier = new QLineEdit(FTSettings);
+        leGenericSupplier->setObjectName(QString::fromUtf8("leGenericSupplier"));
+
+        horizontalLayout_6->addWidget(leGenericSupplier);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
@@ -154,6 +173,7 @@ public:
         label->setText(QCoreApplication::translate("FTSettings", "Server:", nullptr));
         label_4->setText(QCoreApplication::translate("FTSettings", "Password:", nullptr));
         label_2->setText(QCoreApplication::translate("FTSettings", "Ciente generico:", nullptr));
+        label_5->setText(QCoreApplication::translate("FTSettings", "Fornitore Generico:", nullptr));
         label_3->setText(QCoreApplication::translate("FTSettings", "Prodotto Generico:", nullptr));
         pbSave->setText(QCoreApplication::translate("FTSettings", "Salva", nullptr));
         pbClose->setText(QCoreApplication::translate("FTSettings", "Chiudi", nullptr));

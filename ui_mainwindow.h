@@ -36,7 +36,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *pbSettings;
     QPushButton *pbLabels;
-    QPushButton *pnContainers;
+    QPushButton *pbContainers;
     QPushButton *pbExit;
     QStatusBar *statusbar;
 
@@ -119,17 +119,17 @@ public:
 
         horizontalLayout->addWidget(pbLabels);
 
-        pnContainers = new QPushButton(centralwidget);
-        pnContainers->setObjectName(QString::fromUtf8("pnContainers"));
-        pnContainers->setMinimumSize(QSize(65, 65));
-        pnContainers->setMaximumSize(QSize(65, 65));
+        pbContainers = new QPushButton(centralwidget);
+        pbContainers->setObjectName(QString::fromUtf8("pbContainers"));
+        pbContainers->setMinimumSize(QSize(65, 65));
+        pbContainers->setMaximumSize(QSize(65, 65));
         QIcon icon3;
         icon3.addFile(QString::fromUtf8(":/resources/icons/Wood-4-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pnContainers->setIcon(icon3);
-        pnContainers->setIconSize(QSize(65, 65));
-        pnContainers->setFlat(true);
+        pbContainers->setIcon(icon3);
+        pbContainers->setIconSize(QSize(65, 65));
+        pbContainers->setFlat(true);
 
-        horizontalLayout->addWidget(pnContainers);
+        horizontalLayout->addWidget(pbContainers);
 
         pbExit = new QPushButton(centralwidget);
         pbExit->setObjectName(QString::fromUtf8("pbExit"));
@@ -160,7 +160,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.5.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.6.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
         pbSettings->setToolTip(QCoreApplication::translate("MainWindow", "Impostazioni", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -170,9 +170,9 @@ public:
 #endif // QT_CONFIG(tooltip)
         pbLabels->setText(QString());
 #if QT_CONFIG(tooltip)
-        pnContainers->setToolTip(QCoreApplication::translate("MainWindow", "Gestione vasi e tappi", nullptr));
+        pbContainers->setToolTip(QCoreApplication::translate("MainWindow", "Gestione vasi e tappi", nullptr));
 #endif // QT_CONFIG(tooltip)
-        pnContainers->setText(QString());
+        pbContainers->setText(QString());
         pbExit->setText(QCoreApplication::translate("MainWindow", "ESci", nullptr));
     } // retranslateUi
 

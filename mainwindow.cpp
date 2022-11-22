@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "ftagsmov.h"
 #include "ftcommands.h"
+#include "ftcommands_containers.h"
+#include "ftcontainers_overview.h"
 #include "ftoverview.h"
 #include "ftsettings.h"
 #include <QSqlDatabase>
@@ -113,16 +115,22 @@ void MainWindow::on_pbLabels_clicked()
 }
 
 
-void MainWindow::on_pnContainers_clicked()
-{
-
-}
-
-
 void MainWindow::on_pbSettings_clicked()
 {
     FTSettings *sets=new FTSettings();
     connect(sets,SIGNAL(setup_done()),this,SLOT(setup()));
     sets->show();
+}
+
+
+void MainWindow::on_pbContainers_clicked()
+{
+   FtCommands_Containers *f=new FtCommands_Containers(db);
+   QPoint x=QCursor::pos();
+   QPoint pcorrect(x.x(),x.y()-200);
+
+   f->move(pcorrect);
+
+   f->show();
 }
 

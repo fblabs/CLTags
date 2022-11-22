@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>178</height>
+    <height>234</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -87,6 +87,26 @@
      </item>
      <item>
       <widget class="QLineEdit" name="leGenericCustomerID"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Fornitore Generico:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leGenericSupplier"/>
      </item>
     </layout>
    </item>

@@ -88,10 +88,16 @@ public:
     {
         FtCommands->setWindowTitle(QCoreApplication::translate("FtCommands", "Dialog", nullptr));
 #if QT_CONFIG(tooltip)
+        FtCommands->setToolTip(QCoreApplication::translate("FtCommands", "Definizioni", nullptr));
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
         pbOverview->setToolTip(QCoreApplication::translate("FtCommands", "Vista panoramica", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbOverview->setText(QString());
         pbMov->setText(QString());
+#if QT_CONFIG(tooltip)
+        pbClose->setToolTip(QCoreApplication::translate("FtCommands", "<html><head/><body><p>Chiudi</p><p><br/></p></body></html>", nullptr));
+#endif // QT_CONFIG(tooltip)
     } // retranslateUi
 
 };

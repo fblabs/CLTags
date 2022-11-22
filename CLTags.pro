@@ -12,6 +12,11 @@ SOURCES += \
     ftagsmov.cpp \
     ftagsstock.cpp \
     ftcommands.cpp \
+    ftcommands_containers.cpp \
+    ftcontainer_unload.cpp \
+    ftcontainerload.cpp \
+    ftcontainers_overview.cpp \
+    ftcontainersoperation_mod.cpp \
     ftimage.cpp \
     ftmodmov.cpp \
     ftoperate.cpp \
@@ -25,6 +30,11 @@ HEADERS += \
     ftagsmov.h \
     ftagsstock.h \
     ftcommands.h \
+    ftcommands_containers.h \
+    ftcontainer_unload.h \
+    ftcontainerload.h \
+    ftcontainers_overview.h \
+    ftcontainersoperation_mod.h \
     ftimage.h \
     ftmodmov.h \
     ftoperate.h \
@@ -37,6 +47,11 @@ FORMS += \
     ftagsmov.ui \
     ftagsstock.ui \
     ftcommands.ui \
+    ftcommands_containers.ui \
+    ftcontainer_unload.ui \
+    ftcontainerload.ui \
+    ftcontainers_overview.ui \
+    ftcontainersoperation_mod.ui \
     ftimage.ui \
     ftmodmov.ui \
     ftoperate.ui \
