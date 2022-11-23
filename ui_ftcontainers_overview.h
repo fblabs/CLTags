@@ -95,8 +95,8 @@ public:
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         pbModify = new QPushButton(FtContainers_Overview);
         pbModify->setObjectName(QString::fromUtf8("pbModify"));
-        pbModify->setMinimumSize(QSize(150, 0));
-        pbModify->setMaximumSize(QSize(150, 16777215));
+        pbModify->setMinimumSize(QSize(0, 0));
+        pbModify->setMaximumSize(QSize(16777215, 16777215));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/Pencil.PNG"), QSize(), QIcon::Normal, QIcon::Off);
         pbModify->setIcon(icon);
@@ -124,8 +124,8 @@ public:
 
         pbClose = new QPushButton(FtContainers_Overview);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
-        pbClose->setMinimumSize(QSize(150, 0));
-        pbClose->setMaximumSize(QSize(150, 16777215));
+        pbClose->setMinimumSize(QSize(0, 0));
+        pbClose->setMaximumSize(QSize(16777215, 16777215));
         QIcon icon3;
         icon3.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         pbClose->setIcon(icon3);

@@ -125,7 +125,7 @@ void MainWindow::on_pbSettings_clicked()
 
 void MainWindow::on_pbContainers_clicked()
 {
-   FtCommands_Containers *f=new FtCommands_Containers(db);
+   FtCommands_Containers *f=new FtCommands_Containers(-1,db);
    QPoint x=QCursor::pos();
    QPoint pcorrect(x.x(),x.y()-200);
 

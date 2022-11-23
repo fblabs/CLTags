@@ -13,7 +13,7 @@ class FtCommands_Containers : public QWidget
     Q_OBJECT
 
 public:
-    explicit FtCommands_Containers(QSqlDatabase pdb=QSqlDatabase(),QWidget *parent = nullptr);
+    explicit FtCommands_Containers(int pid_tag=-1,QSqlDatabase pdb=QSqlDatabase(),QWidget *parent = nullptr);
     ~FtCommands_Containers();
 
 private slots:
@@ -28,6 +28,7 @@ private slots:
 private:
     Ui::FtCommands_Containers *ui;
     QSqlDatabase db;
+    int pidtag;
 };
 
 #endif // FTCOMMANDS_CONTAINERS_H

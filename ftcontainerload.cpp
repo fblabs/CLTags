@@ -7,12 +7,14 @@
 #include <QDebug>
 #include <QSqlError>
 
-FtContainerLoad::FtContainerLoad(QSqlDatabase pdb, QWidget *parent) :
+FtContainerLoad::FtContainerLoad(const int pidtag,QSqlDatabase pdb, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FtContainerLoad)
 {
     ui->setupUi(this);
+
     db=pdb;
+    id_tag=pidtag;
     ui->deDate->setDate(QDate::currentDate());
     getTags();
     getSuppliers();
@@ -52,8 +54,20 @@ void FtContainerLoad::getTags()
 {
     QSqlQueryModel *qtags_mod=new QSqlQueryModel();
     QSqlQuery q(db);
-    QString sql="SELECT tags_containers.ID,prodotti.ID, prodotti.descrizione from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto ORDER BY prodotti.descrizione ASC";
-    q.prepare(sql);
+    QString sql;
+
+    if (id_tag==-1){
+        sql="SELECT tags_containers.ID,prodotti.ID, prodotti.descrizione from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto ORDER BY prodotti.descrizione ASC";
+        q.prepare(sql);
+    }
+    if(id_tag>-1)
+    {
+        sql="SELECT tags_containers.ID,prodotti.ID, prodotti.descrizione from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and tags_containers.ID=:id ORDER BY prodotti.descrizione ASC";
+        q.prepare(sql);
+        q.bindValue(":id",id_tag);
+    }
+
+
     q.exec();
 
     qtags_mod->setQuery(q);
@@ -70,31 +84,7 @@ void FtContainerLoad::getTags()
 
 }
 
-/*bool FtContainerLoad::init_tag()
-{
-    QSqlQuery q(db);
-    int id_prodotto=ui->cbProduct->model()->index(ui->cbProduct->currentIndex(),1).data(0).toInt();
-    qDebug()<<"init_tag inizio"<<id_prodotto;
-    QString note=ui->teNote->toPlainText();
 
-
-    QString sql("INSERT INTO tags_containers(ID_Prodotto,giacenza,note)VALUES(:id_prodotto,0,:note)");
-    q.prepare(sql);
-    q.bindValue(":id_prodotto",id_prodotto);
-    q.bindValue(":note",note);
-
-
-
-    bool b=q.exec();
-
-
-    inserted_tag_id=q.lastInsertId().toInt();
-    qDebug()<<"init_tag"<<id_prodotto<<note<<q.lastInsertId().toInt()<<q.lastError().text();
-
-
-
-     return b;
-}*/
 
 bool FtContainerLoad::save_tag()
 {
@@ -104,7 +94,7 @@ bool FtContainerLoad::save_tag()
 
     //inizializzo un nuov tag_container se non esiste
 
-  //  b=init_tag();
+    //  b=init_tag();
 
 
     int id_tag=ui->cbTags->model()->index(ui->cbTags->currentIndex(),0).data(0).toInt();
@@ -129,15 +119,15 @@ bool FtContainerLoad::save_tag()
 
     if(!b)
     {
-       db.rollback();
-       qDebug()<<"ERRORE IN SAVE:"<<inserted_tag_id<<q.lastQuery()<<q.lastError().text()<<id_tag;
+        db.rollback();
+        qDebug()<<"ERRORE IN SAVE:"<<inserted_tag_id<<q.lastQuery()<<q.lastError().text()<<id_tag;
     }
 
     db.commit();
+    emit save_done();
+    close();
 
     return b;
-
-
 
 }
 
@@ -145,36 +135,22 @@ bool FtContainerLoad::save_tag()
 
 void FtContainerLoad::on_pbSave_clicked()
 {
-  db.transaction();
-   bool b=save_tag();
+    db.transaction();
+    bool b=save_tag();
 
 
-   if (b){
+    if (b){
 
-       db.commit();
-       emit save_done();
+        db.commit();
+        emit save_done();
 
-   }else{
+    }else{
 
-       db.rollback();
-   }
+        db.rollback();
+    }
 
 }
 
 
-/*void FtContainerLoad::on_pbInit_clicked()
-{
-    db.transaction();
 
-    bool b=init_tag();
-
-    if(b){
-        db.commit();
-
-    }
-    else
-    {
-        db.rollback();
-    }
-}*/
 

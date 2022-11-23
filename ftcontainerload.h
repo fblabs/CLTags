@@ -13,7 +13,7 @@ class FtContainerLoad : public QWidget
     Q_OBJECT
 
 public:
-    explicit FtContainerLoad(QSqlDatabase pdb,QWidget *parent = nullptr);
+    explicit FtContainerLoad(const int pidtag=-1, QSqlDatabase pdb=QSqlDatabase(), QWidget *parent = nullptr);
     ~FtContainerLoad();
 
 private slots:
@@ -31,6 +31,7 @@ private slots:
 private:
     Ui::FtContainerLoad *ui;
     QSqlDatabase db;
+    int id_tag;
     int inserted_tag_id;
 
 signals:

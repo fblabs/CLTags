@@ -83,8 +83,12 @@ void FtContainers_Overview::on_pbModify_clicked()
 void FtContainers_Overview::on_pbLoad_clicked()
 {
 
-    FtContainerLoad *f= new FtContainerLoad(db);
+    int row=ui->tvOverview->selectionModel()->currentIndex().row();
+    int pidtag=ui->tvOverview->model()->index(row,0).data(0).toInt();
+    FtContainerLoad *f= new FtContainerLoad(pidtag,db);
     f->show();
+
+    connect(f,SIGNAL(save_done()),this,SLOT(update_data()));
 
 
 }
@@ -97,7 +101,7 @@ void FtContainers_Overview::on_pbUnload_clicked()
     QModelIndex ix=ui->tvOverview->currentIndex();
 
     FtContainer_unload *f=new FtContainer_unload(id,db);
-    connect(f,SIGNAL(savedone()),this,SLOT(update_data()));
+    connect(f,SIGNAL(save_done()),this,SLOT(update_data()));
     f->show();
 
     ui->tvOverview->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
