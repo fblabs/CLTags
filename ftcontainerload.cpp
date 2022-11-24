@@ -125,7 +125,6 @@ bool FtContainerLoad::save_tag()
 
     db.commit();
     emit save_done();
-    close();
 
     return b;
 
@@ -148,6 +147,7 @@ void FtContainerLoad::on_pbSave_clicked()
 
         db.rollback();
     }
+    close();
 
 }
 

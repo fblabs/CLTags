@@ -40,7 +40,7 @@ void MainWindow::on_pbExit_clicked()
 }
 
 
-void MainWindow::on_pbMov_clicked()
+/*void MainWindow::on_pbMov_clicked()
 {
     FTagsMov *f=new FTagsMov(0,QString(),QString(),db);
     f->show();
@@ -53,6 +53,7 @@ void MainWindow::on_pbOverview_clicked()
     f->showMaximized();
 
 }
+*/
 
 
 void MainWindow::readSettings()

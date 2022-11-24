@@ -7,6 +7,7 @@
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QModelIndex>
+#include <QSqlError>
 #include <QDebug>
 
 FtContainers_Overview::FtContainers_Overview(QSqlDatabase pdb,QWidget *parent) :
@@ -48,7 +49,7 @@ void FtContainers_Overview::getContainerOperations()
 
     QSqlQuery q(db);
     QSqlQueryModel *mod_details=new QSqlQueryModel();
-    QString sql="select tags_containers_mov.ID,tags_containers_mov.ID_tags_container,tags_containers_mov.data as'DATA', prodotti.descrizione as 'PRODOTTO', anagrafica.ragione_sociale as 'FORNITORE',azioni.descrizione as 'AZIONE',tags_containers_mov.amount as 'QUANTITA',tags_containers_mov.note as 'NOTE'\
+    QString sql="select tags_containers_mov.ID,tags_containers_mov.ID_tags_container,tags_containers_mov.data as'DATA', prodotti.descrizione as 'PRODOTTO', anagrafica.ragione_sociale as 'FORNITORE',azioni.descrizione as 'AZIONE',tags_containers_mov.amount as 'QUANTITA',tags_containers_mov.bolla as 'BOLLA',tags_containers_mov.note as 'NOTE'\
             from tags_containers_mov,tags_containers, prodotti, anagrafica,azioni\
             where tags_containers.ID = tags_containers_mov.ID_tags_container\
             and anagrafica.ID=tags_containers_mov.ID_supplier  \
@@ -59,6 +60,7 @@ void FtContainers_Overview::getContainerOperations()
     q.bindValue(":id_container", id_container);
     q.exec();
     mod_details->setQuery(q);
+qDebug()<<q.lastError().text();
     ui->tvDetails->setModel(mod_details);
     ui->tvDetails->setColumnHidden(0,true);
     ui->tvDetails->setColumnHidden(1,true);

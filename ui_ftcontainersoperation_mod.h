@@ -65,7 +65,7 @@ public:
         if (FtContainersOperation_mod->objectName().isEmpty())
             FtContainersOperation_mod->setObjectName(QString::fromUtf8("FtContainersOperation_mod"));
         FtContainersOperation_mod->setWindowModality(Qt::ApplicationModal);
-        FtContainersOperation_mod->resize(577, 394);
+        FtContainersOperation_mod->resize(553, 440);
         verticalLayout_3 = new QVBoxLayout(FtContainersOperation_mod);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         horizontalLayout_4 = new QHBoxLayout();

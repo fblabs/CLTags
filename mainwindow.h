@@ -22,9 +22,9 @@ public:
 private slots:
        void on_pbExit_clicked();
 
-       void on_pbMov_clicked();
+    //   void on_pbMov_clicked();
 
-       void on_pbOverview_clicked();
+    //   void on_pbOverview_clicked();
 
        void readSettings();
 
