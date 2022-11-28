@@ -41,7 +41,7 @@ void FTOverview::setup()
     tagsmod->setRelation(2,QSqlRelation("prodotti","ID","descrizione"));
     tagsmod->setRelation(3,QSqlRelation("tags_tipi","ID","descrizione"));
     tagsmod->select();
-    //  qDebug()<<tagsmod->query().lastQuery();
+    qDebug()<<"SETUP"<<tagsmod->query().lastError().text()<<tagsmod->query().size();
 
     tagsmod->setHeaderData(0,Qt::Horizontal,"BARCODE");
     tagsmod->setHeaderData(1,Qt::Horizontal,"CLIENTE");
@@ -108,7 +108,7 @@ void FTOverview::findTagsMov()
     q.bindValue(":idprodotto", tagsmod->index(ui->tvTags->currentIndex().row(),3).data(0).toString());
     if (!q.exec())
     {
-        //  qDebug()<<q.lastError().text()<<q.lastQuery();
+          qDebug()<<q.lastError().text()<<q.lastQuery();
     }
     tagsmovmod->setQuery(q);
     ui->tvTags_mov->setModel(tagsmovmod);

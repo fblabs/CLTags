@@ -5,6 +5,7 @@
 #include <QSqlError>
 #include <QCompleter>
 #include <QDebug>
+#include <QMessageBox>
 
 FTOperate::FTOperate(const int p_action, QSqlDatabase pdb, QString pbarcode, QWidget *parent) :
     QWidget(parent),
@@ -95,6 +96,7 @@ void FTOperate::saveOp()
     {
      //   qDebug()<<"OK";
         db.commit();
+        QMessageBox::information(nullptr,QApplication::applicationName(),"Dati salvati",QMessageBox::Ok);
         emit operation_saved();
 
 
@@ -103,7 +105,7 @@ void FTOperate::saveOp()
     {
 
      //   qDebug()<<"ERORRE"<<q.lastError().text();
-
+        QMessageBox::information(nullptr,QApplication::applicationName(),"ERORE:"+q.lastError().text(),QMessageBox::Ok);
         db.rollback();
 
     }

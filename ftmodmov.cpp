@@ -30,7 +30,7 @@ void FTModMov::setup()
     q.prepare(sql);
     q.bindValue(":pid",id);
     q.exec();
-    //qDebug()<<q.lastError().text();
+   //qDebug()<<q.lastError().text();
 
     QSqlQueryModel *mod=new QSqlQueryModel();
     mod->setQuery(q);
@@ -79,13 +79,13 @@ void FTModMov::save()
 {
     QSqlQuery q(db);
     QString sql="UPDATE fbgmdb260.tags_mov SET data = :data,IDStampatore = :IDStampatore,azione = :azione,amount = :amount,note = :note  WHERE ID = :id";
+    qDebug()<<"SAVE";
 
     q.prepare(sql);
 
     q.bindValue(":data",ui->dateEdit->date());
     q.bindValue(":IDStampatore",ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt());
-   // qDebug()<<"IDStampatore"<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt();
-    int azione=0;
+     int azione=0;
     int amount=ui->leAmount->text().toInt();
     if(ui->rbCarico->isChecked())
     {
@@ -101,15 +101,19 @@ void FTModMov::save()
     q.bindValue(":id",id);
 
     db.transaction();
-   if( q.exec())
+   if(q.exec())
    {
        qDebug()<<"OK";
      db.commit();
+     QMessageBox::information(nullptr,QApplication::applicationName(),"Dati salvati",QMessageBox::Ok);
      emit mod_mov_done();
+
    }else{
 
        qDebug()<<"ERORRE!"<<q.lastError().text()<<ui->cbStampatori->model()->index(ui->cbStampatori->currentIndex(),0).data(0).toInt()<<"azione="<<azione<<"amount"<<amount;
+
        db.rollback();
+       QMessageBox::information(nullptr,QApplication::applicationName(),"Errore:"+q.lastError().text(),QMessageBox::Ok);
 
    }
 
