@@ -122,7 +122,7 @@ void FTModMov::save()
 
 void FTModMov::on_pbSave_clicked()
 {
-    if (QMessageBox::question(nullptr,QApplication::applicationName(),"Dati salvati",QMessageBox::Ok)==QMessageBox::Ok)
+    if (QMessageBox::question(nullptr,QApplication::applicationName(),"Salvare?",QMessageBox::Ok)==QMessageBox::Ok)
     {
         save();
     }

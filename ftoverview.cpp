@@ -5,16 +5,22 @@
 #include "ftoperate.h"
 #include "ftmodmov.h"
 #include <QSqlRelation>
+#include <QSqlRelationalDelegate>
 #include <QCompleter>
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QDate>
 #include <QSettings>
+#include "htagsrelationaltablemodel.h"
 
 #include <QSqlError>
+#include <QMessageBox>
 
 #include <QDebug>
 #include "ftprint.h"
+
+
+#include <QStandardItem>
 
 
 FTOverview::FTOverview(QSqlDatabase pdb, QWidget *parent) :
@@ -35,13 +41,12 @@ void FTOverview::setup()
 {
 
 
-    tagsmod=new QSqlRelationalTableModel(nullptr);
+    tagsmod=new HTagsRelationalTableModel(nullptr);
     tagsmod->setTable("tags");
     tagsmod->setRelation(1,QSqlRelation("anagrafica","ID","ragione_sociale"));
     tagsmod->setRelation(2,QSqlRelation("prodotti","ID","descrizione"));
     tagsmod->setRelation(3,QSqlRelation("tags_tipi","ID","descrizione"));
     tagsmod->select();
-    qDebug()<<"SETUP"<<tagsmod->query().lastError().text()<<tagsmod->query().size();
 
     tagsmod->setHeaderData(0,Qt::Horizontal,"BARCODE");
     tagsmod->setHeaderData(1,Qt::Horizontal,"CLIENTE");
@@ -65,6 +70,7 @@ void FTOverview::setup()
     ui->tvTags->setColumnHidden(5,true);
     ui->tvTags->setColumnHidden(8,true);
     ui->tvTags->horizontalHeader()->setStretchLastSection(true);
+
 
     connect(ui->tvTags->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(findTagsMov()));
     clientimod=new QSqlTableModel(nullptr,db);
@@ -146,14 +152,22 @@ void FTOverview::refresh()
 {
     // qDebug()<<"REFRESH";
     QModelIndex current=ui->tvTags->currentIndex();
-    tagsmod->select();
-    ui->tvTags->setCurrentIndex(current);
-
     QModelIndex curmov=ui->tvTags_mov->currentIndex();
+    QModelIndex row=ui->tvTags->model()->index(current.row(),0);
+
+    tagsmod->select();
+    ui->tvTags->reset();
+    ui->tvTags->clearSelection();
+
+    ui->tvTags->selectionModel()->select(row,QItemSelectionModel::ClearAndSelect);
+
+   // ui->tvTags->setCurrentIndex(current);
+
+
+
+
     tagsmovmod->query().exec( tagsmovmod->query().executedQuery());
     ui->tvTags_mov->setCurrentIndex(curmov);
-
-
 
 }
 
@@ -181,6 +195,26 @@ void FTOverview::mod_tag(const QModelIndex index)
     // qDebug()<<tagsmod->index(index.row(),5).data(0).toString()<<tagsmod->index(index.row(),2).data(0).toString();
     connect(f,SIGNAL(tag_saved()),this,SLOT(refresh()));
     f->show();
+}
+
+bool FTOverview::deleteOperation()
+{
+    int row=ui->tvTags_mov->selectionModel()->currentIndex().row();
+    int idop=ui->tvTags_mov->model()->index(row,0).data(0).toInt();
+    bool result=0;
+
+    QSqlQuery q(db);
+    QString sql="DELETE FROM tags_mov WHERE ID=:id";
+    q.prepare(sql);
+    q.bindValue(":id",idop);
+
+   result= q.exec();
+
+   if(result){
+       refresh();
+   }
+
+   return result;
 }
 
 
@@ -509,5 +543,47 @@ void FTOverview::on_rbNoProd_toggled(bool checked)
 void FTOverview::on_cbProdotto_currentIndexChanged(int index)
 {
     buildFilter();
+}
+
+
+void FTOverview::on_pbDEleteOperation_clicked()
+{   db.transaction();
+    bool b=deleteOperation();
+       if(b)
+       {
+          if(QMessageBox::question(this,QApplication::applicationName(),"Confermare eliminazione operazione?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
+          {
+              db.commit();
+              QMessageBox::information(this,QApplication::applicationName(),"Operazione eliminata",QMessageBox::Ok);
+          }else{
+              db.rollback();
+              QMessageBox::information(this,QApplication::applicationName(),"Eliminazione operazione cancellata",QMessageBox::Ok);
+          }
+
+       }
+
+       tagsmovmod=new QSqlQueryModel();
+       QSqlQuery q(db);
+       QString sql=QString();
+
+       sql="SELECT tags_mov.ID,tags_mov.data as DATA, tags.barcode as BARCODE,prodotti.ID as IDProdotto,prodotti.descrizione as PRODOTTO,clienti.ID as IDCliente,clienti.ragione_sociale as CLIENTE\
+               ,stampatori.ID as IDStampatore,stampatori.ragione_sociale as STAMPATORE,azione as IDAZIONE,azioni.descrizione as AZIONE,tags_mov.amount as QUANT,tags_mov.note\
+               FROM tags,tags_mov,anagrafica as stampatori,anagrafica as clienti,azioni,prodotti\
+               WHERE tags_mov.barcode=tags.barcode and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags.barcode =:barcode order by tags_mov.data DESC";
+               q.prepare(sql);
+       q.bindValue(":barcode", tagsmod->index(ui->tvTags->currentIndex().row(),0).data(0).toString());
+       q.bindValue(":idprodotto", tagsmod->index(ui->tvTags->currentIndex().row(),3).data(0).toString());
+       if (!q.exec())
+       {
+             qDebug()<<q.lastError().text()<<q.lastQuery();
+       }
+       tagsmovmod->setQuery(q);
+       ui->tvTags_mov->setModel(tagsmovmod);
+       ui->tvTags_mov->setColumnHidden(0,true);
+       ui->tvTags_mov->setColumnHidden(3,true);
+       ui->tvTags_mov->setColumnHidden(5,true);
+       ui->tvTags_mov->setColumnHidden(7,true);
+       ui->tvTags_mov->setColumnHidden(9,true);
+
 }
 

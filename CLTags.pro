@@ -23,6 +23,7 @@ SOURCES += \
     ftoverview.cpp \
     ftprint.cpp \
     ftsettings.cpp \
+    htagsrelationaltablemodel.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -41,6 +42,7 @@ HEADERS += \
     ftoverview.h \
     ftprint.h \
     ftsettings.h \
+    htagsrelationaltablemodel.h \
     mainwindow.h
 
 FORMS += \

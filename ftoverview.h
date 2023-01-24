@@ -6,6 +6,7 @@
 #include <QSqlTableModel>
 #include <QSqlRelationalTableModel>
 #include <QCompleter>
+#include "htagsrelationaltablemodel.h"
 
 namespace Ui {
 class FTOverview;
@@ -22,7 +23,7 @@ public:
 private:
     Ui::FTOverview *ui;
     QSqlDatabase db;
-    QSqlRelationalTableModel *tagsmod;
+    HTagsRelationalTableModel *tagsmod;
     QSqlQueryModel *tagsmovmod;
     QSqlTableModel *clientimod;
     QSqlQueryModel *prodottimod;
@@ -37,34 +38,25 @@ private slots:
    void refresh();
    void mod_mov(const QModelIndex index);
    void mod_tag(const QModelIndex index);
+   bool deleteOperation();
 
    void on_pbClose_clicked();
    void on_pbOperate_clicked();
    void on_pbDefinizioni_clicked();
    void on_tvTags_doubleClicked(const QModelIndex &index);
-
   // void on_leCliente_returnPressed();
-
    void on_pbModTag_clicked();
    void on_tvTags_mov_doubleClicked(const QModelIndex &index);
    void on_pbPrint_clicked();
    void on_pushButton_clicked();
    void getProdotti(int client_id=0);
-
-
    void on_pbNoFilters_clicked();
-
-
-
    void buildFilter();
    void on_cbCliente_currentIndexChanged(int index);
    void on_pbFilter_clicked();
-
-
    void on_leBarcode_returnPressed();
    void on_cbAttivi_toggled(bool checked);
    void on_pb_Scarico_clicked();
-
    void on_rbLabels_toggled(bool checked);
    void on_rbCust_toggled(bool checked);
    void on_rbAnyProd_toggled(bool checked);
@@ -73,6 +65,9 @@ private slots:
 
    void on_rbNoProd_toggled(bool checked);
    void on_cbProdotto_currentIndexChanged(int index);
+   void on_pbDEleteOperation_clicked();
+signals:
+   void mov_deleted();
 };
 
 #endif // FTOVERVIEW_H
