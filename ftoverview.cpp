@@ -164,10 +164,14 @@ void FTOverview::refresh()
    // ui->tvTags->setCurrentIndex(current);
 
 
+    tagsmod=new HTagsRelationalTableModel(nullptr);
+    tagsmod->setTable("tags");
+    tagsmod->setRelation(1,QSqlRelation("anagrafica","ID","ragione_sociale"));
+    tagsmod->setRelation(2,QSqlRelation("prodotti","ID","descrizione"));
+    tagsmod->setRelation(3,QSqlRelation("tags_tipi","ID","descrizione"));
+    tagsmod->select();
 
-
-    tagsmovmod->query().exec( tagsmovmod->query().executedQuery());
-    ui->tvTags_mov->setCurrentIndex(curmov);
+   // ui->tvTags_mov->setCurrentIndex(curmov);
 
 }
 
@@ -385,14 +389,12 @@ void FTOverview::buildFilter()
     QString filter="";
 
 
-    QString stipo;
+    QString stipo="";
+    int cust=-1;
+
+
     ui->rbLabels->isChecked() ?  stipo= "and relTblAl_3.ID=1": stipo="and relTblAl_3.ID=2";
 
-
-    QString cust=ui->cbCliente->currentText();
-    if (cust.contains("'")){
-        cust=cust.replace("'","\\\'");
-    }
 
 
     if(ui->rbLabels->isChecked())
@@ -409,10 +411,10 @@ void FTOverview::buildFilter()
     if(ui->rbCust->isChecked())
     {
 
+        cust=ui->cbCliente->model()->index(ui->cbCliente->currentIndex(),0).data(0).toInt();
 
 
-
-        ui->rbLabels->isChecked()? filter="relTblAl_1.ragione_sociale='"+cust+"' and relTblAl_3.ID=1": filter="relTblAl_1.ragione_sociale='"+ui->cbCliente->currentText()+"' and relTblAl_3.ID=2";
+        ui->rbLabels->isChecked()? filter="relTblAl_1.ID='"+ QString::number(cust) +"' and relTblAl_3.ID=1": filter="relTblAl_1.ID='"+QString::number(cust)+"' and relTblAl_3.ID=2";
 
     }
 
@@ -427,10 +429,10 @@ void FTOverview::buildFilter()
 
         if(ui->rbCust->isChecked())
         {
-
+            cust=ui->cbCliente->model()->index(ui->cbCliente->currentIndex(),0).data(0).toInt();
 
             ui->rbLabels->isChecked() ?  stipo= "and relTblAl_3.ID=1": stipo="and relTblAl_3.ID=2";
-            filter="relTblAl_1.ragione_sociale='"+cust+"' and relTblAl_2.descrizione='"+ ui->cbProdotto->currentText() +"' "+stipo;
+            filter="relTblAl_1.ID="+QString::number(cust)+" and relTblAl_2.descrizione='"+ ui->cbProdotto->currentText() +"' "+stipo;
 
         }
 

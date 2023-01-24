@@ -37,6 +37,7 @@ void FtContainers_Overview::getContainers()
     ui->tvOverview->setModel(mod);
     ui->tvOverview->setColumnHidden(0,true);
     ui->tvOverview->setColumnHidden(1,true);
+    ui->tvOverview->setColumnHidden(3,true);
     ui->tvOverview->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     connect(ui->tvOverview->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
 
