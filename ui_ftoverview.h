@@ -53,17 +53,20 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QTableView *tvTags;
     QTableView *tvTags_mov;
+    QHBoxLayout *horizontalLayout_5;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
     QPushButton *pbDefinizioni;
     QPushButton *pbModTag;
     QPushButton *pbPrint;
     QSpacerItem *horizontalSpacer_4;
+    QHBoxLayout *horizontalLayout_4;
     QPushButton *pbOperate;
     QPushButton *pb_Scarico;
     QPushButton *pushButton;
-    QPushButton *pbClose;
+    QPushButton *pbDEleteOperation;
     QSpacerItem *horizontalSpacer_2;
+    QPushButton *pbClose;
     QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
 
@@ -228,6 +231,8 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_2);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -265,10 +270,15 @@ public:
 
         horizontalLayout->addWidget(pbPrint);
 
+
+        horizontalLayout_5->addLayout(horizontalLayout);
+
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer_4);
+        horizontalLayout_5->addItem(horizontalSpacer_4);
 
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         pbOperate = new QPushButton(FTOverview);
         pbOperate->setObjectName(QString::fromUtf8("pbOperate"));
         pbOperate->setMinimumSize(QSize(130, 0));
@@ -278,7 +288,7 @@ public:
         pbOperate->setIcon(icon6);
         pbOperate->setIconSize(QSize(32, 32));
 
-        horizontalLayout->addWidget(pbOperate);
+        horizontalLayout_4->addWidget(pbOperate);
 
         pb_Scarico = new QPushButton(FTOverview);
         pb_Scarico->setObjectName(QString::fromUtf8("pb_Scarico"));
@@ -289,7 +299,7 @@ public:
         pb_Scarico->setIcon(icon7);
         pb_Scarico->setIconSize(QSize(32, 32));
 
-        horizontalLayout->addWidget(pb_Scarico);
+        horizontalLayout_4->addWidget(pb_Scarico);
 
         pushButton = new QPushButton(FTOverview);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
@@ -298,25 +308,37 @@ public:
         pushButton->setIcon(icon8);
         pushButton->setIconSize(QSize(32, 32));
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout_4->addWidget(pushButton);
+
+        pbDEleteOperation = new QPushButton(FTOverview);
+        pbDEleteOperation->setObjectName(QString::fromUtf8("pbDEleteOperation"));
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/resources/icons/Flag-red64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbDEleteOperation->setIcon(icon9);
+        pbDEleteOperation->setIconSize(QSize(32, 32));
+
+        horizontalLayout_4->addWidget(pbDEleteOperation);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_2);
 
         pbClose = new QPushButton(FTOverview);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
         pbClose->setMinimumSize(QSize(120, 0));
         pbClose->setMaximumSize(QSize(120, 16777215));
-        QIcon icon9;
-        icon9.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon10);
         pbClose->setIconSize(QSize(32, 32));
 
-        horizontalLayout->addWidget(pbClose);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_2);
+        horizontalLayout_4->addWidget(pbClose);
 
 
-        verticalLayout_3->addLayout(horizontalLayout);
+        horizontalLayout_5->addLayout(horizontalLayout_4);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_5);
 
 
         retranslateUi(FTOverview);
@@ -343,6 +365,7 @@ public:
         pbOperate->setText(QCoreApplication::translate("FTOverview", "Carico", nullptr));
         pb_Scarico->setText(QCoreApplication::translate("FTOverview", "Scarico", nullptr));
         pushButton->setText(QCoreApplication::translate("FTOverview", "Modifica operazione selezionata", nullptr));
+        pbDEleteOperation->setText(QCoreApplication::translate("FTOverview", "Elimina operazione selezionata", nullptr));
         pbClose->setText(QCoreApplication::translate("FTOverview", "Chiudi", nullptr));
     } // retranslateUi
 

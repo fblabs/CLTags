@@ -70,6 +70,7 @@ void FTOverview::setup()
     ui->tvTags->setColumnHidden(5,true);
     ui->tvTags->setColumnHidden(8,true);
     ui->tvTags->horizontalHeader()->setStretchLastSection(true);
+    ui->cbCliente->completer()->setCompletionMode(QCompleter::PopupCompletion);
 
 
     connect(ui->tvTags->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(findTagsMov()));
@@ -79,13 +80,14 @@ void FTOverview::setup()
     clientimod->setSort(1,Qt::AscendingOrder);
     clientimod->select();
 
-    clcomp=new QCompleter(clientimod);
-    clcomp->setCompletionColumn(1);
-    clcomp->setCaseSensitivity(Qt::CaseInsensitive);
-    clcomp->setCompletionMode(QCompleter::PopupCompletion);
-
     ui->cbCliente->setModel(clientimod);
     ui->cbCliente->setModelColumn(1);
+    ui->cbCliente->completer()->setCompletionColumn(1);
+    ui->cbCliente->completer()->setCompletionMode(QCompleter::PopupCompletion);
+   /* clcomp=new QCompleter(clientimod);
+    clcomp->setCompletionColumn(1);
+    clcomp->setCaseSensitivity(Qt::CaseInsensitive);
+    clcomp->setCompletionMode(QCompleter::PopupCompletion);*/
 
 
     QModelIndex ix=tagsmod->index(0,0);
@@ -144,6 +146,9 @@ void FTOverview::findTagsMov()
 
     ui->tvTags_mov->horizontalHeader()->setStretchLastSection(true);
 
+    ui->cbProdotto->completer()->setCompletionColumn(1);
+    ui->cbProdotto->completer()->setCompletionMode(QCompleter::PopupCompletion);
+
     // qDebug()<<q.lastQuery();
 
 }
@@ -161,7 +166,8 @@ void FTOverview::refresh()
 
     ui->tvTags->selectionModel()->select(row,QItemSelectionModel::ClearAndSelect);
 
-   // ui->tvTags->setCurrentIndex(current);
+    ui->tvTags->setCurrentIndex(current);
+    ui->tvTags->selectionModel()->select(current,QItemSelectionModel::Select);
 
 
     tagsmod=new HTagsRelationalTableModel(nullptr);
@@ -249,19 +255,13 @@ void FTOverview::on_pbDefinizioni_clicked()
 
 void FTOverview::on_tvTags_doubleClicked(const QModelIndex &index)
 {
-
     mod_tag(ui->tvTags->currentIndex());
-
 }
-
 
 void FTOverview::on_pbModTag_clicked()
 {
-    //mod_mov(ui->tvTags->currentIndex());
-    mod_tag(ui->tvTags->currentIndex());
+     mod_tag(ui->tvTags->currentIndex());
 }
-
-
 
 
 void FTOverview::on_tvTags_mov_doubleClicked(const QModelIndex &index)
@@ -458,19 +458,13 @@ void FTOverview::buildFilter()
         filter += " and stato<1";
     }
 
-
-
-
-
-
-    qDebug()<<"BUILD FILTER: "<<filter<<filter<<tagsmod->filter()<<tagsmod->lastError().text();
     tagsmod->setFilter(filter);
 
-    if(tagsmod->rowCount()<1)
+  /*  if(tagsmod->rowCount()<1)
     {
         ui->tvTags_mov->setModel(nullptr);
     }
-
+*/
 
 }
 

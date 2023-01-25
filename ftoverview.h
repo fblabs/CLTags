@@ -62,7 +62,6 @@ private slots:
    void on_rbAnyProd_toggled(bool checked);
    void on_rbNoCust_toggled(bool checked);
    void on_rbSigilli_toggled(bool checked);
-
    void on_rbNoProd_toggled(bool checked);
    void on_cbProdotto_currentIndexChanged(int index);
    void on_pbDEleteOperation_clicked();

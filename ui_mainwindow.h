@@ -160,7 +160,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.6.</span><span style=\" font-size:12pt;\">004</span></p></body></html>", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.7.</span><span style=\" font-size:12pt;\">003</span></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
         pbSettings->setToolTip(QCoreApplication::translate("MainWindow", "Impostazioni", nullptr));
 #endif // QT_CONFIG(tooltip)
