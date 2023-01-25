@@ -9,6 +9,7 @@
 #include <QModelIndex>
 #include <QSqlError>
 #include <QDebug>
+#include <QMessageBox>
 
 FtContainers_Overview::FtContainers_Overview(QSqlDatabase pdb,QWidget *parent) :
     QWidget(parent),
@@ -37,7 +38,6 @@ void FtContainers_Overview::getContainers()
     ui->tvOverview->setModel(mod);
     ui->tvOverview->setColumnHidden(0,true);
     ui->tvOverview->setColumnHidden(1,true);
-    ui->tvOverview->setColumnHidden(3,true);
     ui->tvOverview->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     connect(ui->tvOverview->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
 
@@ -92,6 +92,7 @@ void FtContainers_Overview::on_pbLoad_clicked()
     f->show();
 
     connect(f,SIGNAL(save_done()),this,SLOT(update_data()));
+    refresh();
 
 
 }
@@ -108,6 +109,7 @@ void FtContainers_Overview::on_pbUnload_clicked()
     f->show();
 
     ui->tvOverview->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
+    refresh();
 }
 
 void FtContainers_Overview::modify_tag()
@@ -126,6 +128,7 @@ void FtContainers_Overview::modify_tag()
 
     ui->tvDetails->setCurrentIndex(prev);
     getContainerOperations();
+    refresh();
 }
 
 void FtContainers_Overview::update_data()
@@ -135,5 +138,73 @@ void FtContainers_Overview::update_data()
     getContainers();
     ui->tvOverview->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
     getContainerOperations();
+}
+
+bool FtContainers_Overview::deleteOperation()
+{
+    int row=ui->tvDetails->selectionModel()->currentIndex().row();
+    QModelIndex ix=ui->tvDetails->model()->index(row,0);
+
+    int idop=ix.data(0).toInt();
+    QSqlQuery q(db);
+    QString sql="DELETE FROM tags_containers_mov WHERE ID=:id";
+
+    q.prepare(sql);
+    q.bindValue(":id", idop);
+
+    bool res=q.exec();
+
+    return res;
+}
+
+
+void FtContainers_Overview::on_pbDelete_clicked()
+{
+    if  (QMessageBox::question(this,QApplication::applicationName(),"Eliminare l'operazione?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
+    {
+        db.transaction();
+        if(deleteOperation())
+        {
+            db.commit();
+            QMessageBox::information(this,QApplication::applicationName(),"Operazione eliminata",QMessageBox::Ok);
+        }else{
+            db.rollback();
+            QMessageBox::information(this,QApplication::applicationName(),"Errore eliminando l-operazione",QMessageBox::Ok);
+        }
+
+        ui->tvOverview->setModel(refresh());
+    }
+
+}
+
+QSqlQueryModel* FtContainers_Overview::refresh()
+{
+
+
+
+    int row=ui->tvOverview->selectionModel()->currentIndex().row();
+    QModelIndex ix=ui->tvOverview->model()->index(row,0);
+    QModelIndex current=ui->tvOverview->currentIndex();
+
+
+    QSqlQuery q(db);
+    QSqlQueryModel *mod=new QSqlQueryModel();
+    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione, tags_containers.giacenza from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+    q.prepare(sql);
+    q.exec();
+    mod->setQuery(q);
+    ui->tvOverview->setColumnHidden(0,true);
+    ui->tvOverview->setColumnHidden(1,true);
+    ui->tvOverview->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    connect(ui->tvOverview->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
+    ui->tvOverview->setCurrentIndex(ix);
+    getContainerOperations();
+
+
+    return mod;
+
+
+
+
 }
 

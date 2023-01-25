@@ -16,6 +16,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -34,9 +35,11 @@ public:
     QLabel *label_2;
     QTableView *tvDetails;
     QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
     QPushButton *pbModify;
     QPushButton *pbLoad;
     QPushButton *pbUnload;
+    QPushButton *pbDelete;
     QPushButton *pbClose;
 
     void setupUi(QWidget *FtContainers_Overview)
@@ -58,7 +61,7 @@ public:
 
         tvOverview = new QTableView(FtContainers_Overview);
         tvOverview->setObjectName(QString::fromUtf8("tvOverview"));
-        tvOverview->setMaximumSize(QSize(300, 16777215));
+        tvOverview->setMaximumSize(QSize(16777215, 16777215));
         tvOverview->setSelectionMode(QAbstractItemView::SingleSelection);
         tvOverview->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvOverview->verticalHeader()->setVisible(false);
@@ -93,6 +96,10 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
         pbModify = new QPushButton(FtContainers_Overview);
         pbModify->setObjectName(QString::fromUtf8("pbModify"));
         pbModify->setMinimumSize(QSize(0, 0));
@@ -122,13 +129,22 @@ public:
 
         horizontalLayout->addWidget(pbUnload);
 
+        pbDelete = new QPushButton(FtContainers_Overview);
+        pbDelete->setObjectName(QString::fromUtf8("pbDelete"));
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/resources/icons/Flag-red64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbDelete->setIcon(icon3);
+        pbDelete->setIconSize(QSize(32, 32));
+
+        horizontalLayout->addWidget(pbDelete);
+
         pbClose = new QPushButton(FtContainers_Overview);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
         pbClose->setMinimumSize(QSize(0, 0));
         pbClose->setMaximumSize(QSize(16777215, 16777215));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon4);
         pbClose->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbClose);
@@ -153,6 +169,7 @@ public:
         pbModify->setText(QCoreApplication::translate("FtContainers_Overview", "Modifica Operazione", nullptr));
         pbLoad->setText(QCoreApplication::translate("FtContainers_Overview", "Carico", nullptr));
         pbUnload->setText(QCoreApplication::translate("FtContainers_Overview", "Scarico", nullptr));
+        pbDelete->setText(QCoreApplication::translate("FtContainers_Overview", "Elimina operazione", nullptr));
 #if QT_CONFIG(tooltip)
         pbClose->setToolTip(QCoreApplication::translate("FtContainers_Overview", "<html><head/><body><p>Chiudi</p><p><br/></p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)

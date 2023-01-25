@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QSqlDatabase>
+#include <QSqlQueryModel>
 
 namespace Ui {
 class FtContainers_Overview;
@@ -28,6 +29,9 @@ private slots:
    void on_pbUnload_clicked();
    void modify_tag();
    void update_data();
+   bool deleteOperation();
+   void on_pbDelete_clicked();
+   QSqlQueryModel *refresh();
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H
