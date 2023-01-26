@@ -63,12 +63,12 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QPushButton *pbOperate;
     QPushButton *pb_Scarico;
-    QPushButton *pushButton;
+    QPushButton *pbModifyOperation;
     QPushButton *pbDEleteOperation;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *pbClose;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QWidget *FTOverview)
     {
@@ -301,14 +301,14 @@ public:
 
         horizontalLayout_4->addWidget(pb_Scarico);
 
-        pushButton = new QPushButton(FTOverview);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pbModifyOperation = new QPushButton(FTOverview);
+        pbModifyOperation->setObjectName(QString::fromUtf8("pbModifyOperation"));
         QIcon icon8;
         icon8.addFile(QString::fromUtf8(":/resources/icons/Actions-configure-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton->setIcon(icon8);
-        pushButton->setIconSize(QSize(32, 32));
+        pbModifyOperation->setIcon(icon8);
+        pbModifyOperation->setIconSize(QSize(32, 32));
 
-        horizontalLayout_4->addWidget(pushButton);
+        horizontalLayout_4->addWidget(pbModifyOperation);
 
         pbDEleteOperation = new QPushButton(FTOverview);
         pbDEleteOperation->setObjectName(QString::fromUtf8("pbDEleteOperation"));
@@ -364,7 +364,7 @@ public:
         pbPrint->setText(QCoreApplication::translate("FTOverview", "Stampa", nullptr));
         pbOperate->setText(QCoreApplication::translate("FTOverview", "Carico", nullptr));
         pb_Scarico->setText(QCoreApplication::translate("FTOverview", "Scarico", nullptr));
-        pushButton->setText(QCoreApplication::translate("FTOverview", "Modifica operazione selezionata", nullptr));
+        pbModifyOperation->setText(QCoreApplication::translate("FTOverview", "Modifica operazione selezionata", nullptr));
         pbDEleteOperation->setText(QCoreApplication::translate("FTOverview", "Elimina operazione selezionata", nullptr));
         pbClose->setText(QCoreApplication::translate("FTOverview", "Chiudi", nullptr));
     } // retranslateUi

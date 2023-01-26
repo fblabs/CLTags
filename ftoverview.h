@@ -33,40 +33,41 @@ private:
     int GENERIC_PRODUCT;
 
 private slots:
-   void setup();
-   void findTagsMov();
-   void refresh();
-   void mod_mov(const QModelIndex index);
-   void mod_tag(const QModelIndex index);
-   bool deleteOperation();
+    void setup();
+    void findTagsMov();
+    void refresh();
+    void mod_mov(const QModelIndex index);
+    void mod_tag(const QModelIndex index);
+    bool deleteOperation();
 
-   void on_pbClose_clicked();
-   void on_pbOperate_clicked();
-   void on_pbDefinizioni_clicked();
-   void on_tvTags_doubleClicked(const QModelIndex &index);
-  // void on_leCliente_returnPressed();
-   void on_pbModTag_clicked();
-   void on_tvTags_mov_doubleClicked(const QModelIndex &index);
-   void on_pbPrint_clicked();
-   void on_pushButton_clicked();
-   void getProdotti(int client_id=0);
-   void on_pbNoFilters_clicked();
-   void buildFilter();
-   void on_cbCliente_currentIndexChanged(int index);
-   void on_pbFilter_clicked();
-   void on_leBarcode_returnPressed();
-   void on_cbAttivi_toggled(bool checked);
-   void on_pb_Scarico_clicked();
-   void on_rbLabels_toggled(bool checked);
-   void on_rbCust_toggled(bool checked);
-   void on_rbAnyProd_toggled(bool checked);
-   void on_rbNoCust_toggled(bool checked);
-   void on_rbSigilli_toggled(bool checked);
-   void on_rbNoProd_toggled(bool checked);
-   void on_cbProdotto_currentIndexChanged(int index);
-   void on_pbDEleteOperation_clicked();
+    void on_pbClose_clicked();
+    void on_pbOperate_clicked();
+    void on_pbDefinizioni_clicked();
+    void on_tvTags_doubleClicked(const QModelIndex &index);
+    // void on_leCliente_returnPressed();
+    void on_pbModTag_clicked();
+    void on_tvTags_mov_doubleClicked(const QModelIndex &index);
+    void on_pbPrint_clicked();
+    void getProdotti(int client_id=0);
+    void on_pbNoFilters_clicked();
+    void buildFilter();
+    void on_cbCliente_currentIndexChanged(int index);
+    void on_pbFilter_clicked();
+    void on_leBarcode_returnPressed();
+    void on_cbAttivi_toggled(bool checked);
+    void on_pb_Scarico_clicked();
+    void on_rbLabels_toggled(bool checked);
+    void on_rbCust_toggled(bool checked);
+    void on_rbAnyProd_toggled(bool checked);
+    void on_rbNoCust_toggled(bool checked);
+    void on_rbSigilli_toggled(bool checked);
+    void on_rbNoProd_toggled(bool checked);
+    void on_cbProdotto_currentIndexChanged(int index);
+    void on_pbDEleteOperation_clicked();
+    void on_pbModifyOperation_clicked();
+
 signals:
-   void mov_deleted();
+    void mov_deleted();
 };
 
 #endif // FTOVERVIEW_H

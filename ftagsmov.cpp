@@ -25,7 +25,7 @@ struct {
 
 }img1, img2;
 
-FTagsMov::FTagsMov(int pazione, QString pbarcode, QString pdescprodotto, QSqlDatabase pdb, QWidget *parent):
+FTagsMov::FTagsMov(const int pazione, const QString pbarcode, const QString pdescprodotto, QSqlDatabase pdb, QWidget *parent):
     QWidget(parent),
     ui(new Ui::FTagsMov)
 {
@@ -107,7 +107,7 @@ void FTagsMov::setup()
         QSqlQuery q(db);
         QString sql ="select tags_tipi.descrizione as tipo, clienti.ragione_sociale as clienti, prodotti.descrizione as prodotto, tags.barcode, tags.specifica,tags.immagine,tags.note,tags.stato\
                 from tags,tags_tipi,anagrafica as clienti,prodotti\
-                where tags.barcode  =:barcode and clienti.cliente>0 and tags_tipi.ID=tags.IDtipo and clienti.ID=tags.IDCliente and prodotti.ID=tags.IDProdotto";
+                where tags.barcode=:barcode  and tags_tipi.ID=tags.IDtipo and clienti.ID=tags.IDCliente and clienti.cliente>0 and prodotti.ID=tags.IDProdotto";
                 q.prepare(sql);
         q.bindValue(":barcode",barcode);
         q.exec();
@@ -118,6 +118,8 @@ void FTagsMov::setup()
         ui->cbTipo->setCurrentIndex(ixt);
         int ixc=ui->cbClienti->findText(datamod->index(0,1).data(0).toString());
         ui->cbClienti->setCurrentIndex(ixc);
+
+        qDebug()<<q.lastError().text()<<datamod->index(0,1).data(0).toString();
 
         getProdotti(modclienti->index(ixc,0).data(0).toInt());
 
@@ -260,7 +262,7 @@ void FTagsMov::save()
     QString note=ui->teNote->toPlainText();
     int stato=0;
 
-     if (ui->cbState->isChecked()) stato=1;
+    if (ui->cbState->isChecked()) stato=1;
 
 
 
@@ -374,7 +376,7 @@ void FTagsMov::img_reset()
 
 void FTagsMov::refresh()
 {
-   // qDebug()<<"refresh()";
+    // qDebug()<<"refresh()";
 
     if(ui->rb1->isChecked()){
 
@@ -521,9 +523,9 @@ void FTagsMov::on_rbAll_toggled(bool checked)
 
 void FTagsMov::on_pbMov_clicked()
 {
-  //  FTOperate *f=new FTOperate(db,ui->leBarcode->text());
+    //  FTOperate *f=new FTOperate(db,ui->leBarcode->text());
 
- //   f->show();
+    //   f->show();
 }
 
 
@@ -572,12 +574,12 @@ bool FTagsMov::eventFilter(QObject *obj, QEvent *evt)
     if(obj==ui->lbImage1 && evt->type()==QEvent::MouseButtonDblClick)
     {
 
-           //qDebug()<<"event label1";
-           emit imageClicked(img1.path);
+        //qDebug()<<"event label1";
+        emit imageClicked(img1.path);
 
 
-     }
-     if  (obj==ui->lbImage2 && evt->type()== QEvent::MouseButtonDblClick)
+    }
+    if  (obj==ui->lbImage2 && evt->type()== QEvent::MouseButtonDblClick)
     {
         //qDebug()<<"event label2";
         emit imageClicked(img2.path);

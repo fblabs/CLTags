@@ -1,5 +1,5 @@
 #include "ftprint.h"
-//#include <QDebug>
+#include <QDebug>
 #include "ui_ftprint.h"
 #include <QAbstractItemModel>
 #include <QFileDialog>
@@ -24,6 +24,7 @@ FTPrint::~FTPrint()
 
 void FTPrint::modelToHtml(QString ptitle,QStringList pcolNames,QList<int>hiddenCols)
 {
+    qDebug()<<"MODTOHTML";
     QString strStream;
  /*   QString filename=QFileDialog::getSaveFileName(0,"Scegli nome del file",QString(),"Pdf (*.pdf)");
     if(filename.isEmpty() || filename.isNull())
