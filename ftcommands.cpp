@@ -4,11 +4,12 @@
 #include "ftagsmov.h"
 #include "ftoverview.h"
 
-FtCommands::FtCommands(QSqlDatabase pdb,QWidget *parent) :
+FtCommands::FtCommands(int p_id_tag, QSqlDatabase pdb, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FtCommands)
 {
     ui->setupUi(this);
+    id_tag=p_id_tag;
     this->setWindowFlags(Qt::CustomizeWindowHint);
     this->setMouseTracking(true);
 
@@ -33,7 +34,8 @@ void FtCommands::on_pbOverview_clicked()
 
 void FtCommands::on_pbMov_clicked()
 {
-    FTagsMov *f=new FTagsMov(0,QString(),QString(),db);
+
+    FTagsMov *f=new FTagsMov(0,id_tag,QString(),db);
     emit accepted();
     f->show();
 

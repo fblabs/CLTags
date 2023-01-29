@@ -20,6 +20,7 @@ public:
 private:
     Ui::FtContainers_Overview *ui;
     QSqlDatabase db;
+    QSqlQueryModel* mod;
 private slots:
    void getContainers();
    void getContainerOperations();
@@ -28,10 +29,10 @@ private slots:
    void on_pbLoad_clicked();
    void on_pbUnload_clicked();
    void modify_tag();
-   void update_data();
+ //  void update_data();
    bool deleteOperation();
    void on_pbDelete_clicked();
-   QSqlQueryModel *refresh();
+   void refresh();
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H

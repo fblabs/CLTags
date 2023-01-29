@@ -30,7 +30,6 @@ void FTModMov::setup()
     q.prepare(sql);
     q.bindValue(":pid",id);
     q.exec();
-   //qDebug()<<q.lastError().text();
 
     QSqlQueryModel *mod=new QSqlQueryModel();
     mod->setQuery(q);
@@ -60,6 +59,7 @@ void FTModMov::setup()
     ui->cbStampatori->setModel(stampatorimod);
     ui->cbStampatori->setModelColumn(1);
     int s=ui->cbStampatori->findText(mod->index(0,2).data(0).toString());
+    qDebug()<<"S:"<<s;
     ui->cbStampatori->setCurrentIndex(s);
 
 

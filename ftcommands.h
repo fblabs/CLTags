@@ -13,7 +13,7 @@ class FtCommands : public QDialog
     Q_OBJECT
 
 public:
-    explicit FtCommands(QSqlDatabase pdb=QSqlDatabase(), QWidget *parent = nullptr);
+    explicit FtCommands(int p_id_tag=-1, QSqlDatabase pdb=QSqlDatabase(), QWidget *parent = nullptr);
     ~FtCommands();
 
 private slots:
@@ -32,6 +32,7 @@ private: signals:
 
 private:
     Ui::FtCommands *ui;
+    int id_tag;
     QSqlDatabase db;
 };
 

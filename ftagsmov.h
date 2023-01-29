@@ -15,7 +15,7 @@ class FTagsMov : public QWidget
     Q_OBJECT
 
 public:
-    explicit FTagsMov(const int pazione=0, const QString pbarcode=QString(), const QString pidprodotto=QString(), QSqlDatabase pdb=QSqlDatabase(), QWidget *parent = nullptr);
+    explicit FTagsMov(const int p_azione=0, const int p_id_tag=-1, const QString pidprodotto=QString(), QSqlDatabase pdb=QSqlDatabase(), QWidget *parent = nullptr);
     ~FTagsMov();
 
 private slots:
@@ -66,6 +66,7 @@ private:
     QSqlTableModel *modbarcodes;
     QSqlTableModel *modazioni;
     int azione;
+    int id_tag;
     QString barcode,descprod;
     QStringList sl_immagini;
     QString separator;

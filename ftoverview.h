@@ -29,6 +29,7 @@ private:
     QSqlQueryModel *prodottimod;
     QCompleter *clcomp;
     QCompleter *prcomp;
+    int current_tag_id;
     int GENERIC_CUSTOMER;
     int GENERIC_PRODUCT;
 
@@ -39,6 +40,7 @@ private slots:
     void mod_mov(const QModelIndex index);
     void mod_tag(const QModelIndex index);
     bool deleteOperation();
+    HTagsRelationalTableModel *buildModel();
 
     void on_pbClose_clicked();
     void on_pbOperate_clicked();
@@ -50,10 +52,9 @@ private slots:
     void on_pbPrint_clicked();
     void getProdotti(int client_id=0);
     void on_pbNoFilters_clicked();
-    void buildFilter();
+    QString buildFilter();
     void on_cbCliente_currentIndexChanged(int index);
     void on_pbFilter_clicked();
-    void on_leBarcode_returnPressed();
     void on_cbAttivi_toggled(bool checked);
     void on_pb_Scarico_clicked();
     void on_rbLabels_toggled(bool checked);
@@ -65,6 +66,7 @@ private slots:
     void on_cbProdotto_currentIndexChanged(int index);
     void on_pbDEleteOperation_clicked();
     void on_pbModifyOperation_clicked();
+    void on_leBarcode_returnPressed();
 
 signals:
     void mov_deleted();

@@ -107,7 +107,9 @@ void MainWindow::setup()
 
 void MainWindow::on_pbLabels_clicked()
 {
-   FtCommands *f=new FtCommands(db);
+
+
+   FtCommands *f=new FtCommands(-1);
    QPoint x=QCursor::pos();
    QPoint pcorrect(x.x(),x.y()-200);
 

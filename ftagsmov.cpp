@@ -25,7 +25,7 @@ struct {
 
 }img1, img2;
 
-FTagsMov::FTagsMov(const int pazione, const QString pbarcode, const QString pdescprodotto, QSqlDatabase pdb, QWidget *parent):
+FTagsMov::FTagsMov(const int p_azione, const int p_id_tag, const QString p_idprodotto, QSqlDatabase pdb, QWidget *parent):
     QWidget(parent),
     ui(new Ui::FTagsMov)
 {
@@ -40,9 +40,9 @@ FTagsMov::FTagsMov(const int pazione, const QString pbarcode, const QString pdes
     ui->lbImage2->installEventFilter(this);
 
     db=pdb;
-    azione=pazione;
-    barcode=pbarcode;
-    descprod=pdescprodotto;
+    azione=p_azione;
+    id_tag=p_id_tag;
+    descprod=p_idprodotto;
     separator="F: ";
     modbarcodes=new QSqlTableModel(nullptr,db);
     modbarcodes->setTable("tags");
@@ -107,9 +107,9 @@ void FTagsMov::setup()
         QSqlQuery q(db);
         QString sql ="select tags_tipi.descrizione as tipo, clienti.ragione_sociale as clienti, prodotti.descrizione as prodotto, tags.barcode, tags.specifica,tags.immagine,tags.note,tags.stato\
                 from tags,tags_tipi,anagrafica as clienti,prodotti\
-                where tags.barcode=:barcode  and tags_tipi.ID=tags.IDtipo and clienti.ID=tags.IDCliente and clienti.cliente>0 and prodotti.ID=tags.IDProdotto";
+                where tags.ID=:id  and tags_tipi.ID=tags.IDtipo and clienti.ID=tags.IDCliente and clienti.cliente>0 and prodotti.ID=tags.IDProdotto";
                 q.prepare(sql);
-        q.bindValue(":barcode",barcode);
+        q.bindValue(":id",id_tag);
         q.exec();
         QSqlQueryModel *datamod=new QSqlQueryModel(this);
         datamod->setQuery(q);
@@ -238,7 +238,7 @@ void FTagsMov::save()
     }else{
 
 
-        sql="UPDATE `fbgmdb260`.`tags` SET`barcode`=:barcode,`IDProdotto`=:IDProdotto,`IDCliente`=:IDCliente,`IDTipo`=:IDTipo,`specifica`=:specifica,`immagine`=:immagine,`note`=:note, stato=:stato WHERE barcode=:obarcode";
+        sql="UPDATE `fbgmdb260`.`tags` SET`barcode`=:barcode,`IDProdotto`=:IDProdotto,`IDCliente`=:IDCliente,`IDTipo`=:IDTipo,`specifica`=:specifica,`immagine`=:immagine,`note`=:note, stato=:stato WHERE ID=:ID";
 
     }
 
@@ -276,7 +276,7 @@ void FTagsMov::save()
     q.bindValue(":note",note);
     q.bindValue(":stato",stato);
     if(azione==1){
-        q.bindValue(":obarcode",barcode);
+        q.bindValue(":ID",id_tag);
 
     }
 

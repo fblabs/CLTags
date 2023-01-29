@@ -44,7 +44,7 @@ void FtCommands_Containers::on_pbUnload_clicked()
 void FtCommands_Containers::on_pbContainersOverview_clicked()
 {
    FtContainers_Overview *f=new FtContainers_Overview(db);
-   f->show();
+   f->showMaximized();
    close();
 }
 

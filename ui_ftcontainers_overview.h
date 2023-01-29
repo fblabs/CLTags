@@ -16,7 +16,6 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -27,19 +26,19 @@ class Ui_FtContainers_Overview
 {
 public:
     QVBoxLayout *verticalLayout_3;
-    QHBoxLayout *horizontalLayout_2;
-    QVBoxLayout *verticalLayout;
     QLabel *label;
-    QTableView *tvOverview;
-    QVBoxLayout *verticalLayout_2;
     QLabel *label_2;
+    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_2;
+    QTableView *tvOverview;
+    QVBoxLayout *verticalLayout;
     QTableView *tvDetails;
     QHBoxLayout *horizontalLayout;
-    QSpacerItem *horizontalSpacer;
     QPushButton *pbModify;
     QPushButton *pbLoad;
     QPushButton *pbUnload;
     QPushButton *pbDelete;
+    QHBoxLayout *horizontalLayout_5;
     QPushButton *pbClose;
 
     void setupUi(QWidget *FtContainers_Overview)
@@ -50,15 +49,20 @@ public:
         FtContainers_Overview->resize(1319, 485);
         verticalLayout_3 = new QVBoxLayout(FtContainers_Overview);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label = new QLabel(FtContainers_Overview);
         label->setObjectName(QString::fromUtf8("label"));
 
-        verticalLayout->addWidget(label);
+        verticalLayout_3->addWidget(label);
 
+        label_2 = new QLabel(FtContainers_Overview);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        verticalLayout_3->addWidget(label_2);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         tvOverview = new QTableView(FtContainers_Overview);
         tvOverview->setObjectName(QString::fromUtf8("tvOverview"));
         tvOverview->setMaximumSize(QSize(16777215, 16777215));
@@ -67,18 +71,13 @@ public:
         tvOverview->verticalHeader()->setVisible(false);
         tvOverview->verticalHeader()->setHighlightSections(false);
 
-        verticalLayout->addWidget(tvOverview);
+        verticalLayout_2->addWidget(tvOverview);
 
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_2->addLayout(verticalLayout_2);
 
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        label_2 = new QLabel(FtContainers_Overview);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        verticalLayout_2->addWidget(label_2);
-
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         tvDetails = new QTableView(FtContainers_Overview);
         tvDetails->setObjectName(QString::fromUtf8("tvDetails"));
         tvDetails->setAlternatingRowColors(true);
@@ -86,20 +85,10 @@ public:
         tvDetails->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvDetails->verticalHeader()->setVisible(false);
 
-        verticalLayout_2->addWidget(tvDetails);
-
-
-        horizontalLayout_2->addLayout(verticalLayout_2);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_2);
+        verticalLayout->addWidget(tvDetails);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer);
-
         pbModify = new QPushButton(FtContainers_Overview);
         pbModify->setObjectName(QString::fromUtf8("pbModify"));
         pbModify->setMinimumSize(QSize(0, 0));
@@ -138,6 +127,17 @@ public:
 
         horizontalLayout->addWidget(pbDelete);
 
+
+        verticalLayout->addLayout(horizontalLayout);
+
+
+        horizontalLayout_2->addLayout(verticalLayout);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_2);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         pbClose = new QPushButton(FtContainers_Overview);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
         pbClose->setMinimumSize(QSize(0, 0));
@@ -147,10 +147,10 @@ public:
         pbClose->setIcon(icon4);
         pbClose->setIconSize(QSize(32, 32));
 
-        horizontalLayout->addWidget(pbClose);
+        horizontalLayout_5->addWidget(pbClose);
 
 
-        verticalLayout_3->addLayout(horizontalLayout);
+        verticalLayout_3->addLayout(horizontalLayout_5);
 
 
         retranslateUi(FtContainers_Overview);

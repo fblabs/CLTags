@@ -6,6 +6,7 @@
 #include <QSqlTableModel>
 #include <QSqlError>
 #include <QDebug>
+#include <QMessageBox>
 
 
 FtContainersOperation_mod::FtContainersOperation_mod(const int pidop,const QString p_supplier,QSqlDatabase pdb, QWidget *parent) :
@@ -118,7 +119,10 @@ void FtContainersOperation_mod::updateOp()
     }
 
     db.commit();
+
     emit save_done();
+    QMessageBox::information(this,QApplication::applicationName(),"Dati salvati",QMessageBox::Ok);
+
     close();
 }
 
