@@ -33,6 +33,7 @@ private:
     QSqlDatabase db;
     int id_tag;
     int inserted_tag_id;
+    QString supplier;
 
 signals:
 

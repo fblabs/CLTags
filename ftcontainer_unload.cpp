@@ -5,6 +5,7 @@
 #include <QSqlQueryModel>
 #include <QSqlTableModel>
 #include <QDate>
+#include <QMessageBox>
 #include <QDebug>
 #include <QSqlError>
 
@@ -98,6 +99,7 @@ void FtContainer_unload::on_pbClose_clicked()
 void FtContainer_unload::on_pbSave_clicked()
 {
     saveUnload();
+    QMessageBox::information(this,QApplication::applicationName(),"Dati Salvati correttamente",QMessageBox::Ok);
     close();
 
 }

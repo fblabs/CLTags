@@ -61,7 +61,7 @@ void FtContainers_Overview::getContainerOperations()
     q.bindValue(":id_container", id_container);
     q.exec();
     mod_details->setQuery(q);
-qDebug()<<q.lastError().text();
+    qDebug()<<q.lastError().text();
     ui->tvDetails->setModel(mod_details);
     ui->tvDetails->setColumnHidden(0,true);
     ui->tvDetails->setColumnHidden(1,true);
@@ -73,32 +73,27 @@ qDebug()<<q.lastError().text();
 
 void FtContainers_Overview::on_pbClose_clicked()
 {
-   if(QMessageBox::question(this,QApplication::applicationName(),"Chiudere la finestra?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
-   {
-    close();
-   }
+    if(QMessageBox::question(this,QApplication::applicationName(),"Chiudere la finestra?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
+    {
+        close();
+    }
 }
 
 
 void FtContainers_Overview::on_pbModify_clicked()
 {
-   modify_tag();
+    modify_tag();
 }
 
 
 void FtContainers_Overview::on_pbLoad_clicked()
 {
-
-    int row=ui->tvOverview->selectionModel()->currentIndex().row();
-    int pidtag=ui->tvOverview->model()->index(row,0).data(0).toInt();
-    FtContainerLoad *f= new FtContainerLoad(pidtag,db);
-    connect(f,SIGNAL(save_done()),this,SLOT(refresh()));
+    int row=ui->tvOverview->currentIndex().row();
+    int id=ui->tvOverview->model()->index(row,0).data(0).toInt();
+    QString supplier=ui->tvDetails->model()->index(row,4).data(0).toString();
+    QModelIndex ix=ui->tvOverview->currentIndex();
+    FtContainerLoad *f=new FtContainerLoad(id,db);
     f->show();
-
-    QMessageBox::information(this,QApplication::applicationName(),"Dati salvati",QMessageBox::Ok);
-
-
-
 
 }
 
@@ -112,11 +107,7 @@ void FtContainers_Overview::on_pbUnload_clicked()
     FtContainer_unload *f=new FtContainer_unload(id,db);
     connect(f,SIGNAL(save_done()),this,SLOT(refresh()));
     f->show();
-    ui->tvOverview->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
-
-    QMessageBox::information(this,QApplication::applicationName(),"Dati salvati",QMessageBox::Ok);
-
-
+    ui->tvOverview->setCurrentIndex(ix);
 
 }
 
@@ -128,6 +119,8 @@ void FtContainers_Overview::modify_tag()
 
     int idop=ix.data(0).toInt();
     QString supplier=ui->tvDetails->model()->index(row,4).data(0).toString();
+
+
     FtContainersOperation_mod *f=new FtContainersOperation_mod(idop,supplier,db);
 
     connect(f,SIGNAL(save_done()),this,SLOT(refresh()));
@@ -178,9 +171,9 @@ void FtContainers_Overview::on_pbDelete_clicked()
             QMessageBox::information(this,QApplication::applicationName(),"Errore eliminando l-operazione",QMessageBox::Ok);
         }
 
-       refresh();
+        refresh();
 
-       connect(ui->tvOverview,SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
+        connect(ui->tvOverview,SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
 
 
 
@@ -191,7 +184,7 @@ void FtContainers_Overview::on_pbDelete_clicked()
 
 void FtContainers_Overview::refresh()
 {
-   qDebug()<<"REFRESH";
+    qDebug()<<"REFRESH";
 
     QModelIndex current=ui->tvOverview->currentIndex();
     QModelIndex row=ui->tvOverview->model()->index(current.row(),0);
@@ -213,5 +206,16 @@ void FtContainers_Overview::refresh()
 
 
 
+}
+
+
+void FtContainers_Overview::on_tvDetails_doubleClicked(const QModelIndex &index)
+{
+    QModelIndex ix=ui->tvOverview->currentIndex();
+    modify_tag();
+
+    ui->tvOverview->setCurrentIndex(ix);
+
+    refresh();
 }
 

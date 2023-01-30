@@ -113,6 +113,8 @@ public:
 
         cbSupplier = new QComboBox(FtContainerLoad);
         cbSupplier->setObjectName(QString::fromUtf8("cbSupplier"));
+        cbSupplier->setEditable(true);
+        cbSupplier->setInsertPolicy(QComboBox::NoInsert);
 
         horizontalLayout_3->addWidget(cbSupplier);
 

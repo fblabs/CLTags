@@ -29,10 +29,10 @@ private slots:
    void on_pbLoad_clicked();
    void on_pbUnload_clicked();
    void modify_tag();
- //  void update_data();
-   bool deleteOperation();
+    bool deleteOperation();
    void on_pbDelete_clicked();
    void refresh();
+   void on_tvDetails_doubleClicked(const QModelIndex &index);
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H

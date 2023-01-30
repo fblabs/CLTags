@@ -4,10 +4,11 @@
 #include <QSqlTableModel>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QMessageBox>
 #include <QDebug>
 #include <QSqlError>
 
-FtContainerLoad::FtContainerLoad(const int pidtag,QSqlDatabase pdb, QWidget *parent) :
+FtContainerLoad::FtContainerLoad(const int pidtag, QSqlDatabase pdb, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FtContainerLoad)
 {
@@ -18,6 +19,8 @@ FtContainerLoad::FtContainerLoad(const int pidtag,QSqlDatabase pdb, QWidget *par
     ui->deDate->setDate(QDate::currentDate());
     getTags();
     getSuppliers();
+
+
     inserted_tag_id=-1;
 }
 
@@ -44,11 +47,7 @@ void FtContainerLoad::getSuppliers()
 
     ui->cbSupplier->setModel(suppliers_mod);
     ui->cbSupplier->setModelColumn(1);
-
-
-
-
-}
+ }
 
 void FtContainerLoad::getTags()
 {
@@ -121,10 +120,13 @@ bool FtContainerLoad::save_tag()
     {
         db.rollback();
         qDebug()<<"ERRORE IN SAVE:"<<inserted_tag_id<<q.lastQuery()<<q.lastError().text()<<id_tag;
+        QMessageBox::warning(this,QApplication::applicationName(),"ERRORE:\n"+q.lastError().text(),QMessageBox::Ok);
     }
 
     db.commit();
+    QMessageBox::information(this,QApplication::applicationName(),"Dati salvati correttamente",QMessageBox::Ok);
     emit save_done();
+    close();
 
     return b;
 
