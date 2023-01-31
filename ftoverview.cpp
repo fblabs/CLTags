@@ -121,7 +121,7 @@ void FTOverview::findTagsMov()
     ui->tvTags_mov->setColumnHidden(1,true);
     ui->tvTags_mov->setColumnHidden(3,true);
     ui->tvTags_mov->setColumnHidden(4,true);
-    ui->tvTags_mov->setColumnHidden(5,true);
+  //  ui->tvTags_mov->setColumnHidden(5,true);
     ui->tvTags_mov->setColumnHidden(6,true);
     ui->tvTags_mov->setColumnHidden(8,true);
     ui->tvTags_mov->setColumnHidden(10,true);
