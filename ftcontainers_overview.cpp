@@ -10,6 +10,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QMessageBox>
+#include "ftupdate_tag.h"
 
 FtContainers_Overview::FtContainers_Overview(QSqlDatabase pdb,QWidget *parent) :
     QWidget(parent),
@@ -31,14 +32,15 @@ void FtContainers_Overview::getContainers()
 {
     QSqlQuery q(db);
     mod=new QSqlQueryModel();
-    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione, tags_containers.giacenza from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
     q.prepare(sql);
     q.exec();
     mod->setQuery(q);
     ui->tvOverview->setModel(mod);
     ui->tvOverview->setColumnHidden(0,true);
     ui->tvOverview->setColumnHidden(1,true);
-    ui->tvOverview->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tvOverview->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
     connect(ui->tvOverview->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
 
 }
@@ -217,5 +219,16 @@ void FtContainers_Overview::on_tvDetails_doubleClicked(const QModelIndex &index)
     ui->tvOverview->setCurrentIndex(ix);
 
     refresh();
+}
+
+
+void FtContainers_Overview::on_tvOverview_doubleClicked(const QModelIndex &index)
+{
+    int row=ui->tvOverview->currentIndex().row();
+    int id=ui->tvOverview->model()->index(row,0).data(0).toInt();
+
+    FtUpdate_Tag *f= new FtUpdate_Tag(id,db);
+    connect(f,SIGNAL(container_updated()),this,SLOT(refresh()));
+    f->show();
 }
 

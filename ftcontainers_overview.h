@@ -33,6 +33,7 @@ private slots:
    void on_pbDelete_clicked();
    void refresh();
    void on_tvDetails_doubleClicked(const QModelIndex &index);
+   void on_tvOverview_doubleClicked(const QModelIndex &index);
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H

@@ -27,7 +27,6 @@ class Ui_FtContainers_Overview
 public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label;
-    QLabel *label_2;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout_2;
     QTableView *tvOverview;
@@ -54,11 +53,6 @@ public:
 
         verticalLayout_3->addWidget(label);
 
-        label_2 = new QLabel(FtContainers_Overview);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        verticalLayout_3->addWidget(label_2);
-
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         verticalLayout_2 = new QVBoxLayout();
@@ -66,8 +60,10 @@ public:
         tvOverview = new QTableView(FtContainers_Overview);
         tvOverview->setObjectName(QString::fromUtf8("tvOverview"));
         tvOverview->setMaximumSize(QSize(16777215, 16777215));
+        tvOverview->setEditTriggers(QAbstractItemView::NoEditTriggers);
         tvOverview->setSelectionMode(QAbstractItemView::SingleSelection);
         tvOverview->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tvOverview->horizontalHeader()->setStretchLastSection(true);
         tvOverview->verticalHeader()->setVisible(false);
         tvOverview->verticalHeader()->setHighlightSections(false);
 
@@ -80,9 +76,11 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         tvDetails = new QTableView(FtContainers_Overview);
         tvDetails->setObjectName(QString::fromUtf8("tvDetails"));
+        tvDetails->setEditTriggers(QAbstractItemView::NoEditTriggers);
         tvDetails->setAlternatingRowColors(true);
         tvDetails->setSelectionMode(QAbstractItemView::SingleSelection);
         tvDetails->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tvDetails->horizontalHeader()->setStretchLastSection(true);
         tvDetails->verticalHeader()->setVisible(false);
 
         verticalLayout->addWidget(tvDetails);
@@ -162,7 +160,6 @@ public:
     {
         FtContainers_Overview->setWindowTitle(QCoreApplication::translate("FtContainers_Overview", "Panoramica Vasi e Tappi", nullptr));
         label->setText(QCoreApplication::translate("FtContainers_Overview", "Vasi- Tappi", nullptr));
-        label_2->setText(QCoreApplication::translate("FtContainers_Overview", "Operazioni", nullptr));
 #if QT_CONFIG(tooltip)
         pbModify->setToolTip(QCoreApplication::translate("FtContainers_Overview", "<html><head/><body><p>modifica operazione selezionata</p><p><br/></p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)

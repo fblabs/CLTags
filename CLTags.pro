@@ -23,6 +23,7 @@ SOURCES += \
     ftoverview.cpp \
     ftprint.cpp \
     ftsettings.cpp \
+    ftupdate_tag.cpp \
     htagsrelationaltablemodel.cpp \
     main.cpp \
     mainwindow.cpp
@@ -42,6 +43,7 @@ HEADERS += \
     ftoverview.h \
     ftprint.h \
     ftsettings.h \
+    ftupdate_tag.h \
     htagsrelationaltablemodel.h \
     mainwindow.h
 
@@ -60,6 +62,7 @@ FORMS += \
     ftoverview.ui \
     ftprint.ui \
     ftsettings.ui \
+    ftupdate_tag.ui \
     mainwindow.ui
 
 # Default rules for deployment.
