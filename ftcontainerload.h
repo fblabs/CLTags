@@ -20,14 +20,8 @@ private slots:
     void on_pbClose_clicked();
     void getSuppliers();
     void getTags();
-   // bool init_tag();
     bool save_tag();
-
-
     void on_pbSave_clicked();
-
-//    void on_pbInit_clicked();
-
 private:
     Ui::FtContainerLoad *ui;
     QSqlDatabase db;
@@ -36,8 +30,7 @@ private:
     QString supplier;
 
 signals:
-
-    void save_done();
+    void sg_save_load();
 
 };
 

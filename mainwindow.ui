@@ -82,7 +82,7 @@
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CLTags &lt;span style=&quot; font-size:20pt;&quot;&gt;1.9.2.&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;001&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CLTags &lt;span style=&quot; font-size:20pt;&quot;&gt;1.9.2.&lt;/span&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;002&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="scaledContents">
          <bool>true</bool>

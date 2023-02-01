@@ -95,6 +95,8 @@ void FtContainers_Overview::on_pbLoad_clicked()
     QString supplier=ui->tvDetails->model()->index(row,4).data(0).toString();
     QModelIndex ix=ui->tvOverview->currentIndex();
     FtContainerLoad *f=new FtContainerLoad(id,db);
+    connect(f,SIGNAL(sg_save_load()),this,SLOT(refresh()));
+
     f->show();
 
 }
@@ -159,8 +161,7 @@ void FtContainers_Overview::on_pbDelete_clicked()
     if  (QMessageBox::question(this,QApplication::applicationName(),"Eliminare l'operazione?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
     {
 
-        QModelIndex current=ui->tvOverview->currentIndex();
-        QModelIndex currentDet=ui->tvDetails->currentIndex();
+
 
 
         db.transaction();
@@ -196,7 +197,9 @@ void FtContainers_Overview::refresh()
     ui->tvOverview->selectionModel()->select(row,QItemSelectionModel::ClearAndSelect);
 
     QSqlQuery q(db);
-    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione, tags_containers.giacenza from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+  //  QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione, tags_containers.giacenza from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+
+    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
     q.prepare(sql);
     q.exec();
     mod->setQuery(q);

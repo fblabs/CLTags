@@ -125,7 +125,6 @@ bool FtContainerLoad::save_tag()
 
     db.commit();
     QMessageBox::information(this,QApplication::applicationName(),"Dati salvati correttamente",QMessageBox::Ok);
-    emit save_done();
     close();
 
     return b;
@@ -143,7 +142,7 @@ void FtContainerLoad::on_pbSave_clicked()
     if (b){
 
         db.commit();
-        emit save_done();
+        emit sg_save_load();
 
     }else{
 
