@@ -34,6 +34,8 @@ private slots:
    void refresh();
    void on_tvDetails_doubleClicked(const QModelIndex &index);
    void on_tvOverview_doubleClicked(const QModelIndex &index);
+
+   void on_leSearch_returnPressed();
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H

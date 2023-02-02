@@ -15,7 +15,9 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -26,7 +28,10 @@ class Ui_FtContainers_Overview
 {
 public:
     QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_3;
     QLabel *label;
+    QLineEdit *leSearch;
+    QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout_2;
     QTableView *tvOverview;
@@ -48,10 +53,24 @@ public:
         FtContainers_Overview->resize(1319, 485);
         verticalLayout_3 = new QVBoxLayout(FtContainers_Overview);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label = new QLabel(FtContainers_Overview);
         label->setObjectName(QString::fromUtf8("label"));
 
-        verticalLayout_3->addWidget(label);
+        horizontalLayout_3->addWidget(label);
+
+        leSearch = new QLineEdit(FtContainers_Overview);
+        leSearch->setObjectName(QString::fromUtf8("leSearch"));
+
+        horizontalLayout_3->addWidget(leSearch);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_3);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -159,7 +178,7 @@ public:
     void retranslateUi(QWidget *FtContainers_Overview)
     {
         FtContainers_Overview->setWindowTitle(QCoreApplication::translate("FtContainers_Overview", "Panoramica Vasi e Tappi", nullptr));
-        label->setText(QCoreApplication::translate("FtContainers_Overview", "Vasi- Tappi", nullptr));
+        label->setText(QCoreApplication::translate("FtContainers_Overview", "Cerca:", nullptr));
 #if QT_CONFIG(tooltip)
         pbModify->setToolTip(QCoreApplication::translate("FtContainers_Overview", "<html><head/><body><p>modifica operazione selezionata</p><p><br/></p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)

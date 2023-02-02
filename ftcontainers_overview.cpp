@@ -48,7 +48,7 @@ void FtContainers_Overview::getContainers()
 void FtContainers_Overview::getContainerOperations()
 {
     int id_container=ui->tvOverview->model()->index(ui->tvOverview->currentIndex().row(),0).data(0).toInt();
-    qDebug()<<id_container;
+
 
     QSqlQuery q(db);
     QSqlQueryModel *mod_details=new QSqlQueryModel();
@@ -58,12 +58,11 @@ void FtContainers_Overview::getContainerOperations()
             and anagrafica.ID=tags_containers_mov.ID_supplier  \
             and azioni.ID=tags_containers_mov.azione \
             and prodotti.ID =tags_containers.ID_Prodotto \
-            and tags_containers.ID=:id_container";
+            and tags_containers.ID=:id_container order by tags_containers_mov.data desc";
             q.prepare(sql);
     q.bindValue(":id_container", id_container);
     q.exec();
     mod_details->setQuery(q);
-    qDebug()<<q.lastError().text();
     ui->tvDetails->setModel(mod_details);
     ui->tvDetails->setColumnHidden(0,true);
     ui->tvDetails->setColumnHidden(1,true);
@@ -96,6 +95,8 @@ void FtContainers_Overview::on_pbLoad_clicked()
     QModelIndex ix=ui->tvOverview->currentIndex();
     FtContainerLoad *f=new FtContainerLoad(id,db);
     connect(f,SIGNAL(sg_save_load()),this,SLOT(refresh()));
+
+    qDebug()<<id;
 
     f->show();
 
@@ -187,7 +188,7 @@ void FtContainers_Overview::on_pbDelete_clicked()
 
 void FtContainers_Overview::refresh()
 {
-    qDebug()<<"REFRESH";
+
 
     QModelIndex current=ui->tvOverview->currentIndex();
     QModelIndex row=ui->tvOverview->model()->index(current.row(),0);
@@ -230,8 +231,32 @@ void FtContainers_Overview::on_tvOverview_doubleClicked(const QModelIndex &index
     int row=ui->tvOverview->currentIndex().row();
     int id=ui->tvOverview->model()->index(row,0).data(0).toInt();
 
+    qDebug()<<id;
+
     FtUpdate_Tag *f= new FtUpdate_Tag(id,db);
     connect(f,SIGNAL(container_updated()),this,SLOT(refresh()));
     f->show();
+}
+
+
+
+
+
+
+
+void FtContainers_Overview::on_leSearch_returnPressed()
+{
+
+    QString search="%"+ui->leSearch->text()+"%";
+    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) and prodotti.descrizione LIKE :search order by prodotti.descrizione";
+    QSqlQuery q(db);
+    q.prepare(sql);
+    q.bindValue(":search",search);
+    q.exec();
+    mod=new QSqlQueryModel();
+    mod->setQuery(q);
+
+    ui->tvOverview->setModel(mod);
+
 }
 
