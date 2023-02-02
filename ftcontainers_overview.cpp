@@ -8,7 +8,7 @@
 #include <QSqlQuery>
 #include <QModelIndex>
 #include <QSqlError>
-#include <QDebug>
+//#include <QDebug>
 #include <QMessageBox>
 #include "ftupdate_tag.h"
 
@@ -68,6 +68,8 @@ void FtContainers_Overview::getContainerOperations()
     ui->tvDetails->setColumnHidden(1,true);
     ui->tvDetails->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+   // qDebug()<<id_container<<q.lastError().text();
+
 
 
 }
@@ -96,7 +98,7 @@ void FtContainers_Overview::on_pbLoad_clicked()
     FtContainerLoad *f=new FtContainerLoad(id,db);
     connect(f,SIGNAL(sg_save_load()),this,SLOT(refresh()));
 
-    qDebug()<<id;
+   // qDebug()<<id;
 
     f->show();
 
@@ -231,8 +233,6 @@ void FtContainers_Overview::on_tvOverview_doubleClicked(const QModelIndex &index
     int row=ui->tvOverview->currentIndex().row();
     int id=ui->tvOverview->model()->index(row,0).data(0).toInt();
 
-    qDebug()<<id;
-
     FtUpdate_Tag *f= new FtUpdate_Tag(id,db);
     connect(f,SIGNAL(container_updated()),this,SLOT(refresh()));
     f->show();
@@ -247,6 +247,10 @@ void FtContainers_Overview::on_tvOverview_doubleClicked(const QModelIndex &index
 void FtContainers_Overview::on_leSearch_returnPressed()
 {
 
+    disconnect(ui->tvOverview->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
+
+    QModelIndex ix=ui->tvOverview->currentIndex();
+
     QString search="%"+ui->leSearch->text()+"%";
     QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) and prodotti.descrizione LIKE :search order by prodotti.descrizione";
     QSqlQuery q(db);
@@ -257,6 +261,14 @@ void FtContainers_Overview::on_leSearch_returnPressed()
     mod->setQuery(q);
 
     ui->tvOverview->setModel(mod);
+
+    connect(ui->tvOverview->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(getContainerOperations()));
+
+
+    ui->tvOverview->setCurrentIndex(ix);
+
+    getContainerOperations();
+
 
 }
 
