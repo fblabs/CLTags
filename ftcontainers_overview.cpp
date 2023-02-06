@@ -11,6 +11,12 @@
 //#include <QDebug>
 #include <QMessageBox>
 #include "ftupdate_tag.h"
+#include <QDesktopServices>
+#include <QTextStream>
+#include <QTextDocument>
+#include <QPrinter>
+#include <QFileDialog>
+#include <QDate>
 
 FtContainers_Overview::FtContainers_Overview(QSqlDatabase pdb,QWidget *parent) :
     QWidget(parent),
@@ -137,6 +143,77 @@ void FtContainers_Overview::modify_tag()
     refresh();
 
     getContainerOperations();
+
+}
+
+void FtContainers_Overview::print(bool p_pdf)
+{
+    QString strStream;
+    bool pdf=p_pdf;
+
+
+    QTextStream out(&strStream);
+
+    const int rowCount = ui->tvOverview->model()->rowCount();
+    const int columnCount = ui->tvOverview->model()->columnCount();
+
+
+
+    QString title="VASI-TAPPI-CONTENITORI  "+QDate::currentDate().toString("dd.MM.yyyy");
+
+
+    out <<  "<html>\n<head>\n<meta Content=\"Text/html; charset=Windows-1251\">\n"<< "</head>\n<body bgcolor=#ffffff link=#5000A0>\n<table width=100% border=1 cellspacing=0 cellpadding=2>\n";
+
+    out << "<thead><tr bgcolor='lightyellow'><th colspan='3'>"+ title +"</th></tr>";
+    // headers
+    out << "<tr bgcolor=#f0f0f0>";
+    for (int column = 0; column < columnCount; column++)
+        if (!ui->tvOverview->isColumnHidden(column))
+            out << QString("<th>%1</th>").arg(ui->tvOverview->model()->headerData(column, Qt::Horizontal).toString());
+    out << "</tr></thead>\n";
+
+    // data table
+    for (int row = 0; row < rowCount; row++) {
+        out << "<tr>";
+        for (int column = 0; column < columnCount; column++) {
+            if (!ui->tvOverview->isColumnHidden(column)) {
+                QString data = ui->tvOverview->model()->data(ui->tvOverview->model()->index(row, column)).toString().simplified();
+                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+            }
+        }
+        out << "</tr>\n";
+    }
+    out <<  "</table>\n"
+            "</body>\n"
+            "</html>\n";
+
+    QTextDocument *document = new QTextDocument();
+
+    document->setHtml(strStream);
+
+    QString filename;
+
+        // qDebug()<<"filename="<<filename;
+        filename= QFileDialog::getSaveFileName(this,"Scegli il nome del file",QString(),"Pdf (*.pdf)");
+
+        if (filename.isEmpty() && filename.isNull()){
+            //  qDebug()<<"annullato";
+            return;
+        }
+
+        QPrinter printer;
+        printer.setOrientation(QPrinter::Portrait);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setPaperSize(QPrinter::A4);
+        printer.setOutputFileName(filename);
+
+        document->print(&printer);
+
+        delete document;
+
+        QDesktopServices::openUrl(filename);
+
+
 
 }
 
@@ -270,5 +347,11 @@ void FtContainers_Overview::on_leSearch_returnPressed()
     getContainerOperations();
 
 
+}
+
+
+void FtContainers_Overview::on_pbPrint_clicked()
+{
+   print();
 }
 

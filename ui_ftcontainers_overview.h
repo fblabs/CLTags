@@ -43,6 +43,7 @@ public:
     QPushButton *pbUnload;
     QPushButton *pbDelete;
     QHBoxLayout *horizontalLayout_5;
+    QPushButton *pbPrint;
     QPushButton *pbClose;
 
     void setupUi(QWidget *FtContainers_Overview)
@@ -155,13 +156,22 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        pbPrint = new QPushButton(FtContainers_Overview);
+        pbPrint->setObjectName(QString::fromUtf8("pbPrint"));
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/resources/icons/print-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbPrint->setIcon(icon4);
+        pbPrint->setIconSize(QSize(32, 32));
+
+        horizontalLayout_5->addWidget(pbPrint);
+
         pbClose = new QPushButton(FtContainers_Overview);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
         pbClose->setMinimumSize(QSize(0, 0));
         pbClose->setMaximumSize(QSize(16777215, 16777215));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon5);
         pbClose->setIconSize(QSize(32, 32));
 
         horizontalLayout_5->addWidget(pbClose);
@@ -186,6 +196,7 @@ public:
         pbLoad->setText(QCoreApplication::translate("FtContainers_Overview", "Carico", nullptr));
         pbUnload->setText(QCoreApplication::translate("FtContainers_Overview", "Scarico", nullptr));
         pbDelete->setText(QCoreApplication::translate("FtContainers_Overview", "Elimina operazione", nullptr));
+        pbPrint->setText(QCoreApplication::translate("FtContainers_Overview", "Stampa", nullptr));
 #if QT_CONFIG(tooltip)
         pbClose->setToolTip(QCoreApplication::translate("FtContainers_Overview", "<html><head/><body><p>Chiudi</p><p><br/></p></body></html>", nullptr));
 #endif // QT_CONFIG(tooltip)
