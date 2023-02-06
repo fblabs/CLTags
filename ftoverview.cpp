@@ -17,7 +17,11 @@
 #include <QMessageBox>
 
 #include <QDebug>
-#include "ftprint.h"
+//#include "ftprint.h"
+#include <QTextDocument>
+#include <QFileDialog>
+#include <QDesktopServices>
+#include <QPrinter>
 
 
 #include <QStandardItem>
@@ -40,19 +44,13 @@ FTOverview::~FTOverview()
 void FTOverview::setup()
 {
 
+    ui->pbFilter->setVisible(false);
+    ui->pbNoFilters->setVisible(false);
 
     tagsmod=buildModel();
 
-    tagsmod->setHeaderData(1,Qt::Horizontal,"BARCODE");
-    tagsmod->setHeaderData(2,Qt::Horizontal,"CLIENTE");
-    tagsmod->setHeaderData(3,Qt::Horizontal,"PRODOTTO");
-    tagsmod->setHeaderData(4,Qt::Horizontal,"TIPO");
-    tagsmod->setHeaderData(5,Qt::Horizontal,"SPECIFICA");
-    tagsmod->setHeaderData(6,Qt::Horizontal,"IMMAGINE");
-    tagsmod->setHeaderData(7,Qt::Horizontal,"GIACENZA");
-    tagsmod->setHeaderData(8,Qt::Horizontal,"NOTE");
-
     ui->tvTags->setModel(tagsmod);
+
 
     ui->tvTags->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
     ui->tvTags->horizontalHeader()->setCascadingSectionResizes(true);
@@ -88,10 +86,6 @@ void FTOverview::setup()
 
     ui->tvTags->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
     connect(ui->cbCliente->lineEdit(),SIGNAL(returnPressed()),this,SLOT(buildFilter()));
-
-    //  on_pbNoFilters_clicked();
-
-
 
 
 }
@@ -231,6 +225,7 @@ HTagsRelationalTableModel* FTOverview::buildModel()
     local_model->setRelation(2,QSqlRelation("anagrafica","ID","ragione_sociale"));  //CLIENTE -relTblAl_2 (anagrafica)
     local_model->setRelation(3,QSqlRelation("prodotti","ID","descrizione")); //prodotto - relTblAl_3 (prodotti)
     local_model->setRelation(4,QSqlRelation("tags_tipi","ID","descrizione")); // tipo - (tags_tipi)
+
     local_model->select();
 
 
@@ -242,6 +237,8 @@ HTagsRelationalTableModel* FTOverview::buildModel()
     local_model->setHeaderData(6,Qt::Horizontal,"IMMAGINE");
     local_model->setHeaderData(7,Qt::Horizontal,"GIACENZA");
     local_model->setHeaderData(8,Qt::Horizontal,"NOTE");
+
+
 
 
     return  local_model;
@@ -302,7 +299,7 @@ void FTOverview::on_tvTags_mov_doubleClicked(const QModelIndex &index)
 
 void FTOverview::on_pbPrint_clicked()
 {
-    QAbstractItemModel *modToPrint =static_cast<QAbstractItemModel*> (tagsmod);
+   /* QAbstractItemModel *modToPrint =static_cast<QAbstractItemModel*> (tagsmod);
     QStringList coltitles;
     coltitles<<"BARCODE"<<"CLIENTE"<<"PRODOTTO"<<"TIPO"<<"SPECIFICA"<<"IMMAGINE"<<"GIACENZA"<<"NOTE";
     QList<int> hiddencols;
@@ -324,7 +321,8 @@ void FTOverview::on_pbPrint_clicked()
     }
 
     FTPrint *f=new FTPrint(modToPrint,title,coltitles,hiddencols);
-    f->show();
+    f->show();*/
+    print(true);
 }
 
 
@@ -504,6 +502,79 @@ void FTOverview::on_leBarcode_returnPressed()
 {
     ui->rbBarcode->setChecked(true);
     tagsmod->setFilter(buildFilter());
+}
+
+void FTOverview::print(bool p_pdf=true){
+
+    QString strStream;
+    bool pdf=p_pdf;
+
+
+    QTextStream out(&strStream);
+
+    const int rowCount = ui->tvTags->model()->rowCount();
+    const int columnCount = ui->tvTags->model()->columnCount();
+
+
+
+    QString title="Etichette/sigilli  "+QDate::currentDate().toString("dd.MM.yyyy");
+
+
+    out <<  "<html>\n<head>\n<meta Content=\"Text/html; charset=Windows-1251\">\n"<< "</head>\n<body bgcolor=#ffffff link=#5000A0>\n<table border=1 cellspacing=0 cellpadding=2>\n";
+
+    out << "<thead><tr bgcolor='lightyellow'><th colspan='5'>"+ title +"</th></tr>";
+    // headers
+    out << "<tr bgcolor=#f0f0f0>";
+    for (int column = 0; column < columnCount; column++)
+        if (!ui->tvTags->isColumnHidden(column))
+            out << QString("<th>%1</th>").arg(ui->tvTags->model()->headerData(column, Qt::Horizontal).toString());
+    out << "</tr></thead>\n";
+
+    // data table
+    for (int row = 0; row < rowCount; row++) {
+        out << "<tr>";
+        for (int column = 0; column < columnCount; column++) {
+            if (!ui->tvTags->isColumnHidden(column)) {
+                QString data = ui->tvTags->model()->data(ui->tvTags->model()->index(row, column)).toString().simplified();
+                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+            }
+        }
+        out << "</tr>\n";
+    }
+    out <<  "</table>\n"
+            "</body>\n"
+            "</html>\n";
+
+    QTextDocument *document = new QTextDocument();
+    qDebug()<<strStream;
+    document->setHtml(strStream);
+
+    QString filename;
+
+        // qDebug()<<"filename="<<filename;
+        filename= QFileDialog::getSaveFileName(this,"Scegli il nome del file",QString(),"Pdf (*.pdf)");
+
+        if (filename.isEmpty() && filename.isNull()){
+            //  qDebug()<<"annullato";
+            return;
+        }
+
+        QPrinter printer;
+        printer.setOrientation(QPrinter::Landscape);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setPaperSize(QPrinter::A4);
+        printer.setOutputFileName(filename);
+
+        document->print(&printer);
+
+        delete document;
+
+        QDesktopServices::openUrl(filename);
+
+
+
+
+
 }
 
 

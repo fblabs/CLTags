@@ -67,6 +67,7 @@ private slots:
     void on_pbDEleteOperation_clicked();
     void on_pbModifyOperation_clicked();
     void on_leBarcode_returnPressed();
+    void print(bool p_pdf);
 
 signals:
     void mov_deleted();
