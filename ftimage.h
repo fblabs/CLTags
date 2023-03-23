@@ -20,6 +20,10 @@ private slots:
 
     void on_pbCloseWindoiw_clicked();
 
+    void on_pbPrint_clicked();
+
+    void printImage();
+
 private:
     Ui::FTImage *ui;
 signals:

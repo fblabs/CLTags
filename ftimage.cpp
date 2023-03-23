@@ -4,6 +4,10 @@
 #include <QPixmap>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QPrinter>
+#include <QPainter>
+#include <QPrintDialog>
+
 //#include <QDebug>
 
 FTImage::FTImage(const QString filename,QWidget *parent) :
@@ -37,5 +41,35 @@ void FTImage::on_pbClose_clicked()
 void FTImage::on_pbCloseWindoiw_clicked()
 {
     close();
+}
+
+
+void FTImage::on_pbPrint_clicked()
+{
+    printImage();
+}
+
+void FTImage::printImage()
+{
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setFullPage(true);
+    printer.setPageSize(QPrinter::A4);
+    QImage img=ui->lbImage->pixmap()->toImage();
+
+    QImage image_norm=img.scaledToWidth(printer.pageRect().width()-100,Qt::SmoothTransformation);
+
+    QPrintDialog *dlg=new QPrintDialog(&printer,0);
+
+
+    if(dlg->exec()==QDialog::Accepted)
+    {
+        QPainter painter(&printer);
+
+
+        painter.drawImage(QPoint(10,100), image_norm);
+        painter.end();
+
+
+    }
 }
 

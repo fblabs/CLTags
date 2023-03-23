@@ -32,6 +32,7 @@ public:
     QLabel *label_2;
     QLineEdit *leBarcode;
     QPushButton *pbClose;
+    QPushButton *pbPrint;
     QPushButton *pbCloseWindoiw;
     QSpacerItem *horizontalSpacer;
 
@@ -77,11 +78,20 @@ public:
 
         horizontalLayout->addWidget(pbClose);
 
+        pbPrint = new QPushButton(FTImage);
+        pbPrint->setObjectName(QString::fromUtf8("pbPrint"));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/resources/icons/print-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbPrint->setIcon(icon1);
+        pbPrint->setIconSize(QSize(32, 32));
+
+        horizontalLayout->addWidget(pbPrint);
+
         pbCloseWindoiw = new QPushButton(FTImage);
         pbCloseWindoiw->setObjectName(QString::fromUtf8("pbCloseWindoiw"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbCloseWindoiw->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbCloseWindoiw->setIcon(icon2);
         pbCloseWindoiw->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbCloseWindoiw);
@@ -109,6 +119,7 @@ public:
         lbImage->setText(QString());
         label_2->setText(QCoreApplication::translate("FTImage", "Barcode:", nullptr));
         pbClose->setText(QCoreApplication::translate("FTImage", "Trasferisci e chiudi", nullptr));
+        pbPrint->setText(QCoreApplication::translate("FTImage", "Stampa", nullptr));
         pbCloseWindoiw->setText(QCoreApplication::translate("FTImage", "Chiudi", nullptr));
     } // retranslateUi
 
