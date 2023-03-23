@@ -62,6 +62,7 @@ public:
     QRadioButton *rb2;
     QPushButton *pbChooseImage;
     QPushButton *pbReset;
+    QPushButton *pbPrint;
     QLabel *lbImage1;
     QLabel *lbImage2;
     QSpacerItem *horizontalSpacer;
@@ -281,6 +282,15 @@ public:
 
         verticalLayout->addWidget(pbReset);
 
+        pbPrint = new QPushButton(FTagsMov);
+        pbPrint->setObjectName(QString::fromUtf8("pbPrint"));
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/resources/icons/print-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbPrint->setIcon(icon3);
+        pbPrint->setIconSize(QSize(32, 32));
+
+        verticalLayout->addWidget(pbPrint);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -321,9 +331,9 @@ public:
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         pbSave = new QPushButton(FTagsMov);
         pbSave->setObjectName(QString::fromUtf8("pbSave"));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/resources/icons/8712817_tick_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbSave->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/resources/icons/8712817_tick_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbSave->setIcon(icon4);
         pbSave->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbSave);
@@ -331,27 +341,27 @@ public:
         pbMov = new QPushButton(FTagsMov);
         pbMov->setObjectName(QString::fromUtf8("pbMov"));
         pbMov->setEnabled(true);
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/resources/icons/8712785_tool_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbMov->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/resources/icons/8712785_tool_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbMov->setIcon(icon5);
         pbMov->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbMov);
 
         pbNew = new QPushButton(FTagsMov);
         pbNew->setObjectName(QString::fromUtf8("pbNew"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/resources/icons/8721738_add_plus_+_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbNew->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/resources/icons/8721738_add_plus_+_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbNew->setIcon(icon6);
         pbNew->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbNew);
 
         pbClose = new QPushButton(FTagsMov);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon7);
         pbClose->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbClose);
@@ -382,6 +392,7 @@ public:
         rb2->setText(QCoreApplication::translate("FTagsMov", "Immagine 2", nullptr));
         pbChooseImage->setText(QCoreApplication::translate("FTagsMov", "Scegli immagine...", nullptr));
         pbReset->setText(QCoreApplication::translate("FTagsMov", "Reset immagine", nullptr));
+        pbPrint->setText(QCoreApplication::translate("FTagsMov", "Stampa", nullptr));
         lbImage1->setText(QString());
         lbImage2->setText(QString());
         pbSave->setText(QCoreApplication::translate("FTagsMov", "Salva", nullptr));

@@ -53,8 +53,11 @@ private slots:
 
     void setBarcode(const QString pbarcode);
 
+    void printImages();
 
     void on_pbNew_clicked();
+
+    void on_pbPrint_clicked();
 
 private:
     Ui::FTagsMov *ui;

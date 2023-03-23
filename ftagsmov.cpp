@@ -11,6 +11,10 @@
 #include <QMessageBox>
 #include <QMouseEvent>
 #include "ftimage.h"
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QImage>
+#include <QPainter>
 
 
 #include <QDebug>
@@ -567,6 +571,48 @@ void FTagsMov::setBarcode(const QString pbarcode)
     ui->leBarcode->setText(pbarcode);
 }
 
+void FTagsMov::printImages()
+{
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setFullPage(true);
+    printer.setPageSize(QPrinter::A4);
+
+    QString fn1,fn2=QString();
+
+    fn1=sl_immagini[0];
+    fn2=sl_immagini[1];
+    QImage image1(fn1);
+    QImage image2(fn2);
+
+    QImage image1_norm=image1.scaledToWidth(printer.pageRect().width()/2,Qt::SmoothTransformation);
+    QImage image2_norm=image2.scaledToWidth(printer.pageRect().width()/2,Qt::SmoothTransformation);
+
+    QPrintDialog *dlg=new QPrintDialog(&printer,0);
+
+
+    if(dlg->exec()==QDialog::Accepted)
+    {
+        QPainter painter(&printer);
+
+        if(ui->rb1->isChecked()){
+            painter.drawImage(QPoint(0,0), image1_norm);
+            painter.end();
+        }
+        else if(ui->rb2->isChecked())
+        {
+            painter.drawImage(QPoint(0,0), image2_norm);
+            painter.end();
+        }
+        else if(ui->rbAll->isChecked())
+        {
+            painter.drawImage(QPoint(0,0), image1_norm);
+            painter.drawImage(QPoint (0,image1_norm.height()+15),image2_norm);
+            painter.end();
+        }
+
+    }
+}
+
 bool FTagsMov::eventFilter(QObject *obj, QEvent *evt)
 {
 
@@ -596,5 +642,13 @@ void FTagsMov::on_pbNew_clicked()
 {
     resetUI();
     azione=0;
+}
+
+
+void FTagsMov::on_pbPrint_clicked()
+{
+
+    printImages();
+
 }
 
