@@ -47,7 +47,11 @@ void FTOverview::setup()
     ui->pbFilter->setVisible(false);
     ui->pbNoFilters->setVisible(false);
 
+    ui->deDal->setDate(QDate::currentDate().addYears(-1));
+    ui->deAl->setDate(QDate::currentDate());
+
     tagsmod=buildModel();
+
 
     ui->tvTags->setModel(tagsmod);
 
@@ -86,6 +90,8 @@ void FTOverview::setup()
 
     ui->tvTags->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
     connect(ui->cbCliente->lineEdit(),SIGNAL(returnPressed()),this,SLOT(buildFilter()));
+    connect(ui->deDal,SIGNAL(dateChanged(QDate)),this,SLOT(findTagsMov()));
+    connect(ui->deAl,SIGNAL(dateChanged(QDate)),this,SLOT(findTagsMov()));
 
 
 }
@@ -101,14 +107,18 @@ void FTOverview::findTagsMov()
     sql="SELECT tags_mov.ID,tags_mov.ID_tags,tags_mov.data as DATA, tags.barcode as BARCODE,prodotti.ID as IDProdotto,prodotti.descrizione as PRODOTTO,clienti.ID as IDCliente,clienti.ragione_sociale as CLIENTE,\
             stampatori.ID as IDStampatore,stampatori.ragione_sociale as STAMPATORE,azione as IDAZIONE,azioni.descrizione as AZIONE,tags_mov.amount as QUANT,tags_mov.note\
             FROM tags,tags_mov,anagrafica as stampatori,anagrafica as clienti,azioni,prodotti\
-            WHERE tags_mov.ID_tags=tags.ID and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags.ID =:id order by tags_mov.data DESC";
+            WHERE tags_mov.ID_tags=tags.ID and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags_mov.data between :df and :dt and tags.ID =:id order by tags_mov.data DESC";
             q.prepare(sql);
     q.bindValue(":id", current_tag_id);
     q.bindValue(":idprodotto", tagsmod->index(ui->tvTags->currentIndex().row(),3).data(0).toString());
+    q.bindValue(":df", ui->deDal->date());
+    q.bindValue(":dt", ui->deAl->date());
+
     if (!q.exec())
     {
-        qDebug()<<q.lastError().text()<<q.lastQuery();
     }
+    qDebug()<<q.lastError().text()<<q.boundValue(":df").toString()<<q.boundValue(":dt").toString();
+
     tagsmovmod->setQuery(q);
     ui->tvTags_mov->setModel(tagsmovmod);
     ui->tvTags_mov->setColumnHidden(0,true);
@@ -145,7 +155,7 @@ void FTOverview::findTagsMov()
     ui->cbProdotto->completer()->setCompletionColumn(1);
     ui->cbProdotto->completer()->setCompletionMode(QCompleter::PopupCompletion);
 
-    qDebug()<<"FINDTAGSMOV"<<q.lastError().text()<<q.lastQuery();
+
 
 }
 
@@ -254,7 +264,7 @@ void FTOverview::on_pbClose_clicked()
 
 void FTOverview::on_pbOperate_clicked()
 {
-    qDebug()<<"current_tag_id"<<current_tag_id;
+
     FTOperate *f=new FTOperate(1,current_tag_id,db);
     connect(f,SIGNAL(operation_saved()),this,SLOT(refresh()));
 
@@ -678,5 +688,13 @@ void FTOverview::on_pbDEleteOperation_clicked()
 void FTOverview::on_pbModifyOperation_clicked()
 {
     mod_mov(ui->tvTags_mov->currentIndex());
+}
+
+
+void FTOverview::on_pbReset_clicked()
+{
+    ui->deDal->setDate(QDate::currentDate().addYears(-1));
+    ui->deAl->setDate(QDate::currentDate());
+
 }
 

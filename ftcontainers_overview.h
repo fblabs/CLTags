@@ -38,6 +38,7 @@ private slots:
 
    void on_leSearch_returnPressed();
    void on_pbPrint_clicked();
+   void on_pbReset_clicked();
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H

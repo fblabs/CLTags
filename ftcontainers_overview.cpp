@@ -24,7 +24,12 @@ FtContainers_Overview::FtContainers_Overview(QSqlDatabase pdb,QWidget *parent) :
 {
     ui->setupUi(this);
     db=pdb;
+    ui->deDal->setDate(QDate::currentDate().addYears(-1));
+    ui->deAl->setDate(QDate::currentDate());
     getContainers();
+
+    connect(ui->deDal,SIGNAL(dateChanged(QDate)),this,SLOT(getContainerOperations()));
+    connect(ui->deAl,SIGNAL(dateChanged(QDate)),this,SLOT(getContainerOperations()));
 
 
 }
@@ -64,9 +69,12 @@ void FtContainers_Overview::getContainerOperations()
             and anagrafica.ID=tags_containers_mov.ID_supplier  \
             and azioni.ID=tags_containers_mov.azione \
             and prodotti.ID =tags_containers.ID_Prodotto \
-            and tags_containers.ID=:id_container order by tags_containers_mov.data desc";
+            and tags_containers.ID=:id_container and tags_containers_mov.data BETWEEN :df AND :dt order by tags_containers_mov.data desc";
             q.prepare(sql);
     q.bindValue(":id_container", id_container);
+            q.bindValue(":df",ui->deDal->date());
+            q.bindValue(":dt",ui->deAl->date());
+
     q.exec();
     mod_details->setQuery(q);
     ui->tvDetails->setModel(mod_details);
@@ -353,5 +361,12 @@ void FtContainers_Overview::on_leSearch_returnPressed()
 void FtContainers_Overview::on_pbPrint_clicked()
 {
    print();
+}
+
+
+void FtContainers_Overview::on_pbReset_clicked()
+{
+   ui->deDal->setDate(QDate::currentDate().addYears(-1));
+   ui->deAl->setDate(QDate::currentDate());
 }
 

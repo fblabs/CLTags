@@ -69,6 +69,8 @@ private slots:
     void on_leBarcode_returnPressed();
     void print(bool p_pdf);
 
+    void on_pbReset_clicked();
+
 signals:
     void mov_deleted();
 };

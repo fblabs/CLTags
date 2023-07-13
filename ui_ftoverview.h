@@ -15,13 +15,17 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QDateEdit>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -51,6 +55,14 @@ public:
     QCheckBox *cbAttivi;
     QSpacerItem *horizontalSpacer_3;
     QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer_5;
+    QGridLayout *gridLayout;
+    QLabel *label_2;
+    QDateEdit *deDal;
+    QLabel *label;
+    QDateEdit *deAl;
+    QPushButton *pbReset;
+    QSplitter *splitter;
     QTableView *tvTags;
     QTableView *tvTags_mov;
     QHBoxLayout *horizontalLayout_5;
@@ -67,8 +79,8 @@ public:
     QPushButton *pbDEleteOperation;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *pbClose;
-    QButtonGroup *buttonGroup_2;
     QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_2;
 
     void setupUi(QWidget *FTOverview)
     {
@@ -198,38 +210,86 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        tvTags = new QTableView(FTOverview);
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_5);
+
+        gridLayout = new QGridLayout();
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        label_2 = new QLabel(FTOverview);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        gridLayout->addWidget(label_2, 0, 2, 1, 1);
+
+        deDal = new QDateEdit(FTOverview);
+        deDal->setObjectName(QString::fromUtf8("deDal"));
+        deDal->setMinimumSize(QSize(200, 0));
+        deDal->setCalendarPopup(true);
+
+        gridLayout->addWidget(deDal, 0, 1, 1, 1);
+
+        label = new QLabel(FTOverview);
+        label->setObjectName(QString::fromUtf8("label"));
+
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        deAl = new QDateEdit(FTOverview);
+        deAl->setObjectName(QString::fromUtf8("deAl"));
+        deAl->setMinimumSize(QSize(200, 0));
+        deAl->setMaximumSize(QSize(16777215, 16777215));
+        deAl->setCalendarPopup(true);
+
+        gridLayout->addWidget(deAl, 0, 3, 1, 1);
+
+        pbReset = new QPushButton(FTOverview);
+        pbReset->setObjectName(QString::fromUtf8("pbReset"));
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/resources/icons/Counterclockwise-arrow64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbReset->setIcon(icon3);
+
+        gridLayout->addWidget(pbReset, 0, 4, 1, 1);
+
+
+        horizontalLayout_2->addLayout(gridLayout);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_2);
+
+        splitter = new QSplitter(FTOverview);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setOrientation(Qt::Horizontal);
+        tvTags = new QTableView(splitter);
         tvTags->setObjectName(QString::fromUtf8("tvTags"));
+        tvTags->setMinimumSize(QSize(0, 0));
+        tvTags->setStyleSheet(QString::fromUtf8("selection-color: rgb(255, 255, 255);\n"
+"selection-background-color: rgb(0, 85, 127);"));
         tvTags->setEditTriggers(QAbstractItemView::NoEditTriggers);
         tvTags->setAlternatingRowColors(true);
         tvTags->setSelectionMode(QAbstractItemView::SingleSelection);
         tvTags->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvTags->setSortingEnabled(true);
+        splitter->addWidget(tvTags);
         tvTags->horizontalHeader()->setCascadingSectionResizes(true);
         tvTags->horizontalHeader()->setStretchLastSection(true);
         tvTags->verticalHeader()->setVisible(false);
         tvTags->verticalHeader()->setCascadingSectionResizes(true);
         tvTags->verticalHeader()->setHighlightSections(false);
-
-        horizontalLayout_2->addWidget(tvTags);
-
-        tvTags_mov = new QTableView(FTOverview);
+        tvTags_mov = new QTableView(splitter);
         tvTags_mov->setObjectName(QString::fromUtf8("tvTags_mov"));
+        tvTags_mov->setMinimumSize(QSize(0, 0));
         tvTags_mov->setEditTriggers(QAbstractItemView::NoEditTriggers);
         tvTags_mov->setAlternatingRowColors(true);
         tvTags_mov->setSelectionMode(QAbstractItemView::SingleSelection);
         tvTags_mov->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvTags_mov->setSortingEnabled(true);
+        splitter->addWidget(tvTags_mov);
         tvTags_mov->horizontalHeader()->setCascadingSectionResizes(true);
         tvTags_mov->horizontalHeader()->setProperty("showSortIndicator", QVariant(true));
         tvTags_mov->horizontalHeader()->setStretchLastSection(true);
         tvTags_mov->verticalHeader()->setVisible(false);
         tvTags_mov->verticalHeader()->setCascadingSectionResizes(true);
 
-        horizontalLayout_2->addWidget(tvTags_mov);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_2);
+        verticalLayout_3->addWidget(splitter);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -243,9 +303,9 @@ public:
         pbDefinizioni->setObjectName(QString::fromUtf8("pbDefinizioni"));
         pbDefinizioni->setMinimumSize(QSize(120, 0));
         pbDefinizioni->setMaximumSize(QSize(120, 16777215));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/resources/icons/7627459_app_tools_logo_apple_reminders_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbDefinizioni->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/resources/icons/7627459_app_tools_logo_apple_reminders_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbDefinizioni->setIcon(icon4);
         pbDefinizioni->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbDefinizioni);
@@ -254,18 +314,18 @@ public:
         pbModTag->setObjectName(QString::fromUtf8("pbModTag"));
         pbModTag->setMinimumSize(QSize(150, 0));
         pbModTag->setMaximumSize(QSize(150, 16777215));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/resources/icons/8704072_premium_flash_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbModTag->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/resources/icons/8704072_premium_flash_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbModTag->setIcon(icon5);
         pbModTag->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbModTag);
 
         pbPrint = new QPushButton(FTOverview);
         pbPrint->setObjectName(QString::fromUtf8("pbPrint"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/resources/icons/Printer-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbPrint->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/resources/icons/Printer-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbPrint->setIcon(icon6);
         pbPrint->setIconSize(QSize(32, 32));
 
         horizontalLayout->addWidget(pbPrint);
@@ -283,9 +343,9 @@ public:
         pbOperate->setObjectName(QString::fromUtf8("pbOperate"));
         pbOperate->setMinimumSize(QSize(130, 0));
         pbOperate->setMaximumSize(QSize(130, 16777215));
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/resources/icons/8721738_add_plus_+_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbOperate->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/resources/icons/8721738_add_plus_+_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbOperate->setIcon(icon7);
         pbOperate->setIconSize(QSize(32, 32));
 
         horizontalLayout_4->addWidget(pbOperate);
@@ -294,27 +354,27 @@ public:
         pb_Scarico->setObjectName(QString::fromUtf8("pb_Scarico"));
         pb_Scarico->setMinimumSize(QSize(130, 0));
         pb_Scarico->setMaximumSize(QSize(130, 16777215));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/resources/icons/Minus.PNG"), QSize(), QIcon::Normal, QIcon::Off);
-        pb_Scarico->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/resources/icons/Minus.PNG"), QSize(), QIcon::Normal, QIcon::Off);
+        pb_Scarico->setIcon(icon8);
         pb_Scarico->setIconSize(QSize(32, 32));
 
         horizontalLayout_4->addWidget(pb_Scarico);
 
         pbModifyOperation = new QPushButton(FTOverview);
         pbModifyOperation->setObjectName(QString::fromUtf8("pbModifyOperation"));
-        QIcon icon8;
-        icon8.addFile(QString::fromUtf8(":/resources/icons/Actions-configure-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbModifyOperation->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/resources/icons/Actions-configure-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbModifyOperation->setIcon(icon9);
         pbModifyOperation->setIconSize(QSize(32, 32));
 
         horizontalLayout_4->addWidget(pbModifyOperation);
 
         pbDEleteOperation = new QPushButton(FTOverview);
         pbDEleteOperation->setObjectName(QString::fromUtf8("pbDEleteOperation"));
-        QIcon icon9;
-        icon9.addFile(QString::fromUtf8(":/resources/icons/Flag-red64.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbDEleteOperation->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/resources/icons/Flag-red64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbDEleteOperation->setIcon(icon10);
         pbDEleteOperation->setIconSize(QSize(32, 32));
 
         horizontalLayout_4->addWidget(pbDEleteOperation);
@@ -327,9 +387,9 @@ public:
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
         pbClose->setMinimumSize(QSize(120, 0));
         pbClose->setMaximumSize(QSize(120, 16777215));
-        QIcon icon10;
-        icon10.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon11);
         pbClose->setIconSize(QSize(32, 32));
 
         horizontalLayout_4->addWidget(pbClose);
@@ -359,6 +419,9 @@ public:
         pbFilter->setText(QCoreApplication::translate("FTOverview", "Filtra", nullptr));
         pbNoFilters->setText(QCoreApplication::translate("FTOverview", "Annulla filtri", nullptr));
         cbAttivi->setText(QCoreApplication::translate("FTOverview", "Attivi", nullptr));
+        label_2->setText(QCoreApplication::translate("FTOverview", "e il:", nullptr));
+        label->setText(QCoreApplication::translate("FTOverview", "Tra il:", nullptr));
+        pbReset->setText(QCoreApplication::translate("FTOverview", "Reset", nullptr));
         pbDefinizioni->setText(QCoreApplication::translate("FTOverview", "Definizioni", nullptr));
         pbModTag->setText(QCoreApplication::translate("FTOverview", "Modifica Selezionato", nullptr));
         pbPrint->setText(QCoreApplication::translate("FTOverview", "Stampa", nullptr));

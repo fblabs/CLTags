@@ -33,7 +33,8 @@ public:
         if (FtCommands->objectName().isEmpty())
             FtCommands->setObjectName(QString::fromUtf8("FtCommands"));
         FtCommands->setWindowModality(Qt::ApplicationModal);
-        FtCommands->resize(244, 86);
+        FtCommands->resize(216, 85);
+        FtCommands->setModal(true);
         verticalLayout = new QVBoxLayout(FtCommands);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -94,9 +95,12 @@ public:
         pbOverview->setToolTip(QCoreApplication::translate("FtCommands", "Vista panoramica", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbOverview->setText(QString());
+#if QT_CONFIG(tooltip)
+        pbMov->setToolTip(QCoreApplication::translate("FtCommands", "Definizione item", nullptr));
+#endif // QT_CONFIG(tooltip)
         pbMov->setText(QString());
 #if QT_CONFIG(tooltip)
-        pbClose->setToolTip(QCoreApplication::translate("FtCommands", "<html><head/><body><p>Chiudi</p><p><br/></p></body></html>", nullptr));
+        pbClose->setToolTip(QCoreApplication::translate("FtCommands", "Chiudi", nullptr));
 #endif // QT_CONFIG(tooltip)
     } // retranslateUi
 

@@ -3,6 +3,7 @@
 #include <QSqlDatabase>
 #include "ftagsmov.h"
 #include "ftoverview.h"
+#include <QGraphicsOpacityEffect>
 
 FtCommands::FtCommands(int p_id_tag, QSqlDatabase pdb, QWidget *parent) :
     QDialog(parent),
@@ -12,6 +13,9 @@ FtCommands::FtCommands(int p_id_tag, QSqlDatabase pdb, QWidget *parent) :
     id_tag=p_id_tag;
     this->setWindowFlags(Qt::CustomizeWindowHint);
     this->setMouseTracking(true);
+
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlag(Qt::FramelessWindowHint);
 
     connect (this,SIGNAL(sig_close()),this,SLOT(close()));
 }

@@ -111,7 +111,7 @@ void MainWindow::on_pbLabels_clicked()
 
    FtCommands *f=new FtCommands(-1);
    QPoint x=QCursor::pos();
-   QPoint pcorrect(x.x(),x.y()-200);
+   QPoint pcorrect(x.x()-f->width()/2,x.y()-200);
 
    f->move(pcorrect);
    f->show();
@@ -130,7 +130,7 @@ void MainWindow::on_pbContainers_clicked()
 {
    FtCommands_Containers *f=new FtCommands_Containers(-1,db);
    QPoint x=QCursor::pos();
-   QPoint pcorrect(x.x(),x.y()-200);
+   QPoint pcorrect(x.x()-f->width()/2,x.y()-200);
 
    f->move(pcorrect);
 

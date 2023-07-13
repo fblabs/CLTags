@@ -34,7 +34,7 @@ public:
         if (FtCommands_Containers->objectName().isEmpty())
             FtCommands_Containers->setObjectName(QString::fromUtf8("FtCommands_Containers"));
         FtCommands_Containers->setWindowModality(Qt::ApplicationModal);
-        FtCommands_Containers->resize(454, 66);
+        FtCommands_Containers->resize(327, 74);
         verticalLayout = new QVBoxLayout(FtCommands_Containers);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -44,7 +44,8 @@ public:
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/8644322_graphic_chart_graph_bam_icon (1).png"), QSize(), QIcon::Normal, QIcon::Off);
         pbContainersOverview->setIcon(icon);
-        pbContainersOverview->setIconSize(QSize(32, 32));
+        pbContainersOverview->setIconSize(QSize(48, 48));
+        pbContainersOverview->setFlat(true);
 
         horizontalLayout->addWidget(pbContainersOverview);
 
@@ -53,7 +54,8 @@ public:
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/resources/icons/Plus.PNG"), QSize(), QIcon::Normal, QIcon::Off);
         pbLoad->setIcon(icon1);
-        pbLoad->setIconSize(QSize(32, 32));
+        pbLoad->setIconSize(QSize(48, 48));
+        pbLoad->setFlat(true);
 
         horizontalLayout->addWidget(pbLoad);
 
@@ -62,7 +64,8 @@ public:
         QIcon icon2;
         icon2.addFile(QString::fromUtf8(":/resources/icons/Minus.PNG"), QSize(), QIcon::Normal, QIcon::Off);
         pbUnload->setIcon(icon2);
-        pbUnload->setIconSize(QSize(32, 32));
+        pbUnload->setIconSize(QSize(48, 48));
+        pbUnload->setFlat(true);
 
         horizontalLayout->addWidget(pbUnload);
 
@@ -71,7 +74,8 @@ public:
         QIcon icon3;
         icon3.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         pbClose->setIcon(icon3);
-        pbClose->setIconSize(QSize(32, 32));
+        pbClose->setIconSize(QSize(48, 48));
+        pbClose->setFlat(true);
 
         horizontalLayout->addWidget(pbClose);
 
@@ -87,10 +91,19 @@ public:
     void retranslateUi(QWidget *FtCommands_Containers)
     {
         FtCommands_Containers->setWindowTitle(QCoreApplication::translate("FtCommands_Containers", "Form", nullptr));
-        pbContainersOverview->setText(QCoreApplication::translate("FtCommands_Containers", "Panoramica", nullptr));
-        pbLoad->setText(QCoreApplication::translate("FtCommands_Containers", "Carico", nullptr));
-        pbUnload->setText(QCoreApplication::translate("FtCommands_Containers", "Scatico", nullptr));
-        pbClose->setText(QCoreApplication::translate("FtCommands_Containers", "Chiudi", nullptr));
+#if QT_CONFIG(tooltip)
+        pbContainersOverview->setToolTip(QCoreApplication::translate("FtCommands_Containers", "Panoramica", nullptr));
+#endif // QT_CONFIG(tooltip)
+        pbContainersOverview->setText(QString());
+#if QT_CONFIG(tooltip)
+        pbLoad->setToolTip(QCoreApplication::translate("FtCommands_Containers", "Carico", nullptr));
+#endif // QT_CONFIG(tooltip)
+        pbLoad->setText(QString());
+#if QT_CONFIG(tooltip)
+        pbUnload->setToolTip(QCoreApplication::translate("FtCommands_Containers", "Scarico", nullptr));
+#endif // QT_CONFIG(tooltip)
+        pbUnload->setText(QString());
+        pbClose->setText(QString());
     } // retranslateUi
 
 };

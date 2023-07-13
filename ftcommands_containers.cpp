@@ -15,6 +15,10 @@ FtCommands_Containers::FtCommands_Containers(int pid_tag, QSqlDatabase pdb, QWid
 
     this->setWindowFlags(Qt::CustomizeWindowHint);
     this->setMouseTracking(true);
+
+    setAttribute(Qt::WA_TranslucentBackground);
+    setWindowFlag(Qt::FramelessWindowHint);
+
     db=pdb;
 
 }

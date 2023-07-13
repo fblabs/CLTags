@@ -13,20 +13,36 @@ HTagsRelationalTableModel::HTagsRelationalTableModel(QObject *parent)
 QVariant HTagsRelationalTableModel::data(const QModelIndex &item, int role) const
 {
 
-  const QModelIndex ix=item.model()->index(item.row(),6);
+  const QModelIndex ix=item.model()->index(item.row(),7);
 
- /* if(role==Qt::BackgroundRole && ix.data(0).toInt()==0)
+    bool ok=false;
+
+  if(role==Qt::BackgroundRole && ix.data(0).toInt(&ok)==0)
   {
-       return QColor(Qt::yellow);
+        if(ok){
+        return QColor(Qt::yellow);
+        }
 
+  }
+
+  if(role==Qt::BackgroundRole &&  ix.data(0).toInt()<0)
+  {
+      return QColor(Qt::red);
+  }
+
+ /* if(role==Qt::ForegroundRole && ix.data(0).toInt()==0)
+  {
+      return QColor(Qt::magenta);
   }*/
 
-  if(role==Qt::ForegroundRole && ix.data(0).toInt()<0)
+  if(role==Qt::ForegroundRole && ix.data(0).toInt()==0)
   {
      return QColor(Qt::red);
   }
 
-  return QSqlQueryModel::data(item, role);
+
+
+  return QSqlRelationalTableModel::data(item, role);
 
 
 }
