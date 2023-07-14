@@ -85,6 +85,7 @@ public:
 
         dateEdit = new QDateEdit(FTModMov);
         dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+        dateEdit->setCalendarPopup(true);
 
         horizontalLayout_5->addWidget(dateEdit);
 

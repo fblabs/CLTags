@@ -90,6 +90,7 @@ public:
         tvRaw->setAlternatingRowColors(true);
         tvRaw->setSelectionMode(QAbstractItemView::SingleSelection);
         tvRaw->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tvRaw->setSortingEnabled(false);
         tvRaw->horizontalHeader()->setCascadingSectionResizes(true);
         tvRaw->verticalHeader()->setVisible(false);
 

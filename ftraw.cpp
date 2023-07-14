@@ -41,7 +41,7 @@ void FtRaw::get_Operations()
         if(ui->rbLabels->isChecked()){
 
         sql="SELECT tags_mov.ID,tags_mov.ID_tags,tags_mov.data as DATA, tags.barcode as BARCODE,prodotti.ID as IDProdotto,prodotti.descrizione as PRODOTTO,clienti.ID as IDCliente,clienti.ragione_sociale as CLIENTE,\
-              stampatori.ID as IDStampatore,stampatori.ragione_sociale as STAMPATORE,azione as IDAZIONE,azioni.descrizione as AZIONE,tags_mov.amount as QUANT,tags_mov.note\
+              stampatori.ID as IDStampatore,stampatori.ragione_sociale as STAMPATORE,azione as IDAZIONE,azioni.descrizione as AZIONE,tags_mov.amount as \"QUANTITA\'\",tags_mov.note\
               FROM tags,tags_mov,anagrafica as stampatori,anagrafica as clienti,azioni,prodotti\
               WHERE tags_mov.ID_tags=tags.ID and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags_mov.data between :df and :dt order by tags_mov.data DESC";
         q.prepare(sql);
@@ -110,7 +110,7 @@ void FtRaw::get_Operations()
         }
         ui->tvRaw->setColumnHidden(0,true);
         ui->tvRaw->setColumnHidden(1,true);
-       /* ui->tvRaw->setColumnHidden(4,true);
+        /*ui->tvRaw->setColumnHidden(4,true);
         ui->tvRaw->setColumnHidden(6,true);
         ui->tvRaw->setColumnHidden(8,true);
         ui->tvRaw->setColumnHidden(10,true);*/
@@ -150,7 +150,7 @@ void FtRaw::modify_operation()
 
 
     FTModMov *f=new FTModMov(id,db,title);
-    connect(f,SIGNAL(mod_mov_done()),this,SLOT(refresh));
+    connect(f,SIGNAL(mod_mov_done()),this,SLOT(refresh()));
     f->show();
     ui->tvRaw->setCurrentIndex(index);
     }

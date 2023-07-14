@@ -78,6 +78,7 @@ public:
 
         deData = new QDateEdit(FtContainersOperation_mod);
         deData->setObjectName(QString::fromUtf8("deData"));
+        deData->setCalendarPopup(true);
 
         horizontalLayout_4->addWidget(deData);
 
