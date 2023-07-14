@@ -84,6 +84,7 @@ public:
         label_2->setFont(font);
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         label_2->setScaledContents(true);
+        label_2->setOpenExternalLinks(true);
 
         horizontalLayout_2->addWidget(label_2);
 
@@ -173,7 +174,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags 2.0.0<span style=\" font-size:20pt;\">.</span><span style=\" font-size:12pt;\">002</span></p></body></html>", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags 2.0.0<span style=\" font-size:20pt;\">.</span><span style=\" font-size:12pt;\">003</span></p><p><a href=\"https://github.com/fblabs/CLTags\"><span style=\" font-size:12pt; text-decoration: underline; color:#007af4;\">Repository sorgenti</span></a></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
         pbSettings->setToolTip(QCoreApplication::translate("MainWindow", "Impostazioni", nullptr));
 #endif // QT_CONFIG(tooltip)

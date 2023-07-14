@@ -11,6 +11,7 @@
 #include <QSettings>
 #include <QDebug>
 #include <QSqlError>
+#include <QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
