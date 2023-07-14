@@ -36,7 +36,9 @@ private slots:
 
        void on_pbContainers_clicked();
 
-private:
+       void on_pbRaw_clicked();
+
+   private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     QString server;

@@ -22,6 +22,7 @@ SOURCES += \
     ftoperate.cpp \
     ftoverview.cpp \
     ftprint.cpp \
+    ftraw.cpp \
     ftsettings.cpp \
     ftupdate_tag.cpp \
     htagsrelationaltablemodel.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     ftoperate.h \
     ftoverview.h \
     ftprint.h \
+    ftraw.h \
     ftsettings.h \
     ftupdate_tag.h \
     htagsrelationaltablemodel.h \
@@ -61,6 +63,7 @@ FORMS += \
     ftoperate.ui \
     ftoverview.ui \
     ftprint.ui \
+    ftraw.ui \
     ftsettings.ui \
     ftupdate_tag.ui \
     mainwindow.ui

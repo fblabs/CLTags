@@ -236,7 +236,7 @@ public:
         rbCarico->setText(QCoreApplication::translate("FtContainersOperation_mod", "Carico", nullptr));
         rbScarico->setText(QCoreApplication::translate("FtContainersOperation_mod", "Scarico", nullptr));
         label_4->setText(QCoreApplication::translate("FtContainersOperation_mod", "Quantit\303\240:", nullptr));
-        label_5->setText(QCoreApplication::translate("FtContainersOperation_mod", "TextLabel", nullptr));
+        label_5->setText(QCoreApplication::translate("FtContainersOperation_mod", "Note:", nullptr));
         pbSave->setText(QCoreApplication::translate("FtContainersOperation_mod", "Salva", nullptr));
         pbClose->setText(QCoreApplication::translate("FtContainersOperation_mod", "Chiudi", nullptr));
     } // retranslateUi

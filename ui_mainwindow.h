@@ -37,6 +37,7 @@ public:
     QPushButton *pbSettings;
     QPushButton *pbLabels;
     QPushButton *pbContainers;
+    QPushButton *pbRaw;
     QPushButton *pbExit;
     QStatusBar *statusbar;
 
@@ -131,13 +132,25 @@ public:
 
         horizontalLayout->addWidget(pbContainers);
 
+        pbRaw = new QPushButton(centralwidget);
+        pbRaw->setObjectName(QString::fromUtf8("pbRaw"));
+        pbRaw->setMinimumSize(QSize(65, 0));
+        pbRaw->setMaximumSize(QSize(65, 16777215));
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/resources/icons/8712509_chart_graph_diagram_report_icon (1).png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbRaw->setIcon(icon4);
+        pbRaw->setIconSize(QSize(48, 48));
+        pbRaw->setFlat(true);
+
+        horizontalLayout->addWidget(pbRaw);
+
         pbExit = new QPushButton(centralwidget);
         pbExit->setObjectName(QString::fromUtf8("pbExit"));
         pbExit->setMinimumSize(QSize(65, 65));
         pbExit->setMaximumSize(QSize(100, 65));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/resources/icons/8712836_fire_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbExit->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/resources/icons/8712836_fire_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbExit->setIcon(icon5);
         pbExit->setIconSize(QSize(65, 65));
         pbExit->setFlat(true);
 
@@ -160,7 +173,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags <span style=\" font-size:20pt;\">1.9.6.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags 2.0.0<span style=\" font-size:20pt;\">.</span><span style=\" font-size:12pt;\">001</span></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
         pbSettings->setToolTip(QCoreApplication::translate("MainWindow", "Impostazioni", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -173,6 +186,7 @@ public:
         pbContainers->setToolTip(QCoreApplication::translate("MainWindow", "Gestione vasi e tappi", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbContainers->setText(QString());
+        pbRaw->setText(QString());
         pbExit->setText(QCoreApplication::translate("MainWindow", "ESci", nullptr));
     } // retranslateUi
 

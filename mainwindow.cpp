@@ -6,6 +6,7 @@
 #include "ftcontainers_overview.h"
 #include "ftoverview.h"
 #include "ftsettings.h"
+#include "ftraw.h"
 #include <QSqlDatabase>
 #include <QSettings>
 #include <QDebug>
@@ -135,5 +136,12 @@ void MainWindow::on_pbContainers_clicked()
    f->move(pcorrect);
 
    f->show();
+}
+
+
+void MainWindow::on_pbRaw_clicked()
+{
+   FtRaw *f=new FtRaw(db);
+   f->showMaximized();
 }
 
