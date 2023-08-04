@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QSqlDatabase>
 #include <QSqlQueryModel>
+#include "hcontainerstablemodel.h"
 
 namespace Ui {
 class FtContainers_Overview;
@@ -20,7 +21,7 @@ public:
 private:
     Ui::FtContainers_Overview *ui;
     QSqlDatabase db;
-    QSqlQueryModel* mod;
+    HContainersTableModel* mod;
 private slots:
    void getContainers();
    void getContainerOperations();
@@ -39,6 +40,7 @@ private slots:
    void on_leSearch_returnPressed();
    void on_pbPrint_clicked();
    void on_pbReset_clicked();
+
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H

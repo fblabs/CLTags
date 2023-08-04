@@ -17,6 +17,10 @@
 #include <QPrinter>
 #include <QFileDialog>
 #include <QDate>
+#include "hcontainerstablemodel.h"
+
+//#include <QDebug>
+//#include <QSqlError>
 
 FtContainers_Overview::FtContainers_Overview(QSqlDatabase pdb,QWidget *parent) :
     QWidget(parent),
@@ -42,8 +46,8 @@ FtContainers_Overview::~FtContainers_Overview()
 void FtContainers_Overview::getContainers()
 {
     QSqlQuery q(db);
-    mod=new QSqlQueryModel();
-    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+    mod=new HContainersTableModel();
+    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE',tags_containers.giacenza_minima as 'GIACENZA MINIMA' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
     q.prepare(sql);
     q.exec();
     mod->setQuery(q);
@@ -63,28 +67,25 @@ void FtContainers_Overview::getContainerOperations()
 
     QSqlQuery q(db);
     QSqlQueryModel *mod_details=new QSqlQueryModel();
-    QString sql="select tags_containers_mov.ID,tags_containers_mov.ID_tags_container,tags_containers_mov.data as'DATA', prodotti.descrizione as 'PRODOTTO', anagrafica.ragione_sociale as 'FORNITORE',azioni.descrizione as 'AZIONE',tags_containers_mov.amount as 'QUANTITA',tags_containers_mov.bolla as 'BOLLA',tags_containers_mov.note as 'NOTE'\
-            from tags_containers_mov,tags_containers, prodotti, anagrafica,azioni\
-            where tags_containers.ID = tags_containers_mov.ID_tags_container\
+    QString sql="select tags_containers_mov.ID,tags_containers_mov.ID_tags_container,tags_containers_mov.data as'DATA', prodotti.descrizione as 'PRODOTTO', anagrafica.ragione_sociale as 'FORNITORE',azioni.descrizione as 'AZIONE',tags_containers_mov.amount as 'QUANTITA',tags_containers_mov.bolla as 'BOLLA',tags_containers_mov.note as 'NOTE' \
+    from tags_containers_mov,tags_containers, prodotti, anagrafica,azioni\
+    where tags_containers.ID = tags_containers_mov.ID_tags_container\
             and anagrafica.ID=tags_containers_mov.ID_supplier  \
             and azioni.ID=tags_containers_mov.azione \
             and prodotti.ID =tags_containers.ID_Prodotto \
-            and tags_containers.ID=:id_container and tags_containers_mov.data BETWEEN :df AND :dt order by tags_containers_mov.data desc";
-            q.prepare(sql);
+            and tags_containers_mov.ID_tags_container=:id_container and tags_containers_mov.data BETWEEN :df AND :dt order by tags_containers_mov.data desc";
+    q.prepare(sql);
     q.bindValue(":id_container", id_container);
             q.bindValue(":df",ui->deDal->date());
-            q.bindValue(":dt",ui->deAl->date());
+    q.bindValue(":dt",ui->deAl->date().addDays(1));
 
     q.exec();
+
     mod_details->setQuery(q);
     ui->tvDetails->setModel(mod_details);
     ui->tvDetails->setColumnHidden(0,true);
     ui->tvDetails->setColumnHidden(1,true);
     ui->tvDetails->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
-   // qDebug()<<id_container<<q.lastError().text();
-
-
 
 }
 
@@ -107,12 +108,10 @@ void FtContainers_Overview::on_pbLoad_clicked()
 {
     int row=ui->tvOverview->currentIndex().row();
     int id=ui->tvOverview->model()->index(row,0).data(0).toInt();
-    QString supplier=ui->tvDetails->model()->index(row,4).data(0).toString();
-    QModelIndex ix=ui->tvOverview->currentIndex();
+    //QString supplier=ui->tvDetails->model()->index(row,4).data(0).toString();
+   // QModelIndex ix=ui->tvOverview->currentIndex();
     FtContainerLoad *f=new FtContainerLoad(id,db);
     connect(f,SIGNAL(sg_save_load()),this,SLOT(refresh()));
-
-   // qDebug()<<id;
 
     f->show();
 
@@ -134,7 +133,7 @@ void FtContainers_Overview::on_pbUnload_clicked()
 
 void FtContainers_Overview::modify_tag()
 {
-    QModelIndex prev=ui->tvDetails->selectionModel()->currentIndex();
+   // QModelIndex prev=ui->tvDetails->selectionModel()->currentIndex();
     int row=ui->tvDetails->selectionModel()->currentIndex().row();
     QModelIndex ix=ui->tvDetails->model()->index(row,0);
 
@@ -151,6 +150,7 @@ void FtContainers_Overview::modify_tag()
     refresh();
 
     getContainerOperations();
+
 
 }
 
@@ -287,15 +287,20 @@ void FtContainers_Overview::refresh()
     QSqlQuery q(db);
   //  QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione, tags_containers.giacenza from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
 
-    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+    //QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+   // QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE',tags_containers.giacenza_minima as 'GIACENZA MINIMA' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE',tags_containers.giacenza_minima as 'GIACENZA MINIMA' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+
     q.prepare(sql);
     q.exec();
+
     mod->setQuery(q);
 
 
     ui->tvOverview->setCurrentIndex(current);
     ui->tvOverview->selectionModel()->select(current,QItemSelectionModel::Select);
     ui->tvDetails->setCurrentIndex(mov);
+    getContainerOperations();
 
 
 
@@ -337,12 +342,14 @@ void FtContainers_Overview::on_leSearch_returnPressed()
     QModelIndex ix=ui->tvOverview->currentIndex();
 
     QString search="%"+ui->leSearch->text()+"%";
-    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) and prodotti.descrizione LIKE :search order by prodotti.descrizione";
+   // QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) and prodotti.descrizione LIKE :search order by prodotti.descrizione";
+    QString sql="SELECT tags_containers.ID, prodotti.ID,prodotti.descrizione as 'DESCRIZIONE', tags_containers.giacenza as 'GIACENZA',tags_containers.note as 'NOTE',tags_containers.giacenza_minima as 'GIACENZA MINIMA' from tags_containers,prodotti where prodotti.ID=tags_containers.ID_Prodotto and prodotti.tipo IN(3,4,5) order by prodotti.descrizione";
+
     QSqlQuery q(db);
     q.prepare(sql);
     q.bindValue(":search",search);
     q.exec();
-    mod=new QSqlQueryModel();
+    mod=new  HContainersTableModel();
     mod->setQuery(q);
 
     ui->tvOverview->setModel(mod);
@@ -369,4 +376,6 @@ void FtContainers_Overview::on_pbReset_clicked()
    ui->deDal->setDate(QDate::currentDate().addYears(-1));
    ui->deAl->setDate(QDate::currentDate());
 }
+
+
 

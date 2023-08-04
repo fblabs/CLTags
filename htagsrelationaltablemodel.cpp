@@ -14,10 +14,11 @@ QVariant HTagsRelationalTableModel::data(const QModelIndex &item, int role) cons
 {
 
   const QModelIndex ix=item.model()->index(item.row(),7);
+  const QModelIndex igm=item.model()->index(item.row(),10);
 
     bool ok=false;
 
-  if(role==Qt::BackgroundRole && ix.data(0).toInt(&ok)==0)
+    if(role==Qt::BackgroundRole && ix.data(0).toInt(&ok)<igm.data(0).toInt())
   {
         if(ok){
         return QColor(Qt::yellow);
@@ -25,19 +26,14 @@ QVariant HTagsRelationalTableModel::data(const QModelIndex &item, int role) cons
 
   }
 
-  if(role==Qt::BackgroundRole &&  ix.data(0).toInt()<0)
+    if(role==Qt::BackgroundRole &&  ix.data(0).toInt()<igm.data(0).toInt())
   {
       return QColor(Qt::red);
   }
 
- /* if(role==Qt::ForegroundRole && ix.data(0).toInt()==0)
+  if(role==Qt::ForegroundRole && ix.data(0).toInt()<igm.data(0).toInt())
   {
-      return QColor(Qt::magenta);
-  }*/
-
-  if(role==Qt::ForegroundRole && ix.data(0).toInt()==0)
-  {
-     return QColor(Qt::red);
+     return QColor(Qt::darkRed);
   }
 
 

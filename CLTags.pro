@@ -25,6 +25,7 @@ SOURCES += \
     ftraw.cpp \
     ftsettings.cpp \
     ftupdate_tag.cpp \
+    hcontainerstablemodel.cpp \
     htagsrelationaltablemodel.cpp \
     main.cpp \
     mainwindow.cpp
@@ -46,6 +47,7 @@ HEADERS += \
     ftraw.h \
     ftsettings.h \
     ftupdate_tag.h \
+    hcontainerstablemodel.h \
     htagsrelationaltablemodel.h \
     mainwindow.h
 

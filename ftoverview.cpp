@@ -247,9 +247,7 @@ HTagsRelationalTableModel* FTOverview::buildModel()
     local_model->setHeaderData(6,Qt::Horizontal,"IMMAGINE");
     local_model->setHeaderData(7,Qt::Horizontal,"GIACENZA");
     local_model->setHeaderData(8,Qt::Horizontal,"NOTE");
-
-
-
+    local_model->setHeaderData(10,Qt::Horizontal,"GIACENZA MINIMA");
 
     return  local_model;
 }

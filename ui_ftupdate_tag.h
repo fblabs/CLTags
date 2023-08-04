@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -32,6 +33,9 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *label_2;
     QTextEdit *teNote;
+    QFormLayout *formLayout;
+    QLabel *label_3;
+    QLineEdit *le_giacenza_minima;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *pbSave;
     QPushButton *pbClose;
@@ -79,6 +83,23 @@ public:
 
         verticalLayout_2->addLayout(verticalLayout);
 
+        formLayout = new QFormLayout();
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        label_3 = new QLabel(FtUpdate_Tag);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        formLayout->setWidget(0, QFormLayout::LabelRole, label_3);
+
+        le_giacenza_minima = new QLineEdit(FtUpdate_Tag);
+        le_giacenza_minima->setObjectName(QString::fromUtf8("le_giacenza_minima"));
+        le_giacenza_minima->setMinimumSize(QSize(80, 0));
+        le_giacenza_minima->setMaximumSize(QSize(80, 16777215));
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, le_giacenza_minima);
+
+
+        verticalLayout_2->addLayout(formLayout);
+
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         pbSave = new QPushButton(FtUpdate_Tag);
@@ -113,6 +134,7 @@ public:
         FtUpdate_Tag->setWindowTitle(QCoreApplication::translate("FtUpdate_Tag", "Modifica ", nullptr));
         label->setText(QCoreApplication::translate("FtUpdate_Tag", "Prodotto:", nullptr));
         label_2->setText(QCoreApplication::translate("FtUpdate_Tag", "Note", nullptr));
+        label_3->setText(QCoreApplication::translate("FtUpdate_Tag", "Giacenza minima:", nullptr));
         pbSave->setText(QCoreApplication::translate("FtUpdate_Tag", "Salva", nullptr));
         pbClose->setText(QCoreApplication::translate("FtUpdate_Tag", "Chiudi", nullptr));
     } // retranslateUi

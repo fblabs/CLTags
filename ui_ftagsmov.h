@@ -15,7 +15,6 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFormLayout>
-#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -48,10 +47,14 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QLineEdit *leSpecifica;
-    QGridLayout *gridLayout;
-    QFormLayout *formLayout;
+    QFormLayout *formLayout_2;
     QLabel *label_6;
     QTextEdit *teNote;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *label_8;
+    QLineEdit *leGiacenzaMinima;
+    QSpacerItem *horizontalSpacer_2;
+    QFormLayout *formLayout;
     QLabel *label_7;
     QCheckBox *cbState;
     QHBoxLayout *horizontalLayout_8;
@@ -88,8 +91,8 @@ public:
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         label_2 = new QLabel(FTagsMov);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setMinimumSize(QSize(80, 0));
-        label_2->setMaximumSize(QSize(80, 16777215));
+        label_2->setMinimumSize(QSize(90, 0));
+        label_2->setMaximumSize(QSize(90, 16777215));
 
         horizontalLayout_7->addWidget(label_2);
 
@@ -106,8 +109,8 @@ public:
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         label_4 = new QLabel(FTagsMov);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setMinimumSize(QSize(80, 0));
-        label_4->setMaximumSize(QSize(80, 16777215));
+        label_4->setMinimumSize(QSize(90, 0));
+        label_4->setMaximumSize(QSize(90, 16777215));
 
         horizontalLayout_6->addWidget(label_4);
 
@@ -124,8 +127,8 @@ public:
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         label_5 = new QLabel(FTagsMov);
         label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setMinimumSize(QSize(80, 0));
-        label_5->setMaximumSize(QSize(80, 16777215));
+        label_5->setMinimumSize(QSize(90, 0));
+        label_5->setMaximumSize(QSize(90, 16777215));
 
         horizontalLayout_5->addWidget(label_5);
 
@@ -148,8 +151,8 @@ public:
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         label = new QLabel(FTagsMov);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setMinimumSize(QSize(80, 0));
-        label->setMaximumSize(QSize(80, 16777215));
+        label->setMinimumSize(QSize(90, 0));
+        label->setMaximumSize(QSize(90, 16777215));
 
         horizontalLayout_4->addWidget(label);
 
@@ -166,8 +169,8 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label_3 = new QLabel(FTagsMov);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setMinimumSize(QSize(80, 0));
-        label_3->setMaximumSize(QSize(80, 16777215));
+        label_3->setMinimumSize(QSize(90, 0));
+        label_3->setMaximumSize(QSize(90, 16777215));
 
         horizontalLayout_3->addWidget(label_3);
 
@@ -180,13 +183,8 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_3);
 
-        gridLayout = new QGridLayout();
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-
-        verticalLayout_2->addLayout(gridLayout);
-
-        formLayout = new QFormLayout();
-        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        formLayout_2 = new QFormLayout();
+        formLayout_2->setObjectName(QString::fromUtf8("formLayout_2"));
         label_6 = new QLabel(FTagsMov);
         label_6->setObjectName(QString::fromUtf8("label_6"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
@@ -194,32 +192,59 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label_6->sizePolicy().hasHeightForWidth());
         label_6->setSizePolicy(sizePolicy);
-        label_6->setMinimumSize(QSize(80, 20));
-        label_6->setMaximumSize(QSize(16777215, 20));
+        label_6->setMinimumSize(QSize(90, 20));
+        label_6->setMaximumSize(QSize(90, 20));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, label_6);
+        formLayout_2->setWidget(0, QFormLayout::LabelRole, label_6);
 
         teNote = new QTextEdit(FTagsMov);
         teNote->setObjectName(QString::fromUtf8("teNote"));
         sizePolicy.setHeightForWidth(teNote->sizePolicy().hasHeightForWidth());
         teNote->setSizePolicy(sizePolicy);
         teNote->setMinimumSize(QSize(0, 0));
-        teNote->setMaximumSize(QSize(16777215, 16777215));
+        teNote->setMaximumSize(QSize(16777215, 60));
         teNote->setBaseSize(QSize(0, 100));
         teNote->setAutoFillBackground(false);
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, teNote);
+        formLayout_2->setWidget(0, QFormLayout::FieldRole, teNote);
 
+
+        verticalLayout_2->addLayout(formLayout_2);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
+        label_8 = new QLabel(FTagsMov);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setMinimumSize(QSize(90, 0));
+        label_8->setMaximumSize(QSize(900, 16777215));
+
+        horizontalLayout_9->addWidget(label_8);
+
+        leGiacenzaMinima = new QLineEdit(FTagsMov);
+        leGiacenzaMinima->setObjectName(QString::fromUtf8("leGiacenzaMinima"));
+        leGiacenzaMinima->setMaximumSize(QSize(80, 16777215));
+
+        horizontalLayout_9->addWidget(leGiacenzaMinima);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer_2);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_9);
+
+        formLayout = new QFormLayout();
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
         label_7 = new QLabel(FTagsMov);
         label_7->setObjectName(QString::fromUtf8("label_7"));
 
-        formLayout->setWidget(1, QFormLayout::LabelRole, label_7);
+        formLayout->setWidget(0, QFormLayout::LabelRole, label_7);
 
         cbState = new QCheckBox(FTagsMov);
         cbState->setObjectName(QString::fromUtf8("cbState"));
         cbState->setChecked(true);
 
-        formLayout->setWidget(1, QFormLayout::FieldRole, cbState);
+        formLayout->setWidget(0, QFormLayout::FieldRole, cbState);
 
 
         verticalLayout_2->addLayout(formLayout);
@@ -385,6 +410,7 @@ public:
         label->setText(QCoreApplication::translate("FTagsMov", "Barcode:", nullptr));
         label_3->setText(QCoreApplication::translate("FTagsMov", "Specifica:", nullptr));
         label_6->setText(QCoreApplication::translate("FTagsMov", "Note:", nullptr));
+        label_8->setText(QCoreApplication::translate("FTagsMov", "Giacenza minima:", nullptr));
         label_7->setText(QCoreApplication::translate("FTagsMov", "Stato:", nullptr));
         cbState->setText(QString());
         rbAll->setText(QCoreApplication::translate("FTagsMov", "Mostra tutto", nullptr));

@@ -22,7 +22,7 @@ private:
     int id_tag;
 private slots:
     void populate();
-    void save();
+    bool save();
     void on_pbSave_clicked();
 
     void on_pbClose_clicked();
