@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -29,7 +30,7 @@ QT_BEGIN_NAMESPACE
 class Ui_FTOperate
 {
 public:
-    QVBoxLayout *verticalLayout_3;
+    QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_6;
     QRadioButton *rbCarico;
     QRadioButton *rbScarico;
@@ -50,14 +51,15 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QLabel *label_7;
     QLineEdit *leAmount;
-    QHBoxLayout *horizontalLayout_7;
-    QVBoxLayout *verticalLayout;
+    QFormLayout *formLayout_2;
+    QLabel *label_8;
+    QLabel *lbImg;
+    QLabel *lbImgPath;
+    QFormLayout *formLayout;
     QLabel *label_6;
-    QSpacerItem *verticalSpacer;
-    QVBoxLayout *verticalLayout_2;
     QTextEdit *teNote;
-    QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_9;
+    QPushButton *pbBolla;
     QPushButton *pbSave;
     QPushButton *pbClose;
 
@@ -66,12 +68,12 @@ public:
         if (FTOperate->objectName().isEmpty())
             FTOperate->setObjectName(QString::fromUtf8("FTOperate"));
         FTOperate->setWindowModality(Qt::WindowModal);
-        FTOperate->resize(514, 495);
+        FTOperate->resize(599, 388);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/8712785_tool_iso_premium_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         FTOperate->setWindowIcon(icon);
-        verticalLayout_3 = new QVBoxLayout(FTOperate);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout = new QVBoxLayout(FTOperate);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         rbCarico = new QRadioButton(FTOperate);
@@ -86,13 +88,13 @@ public:
         horizontalLayout_6->addWidget(rbScarico);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_6);
+        verticalLayout->addLayout(horizontalLayout_6);
 
         lbTitle = new QLabel(FTOperate);
         lbTitle->setObjectName(QString::fromUtf8("lbTitle"));
         lbTitle->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 127);"));
 
-        verticalLayout_3->addWidget(lbTitle);
+        verticalLayout->addWidget(lbTitle);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -116,7 +118,7 @@ public:
         horizontalLayout->addItem(horizontalSpacer);
 
 
-        verticalLayout_3->addLayout(horizontalLayout);
+        verticalLayout->addLayout(horizontalLayout);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
@@ -134,7 +136,7 @@ public:
         horizontalLayout_3->addWidget(leBarcode);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_3);
+        verticalLayout->addLayout(horizontalLayout_3);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -151,7 +153,7 @@ public:
         horizontalLayout_2->addWidget(cbTipo);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_2);
+        verticalLayout->addLayout(horizontalLayout_2);
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
@@ -168,7 +170,7 @@ public:
         horizontalLayout_4->addWidget(cbStampatore);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_4);
+        verticalLayout->addLayout(horizontalLayout_4);
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
@@ -187,65 +189,79 @@ public:
         horizontalLayout_8->addWidget(leAmount);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_8);
+        verticalLayout->addLayout(horizontalLayout_8);
 
-        horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        formLayout_2 = new QFormLayout();
+        formLayout_2->setObjectName(QString::fromUtf8("formLayout_2"));
+        label_8 = new QLabel(FTOperate);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+
+        formLayout_2->setWidget(0, QFormLayout::LabelRole, label_8);
+
+        lbImg = new QLabel(FTOperate);
+        lbImg->setObjectName(QString::fromUtf8("lbImg"));
+
+        formLayout_2->setWidget(0, QFormLayout::FieldRole, lbImg);
+
+
+        verticalLayout->addLayout(formLayout_2);
+
+        lbImgPath = new QLabel(FTOperate);
+        lbImgPath->setObjectName(QString::fromUtf8("lbImgPath"));
+
+        verticalLayout->addWidget(lbImgPath);
+
+        formLayout = new QFormLayout();
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        formLayout->setLabelAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         label_6 = new QLabel(FTOperate);
         label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
 
-        verticalLayout->addWidget(label_6);
+        formLayout->setWidget(0, QFormLayout::LabelRole, label_6);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
-
-
-        horizontalLayout_7->addLayout(verticalLayout);
-
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         teNote = new QTextEdit(FTOperate);
         teNote->setObjectName(QString::fromUtf8("teNote"));
         teNote->setMinimumSize(QSize(0, 50));
         teNote->setMaximumSize(QSize(16777215, 50));
 
-        verticalLayout_2->addWidget(teNote);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_2->addItem(verticalSpacer_2);
+        formLayout->setWidget(0, QFormLayout::FieldRole, teNote);
 
 
-        horizontalLayout_7->addLayout(verticalLayout_2);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_7);
+        verticalLayout->addLayout(formLayout);
 
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
+        pbBolla = new QPushButton(FTOperate);
+        pbBolla->setObjectName(QString::fromUtf8("pbBolla"));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/resources/icons/Text-align--justify64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbBolla->setIcon(icon1);
+        pbBolla->setIconSize(QSize(32, 32));
+
+        horizontalLayout_9->addWidget(pbBolla);
+
         pbSave = new QPushButton(FTOperate);
         pbSave->setObjectName(QString::fromUtf8("pbSave"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/resources/icons/Accept64.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbSave->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/resources/icons/Accept64.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbSave->setIcon(icon2);
         pbSave->setIconSize(QSize(32, 32));
 
         horizontalLayout_9->addWidget(pbSave);
 
         pbClose = new QPushButton(FTOperate);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pbClose->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/resources/icons/Actions-window-close-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pbClose->setIcon(icon3);
         pbClose->setIconSize(QSize(32, 32));
 
         horizontalLayout_9->addWidget(pbClose);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_9);
+        verticalLayout->addLayout(horizontalLayout_9);
 
 
         retranslateUi(FTOperate);
@@ -264,7 +280,11 @@ public:
         label_2->setText(QCoreApplication::translate("FTOperate", "Tipo:", nullptr));
         label_4->setText(QCoreApplication::translate("FTOperate", "Stampatore:", nullptr));
         label_7->setText(QCoreApplication::translate("FTOperate", "Quantit\303\240:", nullptr));
+        label_8->setText(QCoreApplication::translate("FTOperate", "Bolla:", nullptr));
+        lbImg->setText(QString());
+        lbImgPath->setText(QString());
         label_6->setText(QCoreApplication::translate("FTOperate", "Note:", nullptr));
+        pbBolla->setText(QCoreApplication::translate("FTOperate", "Scegli Immagine bolla", nullptr));
         pbSave->setText(QCoreApplication::translate("FTOperate", "Salva", nullptr));
         pbClose->setText(QCoreApplication::translate("FTOperate", "Chiudi", nullptr));
 #if QT_CONFIG(shortcut)

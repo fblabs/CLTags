@@ -187,6 +187,9 @@ public:
         pbContainers->setToolTip(QCoreApplication::translate("MainWindow", "Gestione vasi e tappi", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbContainers->setText(QString());
+#if QT_CONFIG(tooltip)
+        pbRaw->setToolTip(QCoreApplication::translate("MainWindow", "Consultazione e stampe", nullptr));
+#endif // QT_CONFIG(tooltip)
         pbRaw->setText(QString());
         pbExit->setText(QCoreApplication::translate("MainWindow", "ESci", nullptr));
     } // retranslateUi

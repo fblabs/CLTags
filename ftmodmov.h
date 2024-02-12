@@ -27,9 +27,20 @@ private slots:
     void on_pbCancel_clicked();
     void save();
     void on_pbSave_clicked();
+    void chooseImage();
+
+
+    void on_rbCarico_toggled(bool checked);
+
+    void on_pbImg_clicked();
+    void showImage(const QString path);
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *evt);
 
 signals:
     void mod_mov_done();
+    void imageClicked(const QString path);
 };
 
 #endif // FTMODMOV_H

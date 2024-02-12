@@ -6,12 +6,21 @@
 #include <QCompleter>
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QShortcut>
+#include "ftimage.h"
 
 FTOperate::FTOperate(const int p_action,const int p_id_tag, QSqlDatabase pdb,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FTOperate)
 {
-    ui->setupUi(this);
+     ui->setupUi(this);
+    QShortcut *sh=new QShortcut(QKeySequence(Qt::ALT + Qt::Key_B),this);
+    connect(sh,&QShortcut::activated,this,&chooseImage);
+
+    ui->label_8->setVisible(false);
+    ui->lbImgPath->setVisible(false);
+
     db=pdb;
     id_tag=p_id_tag;
     action=p_action;
@@ -24,6 +33,8 @@ void FTOperate::setup()
 
 
     ui->deDate->setDate(QDate::currentDate());
+    ui->lbImg->installEventFilter(this);
+
 
 
     modbarcodes=new QSqlQueryModel();
@@ -74,6 +85,9 @@ void FTOperate::setup()
      }
 
 
+    connect(this,&imageClicked,&showImage);
+
+
     emit ui->leBarcode->returnPressed();
 
 
@@ -85,7 +99,7 @@ void FTOperate::setup()
 void FTOperate::saveOp()
 {
     QSqlQuery q(db);
-    QString sql="INSERT INTO `fbgmdb260`.`tags_mov`(`ID_tags`,`data`,`barcode`,`IDStampatore`,`azione`,`amount`,`note`) VALUES(:idtags,:data,:barcode,:IDStampatore,:azione,:amount,:note)";
+    QString sql="INSERT INTO `fbgmdb260`.`tags_mov`(`ID_tags`,`data`,`barcode`,`IDStampatore`,`azione`,`amount`,`note`,`bolla`) VALUES(:idtags,:data,:barcode,:IDStampatore,:azione,:amount,:note,:bolla)";
     q.prepare(sql);
      q.bindValue(":idtags",id_tag);
 
@@ -101,6 +115,7 @@ void FTOperate::saveOp()
     q.bindValue(":azione",azione);
     q.bindValue(":amount",ui->leAmount->text().toInt());
     q.bindValue(":note",ui->teNote->toPlainText());
+    q.bindValue(":bolla",ui->lbImgPath->text().simplified());
 
 
     db.transaction();
@@ -158,6 +173,33 @@ void FTOperate::populate()
      }
 }
 
+void FTOperate::chooseImage()
+{
+     connect(this,SIGNAL(imageClicked(QString)),this,SLOT(showImage(QString)));
+
+
+    QString filename= QFileDialog::getOpenFileName(nullptr,"Scegli immagine","","tutti(*.*);;JPEG(*.jpg,*.jpeg);;PNG(*.png);;TIFF(*.tif)");
+
+
+
+
+
+        QImage image(filename);
+        image=image.scaled(209,297);
+
+
+        QPixmap pixmap=QPixmap::fromImage(image);
+
+
+        ui->lbImg->setPixmap(pixmap);
+        ui->lbImgPath->setText(filename);
+
+
+
+
+
+}
+
 
 
 void FTOperate::on_pbSave_clicked()
@@ -188,6 +230,8 @@ void FTOperate::on_rbCarico_toggled(bool checked)
        ui->cbStampatore->setCurrentIndex(six);*/
        ui->cbStampatore->setVisible(true);
        ui->label_4->setVisible(true);
+       ui->label_8->setVisible(true);
+       ui->lbImg->setVisible(true);
    }
 
     if(!checked){
@@ -195,9 +239,39 @@ void FTOperate::on_rbCarico_toggled(bool checked)
         ui->rbScarico->setChecked(true);
         ui->cbStampatore->setVisible(false);
         ui->label_4->setVisible(false);
+        ui->label_8->setVisible(true);
+        ui->lbImg->setVisible(false);
     }
 }
 
 
+void FTOperate::on_pbBolla_clicked()
+{
+    chooseImage();
 
+}
+
+void FTOperate::showImage(const QString path)
+{
+    FTImage *f=new FTImage(path);
+   // connect(f,SIGNAL(transfer_Barcode(QString)),this,SLOT(setBarcode(QString)));
+    f->show();
+}
+
+bool FTOperate::eventFilter(QObject *obj, QEvent *evt)
+{
+
+
+    if(obj==ui->lbImg && evt->type()==QEvent::MouseButtonDblClick)
+    {
+
+        qDebug()<<"event label1";
+        emit imageClicked(ui->lbImgPath->text());
+
+    }
+
+
+    return QObject::eventFilter(obj,evt);
+
+}
 

@@ -54,9 +54,13 @@ public:
     QLabel *label_8;
     QLineEdit *leGiacenzaMinima;
     QSpacerItem *horizontalSpacer_2;
+    QFormLayout *formLayout_4;
     QFormLayout *formLayout;
     QLabel *label_7;
     QCheckBox *cbState;
+    QFormLayout *formLayout_3;
+    QLabel *label_9;
+    QCheckBox *cbVisibile;
     QHBoxLayout *horizontalLayout_8;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
@@ -233,6 +237,8 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_9);
 
+        formLayout_4 = new QFormLayout();
+        formLayout_4->setObjectName(QString::fromUtf8("formLayout_4"));
         formLayout = new QFormLayout();
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
         label_7 = new QLabel(FTagsMov);
@@ -247,7 +253,25 @@ public:
         formLayout->setWidget(0, QFormLayout::FieldRole, cbState);
 
 
-        verticalLayout_2->addLayout(formLayout);
+        formLayout_4->setLayout(0, QFormLayout::LabelRole, formLayout);
+
+        formLayout_3 = new QFormLayout();
+        formLayout_3->setObjectName(QString::fromUtf8("formLayout_3"));
+        label_9 = new QLabel(FTagsMov);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+
+        formLayout_3->setWidget(0, QFormLayout::LabelRole, label_9);
+
+        cbVisibile = new QCheckBox(FTagsMov);
+        cbVisibile->setObjectName(QString::fromUtf8("cbVisibile"));
+
+        formLayout_3->setWidget(0, QFormLayout::FieldRole, cbVisibile);
+
+
+        formLayout_4->setLayout(0, QFormLayout::FieldRole, formLayout_3);
+
+
+        verticalLayout_2->addLayout(formLayout_4);
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
@@ -413,6 +437,8 @@ public:
         label_8->setText(QCoreApplication::translate("FTagsMov", "Giacenza minima:", nullptr));
         label_7->setText(QCoreApplication::translate("FTagsMov", "Stato:", nullptr));
         cbState->setText(QString());
+        label_9->setText(QCoreApplication::translate("FTagsMov", "Visibile", nullptr));
+        cbVisibile->setText(QString());
         rbAll->setText(QCoreApplication::translate("FTagsMov", "Mostra tutto", nullptr));
         rb1->setText(QCoreApplication::translate("FTagsMov", "Immagine 1", nullptr));
         rb2->setText(QCoreApplication::translate("FTagsMov", "Immagine 2", nullptr));

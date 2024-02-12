@@ -12,11 +12,13 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -33,7 +35,10 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *label_2;
     QTextEdit *teNote;
-    QFormLayout *formLayout;
+    QHBoxLayout *horizontalLayout_3;
+    QCheckBox *cbVisibile;
+    QSpacerItem *horizontalSpacer;
+    QFormLayout *formLayout_2;
     QLabel *label_3;
     QLineEdit *le_giacenza_minima;
     QHBoxLayout *horizontalLayout_2;
@@ -45,7 +50,7 @@ public:
         if (FtUpdate_Tag->objectName().isEmpty())
             FtUpdate_Tag->setObjectName(QString::fromUtf8("FtUpdate_Tag"));
         FtUpdate_Tag->setWindowModality(Qt::ApplicationModal);
-        FtUpdate_Tag->resize(503, 342);
+        FtUpdate_Tag->resize(503, 391);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/Box.PNG"), QSize(), QIcon::Normal, QIcon::Off);
         FtUpdate_Tag->setWindowIcon(icon);
@@ -83,22 +88,37 @@ public:
 
         verticalLayout_2->addLayout(verticalLayout);
 
-        formLayout = new QFormLayout();
-        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        cbVisibile = new QCheckBox(FtUpdate_Tag);
+        cbVisibile->setObjectName(QString::fromUtf8("cbVisibile"));
+        cbVisibile->setChecked(true);
+
+        horizontalLayout_3->addWidget(cbVisibile);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer);
+
+        formLayout_2 = new QFormLayout();
+        formLayout_2->setObjectName(QString::fromUtf8("formLayout_2"));
         label_3 = new QLabel(FtUpdate_Tag);
         label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, label_3);
+        formLayout_2->setWidget(0, QFormLayout::LabelRole, label_3);
 
         le_giacenza_minima = new QLineEdit(FtUpdate_Tag);
         le_giacenza_minima->setObjectName(QString::fromUtf8("le_giacenza_minima"));
         le_giacenza_minima->setMinimumSize(QSize(80, 0));
         le_giacenza_minima->setMaximumSize(QSize(80, 16777215));
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, le_giacenza_minima);
+        formLayout_2->setWidget(0, QFormLayout::FieldRole, le_giacenza_minima);
 
 
-        verticalLayout_2->addLayout(formLayout);
+        horizontalLayout_3->addLayout(formLayout_2);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_3);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -134,6 +154,7 @@ public:
         FtUpdate_Tag->setWindowTitle(QCoreApplication::translate("FtUpdate_Tag", "Modifica ", nullptr));
         label->setText(QCoreApplication::translate("FtUpdate_Tag", "Prodotto:", nullptr));
         label_2->setText(QCoreApplication::translate("FtUpdate_Tag", "Note", nullptr));
+        cbVisibile->setText(QCoreApplication::translate("FtUpdate_Tag", "Visibile", nullptr));
         label_3->setText(QCoreApplication::translate("FtUpdate_Tag", "Giacenza minima:", nullptr));
         pbSave->setText(QCoreApplication::translate("FtUpdate_Tag", "Salva", nullptr));
         pbClose->setText(QCoreApplication::translate("FtUpdate_Tag", "Chiudi", nullptr));

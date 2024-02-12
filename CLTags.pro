@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ftaddcontainer.cpp \
     ftagsmov.cpp \
     ftagsstock.cpp \
     ftcommands.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    ftaddcontainer.h \
     ftagsmov.h \
     ftagsstock.h \
     ftcommands.h \
@@ -52,6 +54,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    ftaddcontainer.ui \
     ftagsmov.ui \
     ftagsstock.ui \
     ftcommands.ui \

@@ -71,6 +71,14 @@ private slots:
 
     void on_pbReset_clicked();
 
+
+
+
+
+    void on_pbShowTags_toggled(bool checked);
+
+    void on_pbShowtagOps_toggled(bool checked);
+
 signals:
     void mov_deleted();
 };

@@ -43,6 +43,7 @@ release/moc_ftagsdef.cpp
 *.Release
 *.Debug
 LICENSE
+debug/
 debug/qrc_resources.cpp
 debug/moc_predefs.h
 debug/moc_mainwindow.cpp
@@ -62,6 +63,4 @@ usersinfoappdatalocaltemptmpl6g0zx
 usersinfoappdatalocaltemptmpopyyg_
 usersinfoappdatalocaltemptmpqnpfbh
 ctags.ini
-ctags.ini
-ctags.ini
-ctags.ini
+moc*

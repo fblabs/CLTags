@@ -33,6 +33,8 @@ FTOverview::FTOverview(QSqlDatabase pdb, QWidget *parent) :
 {
     ui->setupUi(this);
     db=pdb;
+
+    ui->cbAttivi->setChecked(true);
     setup();
 }
 
@@ -60,7 +62,7 @@ void FTOverview::setup()
     ui->tvTags->horizontalHeader()->setCascadingSectionResizes(true);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(1,QHeaderView::ResizeToContents);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Interactive);
-    ui->tvTags->horizontalHeader()->setSectionResizeMode(3,QHeaderView::Interactive);
+    ui->tvTags->horizontalHeader()->setSectionResizeMode(3,QHeaderView::ResizeToContents);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(4,QHeaderView::ResizeToContents);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(5,QHeaderView::ResizeToContents);
     ui->tvTags->horizontalHeader()->setSectionResizeMode(6,QHeaderView::Interactive);
@@ -68,6 +70,7 @@ void FTOverview::setup()
     ui->tvTags->setColumnHidden(0,true);
     ui->tvTags->setColumnHidden(6,true);
     ui->tvTags->setColumnHidden(9,true);
+    ui->tvTags->setColumnHidden(11,true);
     ui->tvTags->horizontalHeader()->setStretchLastSection(true);
     ui->cbCliente->completer()->setCompletionMode(QCompleter::PopupCompletion);
 
@@ -83,6 +86,8 @@ void FTOverview::setup()
     ui->cbCliente->setModelColumn(1);
     ui->cbCliente->completer()->setCompletionColumn(1);
     ui->cbCliente->completer()->setCompletionMode(QCompleter::PopupCompletion);
+    connect(ui->cbCliente,SIGNAL(currentIndexChanged(int)),this,SLOT(buildFilter()));
+    qDebug()<<"Cienimod"<<clientimod->lastError().text();
 
 
     QModelIndex ix=tagsmod->index(0,0);
@@ -186,7 +191,7 @@ void FTOverview::mod_mov(const QModelIndex index)
     QString title=QString();
 
 
-    title=ui->tvTags_mov->model()->index(index.row(),6).data(0).toString() + " - " + ui->tvTags_mov->model()->index(index.row(),4).data(0).toString();
+    title=ui->tvTags_mov->model()->index(index.row(),5).data(0).toString() + " - " + ui->tvTags_mov->model()->index(index.row(),7).data(0).toString();
 
     FTModMov *f=new FTModMov(id,db,title);
     //  connect(f,SIGNAL(mod_mov_done()),this,SLOT(refresh()));
@@ -248,6 +253,7 @@ HTagsRelationalTableModel* FTOverview::buildModel()
     local_model->setHeaderData(7,Qt::Horizontal,"GIACENZA");
     local_model->setHeaderData(8,Qt::Horizontal,"NOTE");
     local_model->setHeaderData(10,Qt::Horizontal,"GIACENZA MINIMA");
+    local_model->setHeaderData(11,Qt::Horizontal,"VISIBILE");
 
     return  local_model;
 }
@@ -415,7 +421,7 @@ QString FTOverview::buildFilter()
     current_tag_id=ui->tvTags->model()->index(curix.row(),0).data(0).toInt();
     QString filter="";
 
-    QString ftipo,flabels,fsigilli,fprodotto,fcliente,fstato,fbarcode=QString();
+    QString ftipo,fprodotto,fcliente,fstato,fbarcode=QString();
 
     QString AND=" AND ";
 
@@ -630,14 +636,14 @@ void FTOverview::on_rbNoCust_toggled(bool checked)
 
 void FTOverview::on_rbSigilli_toggled(bool checked)
 {
-    if (checked){tagsmod->setFilter(buildFilter());}
+    /*if (checked){*/tagsmod->setFilter(buildFilter());
 }
 
 
 
 void FTOverview::on_rbNoProd_toggled(bool checked)
 {
-    if (checked){tagsmod->setFilter(buildFilter());}
+   /* if (checked){t*/tagsmod->setFilter(buildFilter());
 }
 
 
@@ -694,5 +700,22 @@ void FTOverview::on_pbReset_clicked()
     ui->deDal->setDate(QDate::currentDate().addYears(-1));
     ui->deAl->setDate(QDate::currentDate());
 
+}
+
+
+
+
+
+
+
+void FTOverview::on_pbShowTags_toggled(bool checked)
+{
+    ui->tvTags->setVisible(checked);
+}
+
+
+void FTOverview::on_pbShowtagOps_toggled(bool checked)
+{
+    ui->tvTags_mov->setVisible(checked);
 }
 

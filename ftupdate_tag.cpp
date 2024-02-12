@@ -26,7 +26,7 @@ FtUpdate_Tag::~FtUpdate_Tag()
 void FtUpdate_Tag::populate()
 {
     QSqlQuery q(db);
-    QString sql="SELECT prodotti.descrizione, tags_containers.note,tags_containers.giacenza_minima from tags_containers,prodotti WHERE prodotti.ID=tags_containers.ID_Prodotto and tags_containers.ID=:id";
+    QString sql="SELECT prodotti.descrizione, tags_containers.note,tags_containers.giacenza_minima,tags_containers.visibile from tags_containers,prodotti WHERE prodotti.ID=tags_containers.ID_Prodotto and tags_containers.ID=:id";
 
     q.prepare(sql);
     q.bindValue(":id",id_tag);
@@ -37,7 +37,11 @@ void FtUpdate_Tag::populate()
     ui->leProdotto->setText(q.value(0).toString());
     ui->teNote->setText(q.value(1).toString());
     ui->le_giacenza_minima->setText(q.value(2).toString());
-    qDebug()<<"populate";
+    bool visibile=false;
+    visibile=q.value(3).toBool();
+    ui->cbVisibile->setChecked(visibile);
+
+
 }
 
 bool FtUpdate_Tag::save()
@@ -46,10 +50,13 @@ bool FtUpdate_Tag::save()
     db.transaction();
     QSqlQuery q(db);
     QString note=ui->teNote->toPlainText();
-    QString sql="UPDATE tags_containers set note=:note, giacenza_minima=:min_giacenza WHERE  tags_containers.ID=:id";
+    int visibile=0;
+    ui->cbVisibile->isChecked()?visibile=1:visibile=0;
+    QString sql="UPDATE tags_containers set note=:note, giacenza_minima=:min_giacenza, visibile=:visibile WHERE  tags_containers.ID=:id";
     q.prepare(sql);
     q.bindValue(":note",note);
     q.bindValue(":id",id_tag);
+    q.bindValue(":visibile",visibile);
     q.bindValue(":min_giacenza",ui->le_giacenza_minima->text().toInt());
 
     return q.exec();

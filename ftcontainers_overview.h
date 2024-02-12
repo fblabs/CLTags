@@ -41,6 +41,8 @@ private slots:
    void on_pbPrint_clicked();
    void on_pbReset_clicked();
 
+   void on_pbAddContainer_clicked();
+   void on_cbAttivi_toggled(bool checked);
 };
 
 #endif // FTCONTAINERS_OVERVIEW_H

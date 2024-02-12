@@ -35,7 +35,7 @@ QT_BEGIN_NAMESPACE
 class Ui_FTOverview
 {
 public:
-    QVBoxLayout *verticalLayout_3;
+    QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_3;
     QRadioButton *rbLabels;
     QRadioButton *rbSigilli;
@@ -63,7 +63,11 @@ public:
     QDateEdit *deAl;
     QPushButton *pbReset;
     QSplitter *splitter;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_4;
     QTableView *tvTags;
+    QWidget *widget1;
+    QVBoxLayout *verticalLayout_3;
     QTableView *tvTags_mov;
     QHBoxLayout *horizontalLayout_5;
     QHBoxLayout *horizontalLayout;
@@ -79,8 +83,8 @@ public:
     QPushButton *pbDEleteOperation;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *pbClose;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QWidget *FTOverview)
     {
@@ -90,8 +94,8 @@ public:
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/8644322_graphic_chart_graph_bam_icon (1).png"), QSize(), QIcon::Normal, QIcon::Off);
         FTOverview->setWindowIcon(icon);
-        verticalLayout_3 = new QVBoxLayout(FTOverview);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_5 = new QVBoxLayout(FTOverview);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         rbLabels = new QRadioButton(FTOverview);
@@ -206,7 +210,7 @@ public:
         horizontalLayout_3->addItem(horizontalSpacer_3);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_3);
+        verticalLayout_5->addLayout(horizontalLayout_3);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -253,12 +257,17 @@ public:
         horizontalLayout_2->addLayout(gridLayout);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_2);
+        verticalLayout_5->addLayout(horizontalLayout_2);
 
         splitter = new QSplitter(FTOverview);
         splitter->setObjectName(QString::fromUtf8("splitter"));
         splitter->setOrientation(Qt::Horizontal);
-        tvTags = new QTableView(splitter);
+        widget = new QWidget(splitter);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        verticalLayout_4 = new QVBoxLayout(widget);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        tvTags = new QTableView(widget);
         tvTags->setObjectName(QString::fromUtf8("tvTags"));
         tvTags->setMinimumSize(QSize(0, 0));
         tvTags->setStyleSheet(QString::fromUtf8("selection-color: rgb(255, 255, 255);\n"
@@ -268,13 +277,21 @@ public:
         tvTags->setSelectionMode(QAbstractItemView::SingleSelection);
         tvTags->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvTags->setSortingEnabled(true);
-        splitter->addWidget(tvTags);
         tvTags->horizontalHeader()->setCascadingSectionResizes(true);
         tvTags->horizontalHeader()->setStretchLastSection(true);
         tvTags->verticalHeader()->setVisible(false);
         tvTags->verticalHeader()->setCascadingSectionResizes(true);
         tvTags->verticalHeader()->setHighlightSections(false);
-        tvTags_mov = new QTableView(splitter);
+
+        verticalLayout_4->addWidget(tvTags);
+
+        splitter->addWidget(widget);
+        widget1 = new QWidget(splitter);
+        widget1->setObjectName(QString::fromUtf8("widget1"));
+        verticalLayout_3 = new QVBoxLayout(widget1);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        tvTags_mov = new QTableView(widget1);
         tvTags_mov->setObjectName(QString::fromUtf8("tvTags_mov"));
         tvTags_mov->setMinimumSize(QSize(0, 0));
         tvTags_mov->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -282,14 +299,17 @@ public:
         tvTags_mov->setSelectionMode(QAbstractItemView::SingleSelection);
         tvTags_mov->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvTags_mov->setSortingEnabled(true);
-        splitter->addWidget(tvTags_mov);
         tvTags_mov->horizontalHeader()->setCascadingSectionResizes(true);
         tvTags_mov->horizontalHeader()->setProperty("showSortIndicator", QVariant(true));
         tvTags_mov->horizontalHeader()->setStretchLastSection(true);
         tvTags_mov->verticalHeader()->setVisible(false);
         tvTags_mov->verticalHeader()->setCascadingSectionResizes(true);
 
-        verticalLayout_3->addWidget(splitter);
+        verticalLayout_3->addWidget(tvTags_mov);
+
+        splitter->addWidget(widget1);
+
+        verticalLayout_5->addWidget(splitter);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -398,7 +418,7 @@ public:
         horizontalLayout_5->addLayout(horizontalLayout_4);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_5);
+        verticalLayout_5->addLayout(horizontalLayout_5);
 
 
         retranslateUi(FTOverview);

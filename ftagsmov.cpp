@@ -112,7 +112,7 @@ void FTagsMov::setup()
     {
         ui->pbNew->setVisible(false);
         QSqlQuery q(db);
-        QString sql ="select tags_tipi.descrizione as tipo, clienti.ragione_sociale as clienti, prodotti.descrizione as prodotto, tags.barcode, tags.specifica,tags.immagine,tags.note,tags.stato,tags.giacenza_minima\
+        QString sql ="select tags_tipi.descrizione as tipo, clienti.ragione_sociale as clienti, prodotti.descrizione as prodotto, tags.barcode, tags.specifica,tags.immagine,tags.note,tags.stato,tags.giacenza_minima,tags.visibile\
                 from tags,tags_tipi,anagrafica as clienti,prodotti\
                 where tags.ID=:id  and tags_tipi.ID=tags.IDtipo and clienti.ID=tags.IDCliente and clienti.cliente>0 and prodotti.ID=tags.IDProdotto";
                 q.prepare(sql);
@@ -136,6 +136,7 @@ void FTagsMov::setup()
 
         ui->cbState->setChecked(datamod->index(0,7).data(0).toBool());
         ui->leGiacenzaMinima->setText(datamod->index(0,8).data(0).toString());
+        ui->cbVisibile->setChecked(datamod->index(0,9).data(0).toBool());
 
 
 
@@ -242,11 +243,11 @@ void FTagsMov::save()
 
     if(azione==0)
     {
-        sql="INSERT INTO `fbgmdb260`.`tags`(`barcode`,`IDProdotto`,`IDCliente`,`IDTipo`,`specifica`,`immagine`,`note`,`stato`,`giacenza_minima` ) VALUES (:barcode,:IDProdotto,:IDCliente,:IDTipo,:specifica,:immagine,:note,:stato,:min_giacenza)";
+        sql="INSERT INTO `fbgmdb260`.`tags`(`barcode`,`IDProdotto`,`IDCliente`,`IDTipo`,`specifica`,`immagine`,`note`,`stato`,`giacenza_minima`,'visibile' ) VALUES (:barcode,:IDProdotto,:IDCliente,:IDTipo,:specifica,:immagine,:note,:stato,:min_giacenza:visibile)";
     }else{
 
 
-        sql="UPDATE `fbgmdb260`.`tags` SET`barcode`=:barcode,`IDProdotto`=:IDProdotto,`IDCliente`=:IDCliente,`IDTipo`=:IDTipo,`specifica`=:specifica,`immagine`=:immagine,`note`=:note, stato=:stato, giacenza_minima=:min_giacenza WHERE ID=:ID";
+        sql="UPDATE `fbgmdb260`.`tags` SET`barcode`=:barcode,`IDProdotto`=:IDProdotto,`IDCliente`=:IDCliente,`IDTipo`=:IDTipo,`specifica`=:specifica,`immagine`=:immagine,`note`=:note, stato=:stato, giacenza_minima=:min_giacenza,visibile=:visibile WHERE ID=:ID";
 
     }
 
@@ -270,8 +271,10 @@ void FTagsMov::save()
     QString note=ui->teNote->toPlainText();
     int stato=0;
     int min_giacenza=ui->leGiacenzaMinima->text().toInt();
+    int visibile=0;
 
-    if (ui->cbState->isChecked()) stato=1;
+    ui->cbState->isChecked()? stato=1:stato=0;
+    ui->cbVisibile->isChecked()?visibile=1:visibile=0;
 
 
 
@@ -285,6 +288,7 @@ void FTagsMov::save()
     q.bindValue(":note",note);
     q.bindValue(":stato",stato);
     q.bindValue(":min_giacenza",min_giacenza);
+    q.bindValue(":visibile",visibile);
     if(azione==1){
         q.bindValue(":ID",id_tag);
 

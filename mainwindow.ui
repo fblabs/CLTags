@@ -228,6 +228,9 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Consultazione e stampe</string>
+        </property>
         <property name="text">
          <string/>
         </property>

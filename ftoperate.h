@@ -27,16 +27,24 @@ private:
     QSqlTableModel *modtipi;
     int action;
     void populate();
+
 private slots:
     void setup();
     void saveOp();
     void on_pbSave_clicked();
     void on_pbClose_clicked();
     void on_rbCarico_toggled(bool checked);
-
+    void chooseImage();
+    void on_pbBolla_clicked();
+    void showImage(const QString path);
+protected:
+    bool eventFilter(QObject *obj, QEvent *evt);
 
 signals:
     void operation_saved();
+    void imageClicked(const QString path);
+
+
 };
 
 #endif // FTOPERATE_H

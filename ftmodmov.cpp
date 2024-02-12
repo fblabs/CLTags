@@ -6,12 +6,21 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QMessageBox>
+#include <QShortcut>
+#include <QFileDialog>
+#include "ftimage.h"
 
 FTModMov::FTModMov(int pid,QSqlDatabase pdb,QString ptitle,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FTModMov)
 {
     ui->setupUi(this);
+    ui->label_6->setVisible(false);
+    ui->lbImg->installEventFilter(this);
+
+    ui->lbImgPath->setVisible(false);
+    QShortcut *sh=new QShortcut(QKeySequence(Qt::ALT + Qt::Key_B),this);
+    connect(sh,&QShortcut::activated,this,&chooseImage);
     id=pid;
     db=pdb;
     ui->lbTitle->setText(ptitle);
@@ -26,10 +35,12 @@ FTModMov::~FTModMov()
 void FTModMov::setup()
 {
     QSqlQuery q(db);
-    QString sql="SELECT tags_mov.data, tags_mov.barcode,anagrafica.ragione_sociale,azioni.ID,tags_mov.amount,tags_mov.note from tags_mov,anagrafica,azioni where anagrafica.ID=tags_mov.IDStampatore and azioni.ID=tags_mov.azione and tags_mov.id=:pid";
+    QString sql="SELECT tags_mov.data, tags_mov.barcode,anagrafica.ragione_sociale,azioni.ID,tags_mov.amount,tags_mov.note ,tags_mov.bolla from tags_mov,anagrafica,azioni where anagrafica.ID=tags_mov.IDStampatore and azioni.ID=tags_mov.azione and tags_mov.id=:pid";
     q.prepare(sql);
     q.bindValue(":pid",id);
     q.exec();
+
+    QString bolla=QString();
 
     QSqlQueryModel *mod=new QSqlQueryModel();
     mod->setQuery(q);
@@ -38,6 +49,19 @@ void FTModMov::setup()
     ui->lbBarcode->setText(mod->index(0,1).data(0).toString());
     ui->leAmount->setText(mod->index(0,4).data(0).toString());
     ui->teNote->setPlainText(mod->index(0,5).data(0).toString());
+    bolla= mod->index(0,6).data(0).toString();
+
+    ui->lbImgPath->setText(bolla);
+
+    QImage image(bolla);
+    image=image.scaled(209,297);
+
+
+    QPixmap pixmap=QPixmap::fromImage(image);
+
+
+    ui->lbImg->setPixmap(pixmap);
+    ui->lbImgPath->setText(bolla);
 
 
 
@@ -61,6 +85,7 @@ void FTModMov::setup()
     int s=ui->cbStampatori->findText(mod->index(0,2).data(0).toString());
     qDebug()<<"S:"<<s;
     ui->cbStampatori->setCurrentIndex(s);
+     connect(this,SIGNAL(imageClicked(QString)),this,SLOT(showImage(QString)));
 
 
 
@@ -78,7 +103,7 @@ void FTModMov::on_pbCancel_clicked()
 void FTModMov::save()
 {
     QSqlQuery q(db);
-    QString sql="UPDATE fbgmdb260.tags_mov SET data = :data,IDStampatore = :IDStampatore,azione = :azione,amount = :amount,note = :note  WHERE ID = :id";
+    QString sql="UPDATE fbgmdb260.tags_mov SET data = :data,IDStampatore = :IDStampatore,azione = :azione,amount = :amount,note = :note, bolla=:bolla  WHERE ID = :id";
     qDebug()<<"SAVE";
 
     q.prepare(sql);
@@ -99,6 +124,7 @@ void FTModMov::save()
     q.bindValue(":amount",amount);
     q.bindValue(":note",ui->teNote->toPlainText());
     q.bindValue(":id",id);
+    q.bindValue(":bolla",ui->lbImgPath->text().simplified());
 
     db.transaction();
    if(q.exec())
@@ -127,6 +153,64 @@ void FTModMov::on_pbSave_clicked()
         save();
     }
     close();
+
+}
+
+void FTModMov::chooseImage()
+{
+    QString filename= QFileDialog::getOpenFileName(nullptr,"Scegli immagine","","tutti(*.*);;JPEG(*.jpg,*.jpeg);;PNG(*.png);;TIFF(*.tif)");
+
+
+
+
+
+
+    QImage image(filename);
+    image=image.scaled(209,297);
+
+
+    QPixmap pixmap=QPixmap::fromImage(image);
+
+
+    ui->lbImg->setPixmap(pixmap);
+    ui->lbImgPath->setText(filename);
+
+}
+
+
+void FTModMov::on_rbCarico_toggled(bool checked)
+{
+    ui->lbImg->setVisible(checked);
+    //ui->lbImgPath-
+}
+
+
+void FTModMov::on_pbImg_clicked()
+{
+    chooseImage();
+}
+
+void FTModMov::showImage(const QString path)
+{
+    FTImage *f=new FTImage(path);
+    // connect(f,SIGNAL(transfer_Barcode(QString)),this,SLOT(setBarcode(QString)));
+    f->show();
+}
+bool FTModMov::eventFilter(QObject *obj, QEvent *evt)
+{
+
+
+    if(obj==ui->lbImg && evt->type()==QEvent::MouseButtonDblClick)
+    {
+
+        qDebug()<<"event label1";
+        emit imageClicked(ui->lbImgPath->text().simplified());
+
+
+    }
+
+
+    return QObject::eventFilter(obj,evt);
 
 }
 
