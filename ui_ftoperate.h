@@ -201,6 +201,7 @@ public:
 
         lbImg = new QLabel(FTOperate);
         lbImg->setObjectName(QString::fromUtf8("lbImg"));
+        lbImg->setAlignment(Qt::AlignCenter);
 
         formLayout_2->setWidget(0, QFormLayout::FieldRole, lbImg);
 

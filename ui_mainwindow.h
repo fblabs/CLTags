@@ -174,7 +174,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags 2.0.1.<span style=\" font-size:12pt;\">001</span></p><p><a href=\"https://github.com/fblabs/CLTags\"><span style=\" font-size:12pt; text-decoration: underline; color:#007af4;\">Repository sorgenti</span></a></p></body></html>", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags 2.2 <span style=\" font-size:12pt;\">001</span></p><p><a href=\"https://github.com/fblabs/CLTags\"><span style=\" font-size:12pt; text-decoration: underline; color:#007af4;\">Repository sorgenti</span></a></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
         pbSettings->setToolTip(QCoreApplication::translate("MainWindow", "Impostazioni", nullptr));
 #endif // QT_CONFIG(tooltip)

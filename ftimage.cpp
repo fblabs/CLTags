@@ -7,6 +7,9 @@
 #include <QPrinter>
 #include <QPainter>
 #include <QPrintDialog>
+#include <QDesktopWidget>
+#include <QScreen>
+#include <QDebug>
 
 //#include <QDebug>
 
@@ -15,13 +18,36 @@ FTImage::FTImage(const QString filename,QWidget *parent) :
     ui(new Ui::FTImage)
 {
     ui->setupUi(this);
-    QSize rect=QGuiApplication::primaryScreen()->size();
-    ui->lbImage->setMaximumHeight(rect.height()-100);
-    ui->lbImage->setMaximumWidth(rect.width()-100);
+
+
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->availableGeometry();
+    //resize(screenGeometry.width()/2,screenGeometry.height()/2);
+
 
     QImage img(filename);
 
-    ui->lbImage->setPixmap(QPixmap::fromImage(img));
+    double h=0.2;
+    double v=0.2;
+    int x,y=0;
+    x=(screenGeometry.width()-this->width())/2;
+    y=(screenGeometry.height()-this->height())/2;
+    this->move(x,y);
+
+
+    ui->lbImage->setPixmap(QPixmap::fromImage(img).scaled(screenGeometry.width()*0.6,screenGeometry.height()*0.7));
+
+
+    ui->lbImage->installEventFilter(this);
+    connect(this,&imageclicked,&closeWindow);
+
+
+    x=(screenGeometry.width()-this->width())/2;
+    y=(screenGeometry.height()-this->height())/2;
+    qDebug()<<screenGeometry.width()<<this->width();
+    hide();
+    this->move(x,y);
+    show();
    // qDebug()<<filename;
 
 }
@@ -71,5 +97,25 @@ void FTImage::printImage()
 
 
     }
+}
+
+void FTImage::closeWindow()
+{
+    close();
+}
+
+bool FTImage::eventFilter(QObject *obj, QEvent *evt)
+{
+    if(obj==ui->lbImage && evt->type()==QEvent::MouseButtonDblClick)
+    {
+
+
+        emit closeWindow();
+
+
+    }
+
+
+    return QObject::eventFilter(obj,evt);
 }
 

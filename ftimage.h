@@ -23,11 +23,16 @@ private slots:
     void on_pbPrint_clicked();
 
     void printImage();
+    void closeWindow();
+
 
 private:
     Ui::FTImage *ui;
+protected:
+    bool eventFilter(QObject *obj, QEvent *evt);
 signals:
     void transfer_Barcode(const QString pBarcode);
+    void imageclicked();
 };
 
 #endif // FTIMAGE_H

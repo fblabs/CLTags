@@ -166,6 +166,14 @@ public:
 
         lbImg = new QLabel(FTModMov);
         lbImg->setObjectName(QString::fromUtf8("lbImg"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lbImg->sizePolicy().hasHeightForWidth());
+        lbImg->setSizePolicy(sizePolicy);
+        lbImg->setStyleSheet(QString::fromUtf8("background-color: rgb(85, 170, 255);"));
+        lbImg->setScaledContents(false);
+        lbImg->setAlignment(Qt::AlignCenter);
 
         formLayout->setWidget(0, QFormLayout::FieldRole, lbImg);
 

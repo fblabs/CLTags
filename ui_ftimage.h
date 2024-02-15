@@ -46,6 +46,11 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         lbImage = new QLabel(FTImage);
         lbImage->setObjectName(QString::fromUtf8("lbImage"));
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lbImage->sizePolicy().hasHeightForWidth());
+        lbImage->setSizePolicy(sizePolicy);
         lbImage->setFrameShape(QFrame::Box);
         lbImage->setScaledContents(true);
 

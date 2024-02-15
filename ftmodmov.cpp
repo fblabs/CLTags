@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QShortcut>
 #include <QFileDialog>
+#include <QScreen>
 #include "ftimage.h"
 
 FTModMov::FTModMov(int pid,QSqlDatabase pdb,QString ptitle,QWidget *parent) :
@@ -52,12 +53,19 @@ void FTModMov::setup()
     bolla= mod->index(0,6).data(0).toString();
 
     ui->lbImgPath->setText(bolla);
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+
+
+
 
     QImage image(bolla);
-    image=image.scaled(209,297);
+    //image=image.scaled(209,297);
 
 
-    QPixmap pixmap=QPixmap::fromImage(image);
+    QPixmap pixmap=QPixmap::fromImage(image).scaled(209,207,Qt::IgnoreAspectRatio);
+   // pixmap.scaled(209,207,Qt::IgnoreAspectRatio);
+
 
 
     ui->lbImg->setPixmap(pixmap);
@@ -159,20 +167,17 @@ void FTModMov::on_pbSave_clicked()
 void FTModMov::chooseImage()
 {
     QString filename= QFileDialog::getOpenFileName(nullptr,"Scegli immagine","","tutti(*.*);;JPEG(*.jpg,*.jpeg);;PNG(*.png);;TIFF(*.tif)");
-
-
-
-
-
-
     QImage image(filename);
-    image=image.scaled(209,297);
+    image=image.scaled(200,400,Qt::KeepAspectRatio);
+
+    ui->lbImg->setPixmap(QPixmap::fromImage(image).scaledToWidth(297));
 
 
-    QPixmap pixmap=QPixmap::fromImage(image);
+
+   // QPixmap pixmap=QPixmap::fromImage(image);
 
 
-    ui->lbImg->setPixmap(pixmap);
+  //  ui->lbImg->setPixmap(pixmap);
     ui->lbImgPath->setText(filename);
 
 }
