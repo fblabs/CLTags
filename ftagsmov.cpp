@@ -102,6 +102,7 @@ void FTagsMov::setup()
     modclienti->setSort(1,Qt::AscendingOrder);
     modclienti->select();
 
+
     ui->cbClienti->setModel(modclienti);
     ui->cbClienti->setModelColumn(1);
     ui->cbClienti->setCurrentIndex(0);
@@ -244,7 +245,7 @@ void FTagsMov::save()
 
     if(azione==0)
     {
-        sql="INSERT INTO `fbgmdb260`.`tags`(`barcode`,`IDProdotto`,`IDCliente`,`IDTipo`,`specifica`,`immagine`,`note`,`stato`,`giacenza_minima`,'visibile' ) VALUES (:barcode,:IDProdotto,:IDCliente,:IDTipo,:specifica,:immagine,:note,:stato,:min_giacenza,:visibile,:fustella)";
+        sql="INSERT INTO `fbgmdb260`.`tags`(`barcode`,`IDProdotto`,`IDCliente`,`IDTipo`,`specifica`,`immagine`,`note`,`stato`,`giacenza_minima`,`visibile`,`fustella` ) VALUES (:barcode,:IDProdotto,:IDCliente,:IDTipo,:specifica,:immagine,:note,:stato,:min_giacenza,:visibile,:fustella)";
     }else{
 
 

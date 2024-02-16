@@ -95,7 +95,7 @@ void FTOverview::setup()
     ui->cbCliente->completer()->setCompletionColumn(1);
     ui->cbCliente->completer()->setCompletionMode(QCompleter::PopupCompletion);
     connect(ui->cbCliente,SIGNAL(currentIndexChanged(int)),this,SLOT(buildFilter()));
-    qDebug()<<"Cienimod"<<clientimod->lastError().text();
+
 
 
     QModelIndex ix=tagsmod->index(0,0);
@@ -361,7 +361,7 @@ void FTOverview::getProdotti(int client_id)
     GENERIC_CUSTOMER=settings.value("generic_customer_id").toInt();
     GENERIC_PRODUCT=settings.value("generic_product_id").toInt();
 
-    if (client_id==GENERIC_CUSTOMER)
+    if (client_id==GENERIC_CUSTOMER || client_id==-1)
     {
         sql="select prodotti.ID,prodotti.descrizione from prodotti where tipo=2 order by descrizione ASC";
         q.prepare(sql);
@@ -504,10 +504,6 @@ QString FTOverview::buildFilter()
 
 
     filter=filter+ftipo+fcliente+fprodotto+fbarcode+fstato;
-
-
-    qDebug()<<"BUILDFILTER"<<filter;
-
     qDebug()<<tagsmod->query().lastQuery()<<tagsmod->lastError().text();
 
 
@@ -629,7 +625,18 @@ void FTOverview::on_rbLabels_toggled(bool checked)
 
 void FTOverview::on_rbCust_toggled(bool checked)
 {
-    if (checked) {tagsmod->setFilter(buildFilter());}
+    int idc=-1;
+
+    if(ui->rbCust->isChecked()) {
+        int ix=ui->cbCliente->findText(ui->cbCliente->currentText());
+        idc=ui->cbCliente->model()->index(ui->cbCliente->currentIndex(),0).data().toInt();
+    }
+
+
+
+        if (checked) {
+        getProdotti(idc);
+    }
 }
 
 
