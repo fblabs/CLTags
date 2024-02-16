@@ -50,10 +50,14 @@ public:
     QFormLayout *formLayout_2;
     QLabel *label_6;
     QTextEdit *teNote;
+    QFormLayout *formLayout_6;
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_8;
     QLineEdit *leGiacenzaMinima;
     QSpacerItem *horizontalSpacer_2;
+    QFormLayout *formLayout_5;
+    QLabel *label_10;
+    QLineEdit *leFustella;
     QFormLayout *formLayout_4;
     QFormLayout *formLayout;
     QLabel *label_7;
@@ -215,6 +219,8 @@ public:
 
         verticalLayout_2->addLayout(formLayout_2);
 
+        formLayout_6 = new QFormLayout();
+        formLayout_6->setObjectName(QString::fromUtf8("formLayout_6"));
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
         label_8 = new QLabel(FTagsMov);
@@ -235,7 +241,25 @@ public:
         horizontalLayout_9->addItem(horizontalSpacer_2);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_9);
+        formLayout_6->setLayout(0, QFormLayout::LabelRole, horizontalLayout_9);
+
+        formLayout_5 = new QFormLayout();
+        formLayout_5->setObjectName(QString::fromUtf8("formLayout_5"));
+        label_10 = new QLabel(FTagsMov);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+
+        formLayout_5->setWidget(0, QFormLayout::LabelRole, label_10);
+
+        leFustella = new QLineEdit(FTagsMov);
+        leFustella->setObjectName(QString::fromUtf8("leFustella"));
+
+        formLayout_5->setWidget(0, QFormLayout::FieldRole, leFustella);
+
+
+        formLayout_6->setLayout(0, QFormLayout::FieldRole, formLayout_5);
+
+
+        verticalLayout_2->addLayout(formLayout_6);
 
         formLayout_4 = new QFormLayout();
         formLayout_4->setObjectName(QString::fromUtf8("formLayout_4"));
@@ -435,6 +459,7 @@ public:
         label_3->setText(QCoreApplication::translate("FTagsMov", "Specifica:", nullptr));
         label_6->setText(QCoreApplication::translate("FTagsMov", "Note:", nullptr));
         label_8->setText(QCoreApplication::translate("FTagsMov", "Giacenza minima:", nullptr));
+        label_10->setText(QCoreApplication::translate("FTagsMov", "Fustella:", nullptr));
         label_7->setText(QCoreApplication::translate("FTagsMov", "Stato:", nullptr));
         cbState->setText(QString());
         label_9->setText(QCoreApplication::translate("FTagsMov", "Visibile", nullptr));

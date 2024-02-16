@@ -9,12 +9,13 @@
 #include <QFileDialog>
 #include <QShortcut>
 #include "ftimage.h"
+#include <QMessageBox>
 
 FTOperate::FTOperate(const int p_action,const int p_id_tag, QSqlDatabase pdb,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FTOperate)
 {
-     ui->setupUi(this);
+    ui->setupUi(this);
     QShortcut *sh=new QShortcut(QKeySequence(Qt::ALT + Qt::Key_B),this);
     connect(sh,&QShortcut::activated,this,&chooseImage);
 
@@ -82,7 +83,7 @@ void FTOperate::setup()
         ui->cbStampatore->setVisible(false);
         ui->label_4->setVisible(false);
 
-     }
+    }
 
 
     connect(this,&imageClicked,&showImage);
@@ -101,9 +102,9 @@ void FTOperate::saveOp()
     QSqlQuery q(db);
     QString sql="INSERT INTO `fbgmdb260`.`tags_mov`(`ID_tags`,`data`,`barcode`,`IDStampatore`,`azione`,`amount`,`note`,`bolla`) VALUES(:idtags,:data,:barcode,:IDStampatore,:azione,:amount,:note,:bolla)";
     q.prepare(sql);
-     q.bindValue(":idtags",id_tag);
+    q.bindValue(":idtags",id_tag);
 
-     qDebug()<<"saveOp Id_tag:"<<id_tag;
+    qDebug()<<"saveOp Id_tag:"<<id_tag;
 
     q.bindValue(":idtags",id_tag);
     q.bindValue(":data",ui->deDate->date());
@@ -155,47 +156,47 @@ void FTOperate::populate()
     QString title=QString();
     QSqlQuery q(db);
 
-     sql="SELECT tags.barcode,tags.IDCLIente,tags.IDProdotto,prodotti.descrizione,clienti.ragione_sociale AS CLIENTE,IDTipo,tags_tipi.descrizione, specifica\
-         FROM tags, anagrafica as clienti, prodotti,tags_tipi\
-         WHERE clienti.ID=tags.IDCliente AND prodotti.ID=tags.IDProdotto AND tags_tipi.ID=tags.IDTipo AND tags.ID=:id_tag";
-     q.prepare(sql);
-     q.bindValue(":id_tag",id_tag);
-     qDebug()<<q.lastError().text();
-     if (q.exec())
-     {
-         q.next();
-         int ixt=ui->cbTipo->findText(q.value(5).toString());
-         ui->cbTipo->setCurrentIndex(ixt);
-         title=q.value(3).toString()+ " - " + q.value(4).toString();
+    sql="SELECT tags.barcode,tags.IDCLIente,tags.IDProdotto,prodotti.descrizione,clienti.ragione_sociale AS CLIENTE,IDTipo,tags_tipi.descrizione, specifica\
+        FROM tags, anagrafica as clienti, prodotti,tags_tipi\
+                                     WHERE clienti.ID=tags.IDCliente AND prodotti.ID=tags.IDProdotto AND tags_tipi.ID=tags.IDTipo AND tags.ID=:id_tag";
+                                                                                                                                       q.prepare(sql);
+    q.bindValue(":id_tag",id_tag);
+    qDebug()<<q.lastError().text();
+    if (q.exec())
+    {
+        q.next();
+        int ixt=ui->cbTipo->findText(q.value(5).toString());
+        ui->cbTipo->setCurrentIndex(ixt);
+        title=q.value(3).toString()+ " - " + q.value(4).toString();
 
-         ui->lbTitle->setText(title);
+        ui->lbTitle->setText(title);
 
-     }
+    }
 }
 
 void FTOperate::chooseImage()
 {
-     connect(this,SIGNAL(imageClicked(QString)),this,SLOT(showImage(QString)));
+    connect(this,SIGNAL(imageClicked(QString)),this,SLOT(showImage(QString)));
 
 
     QString filename= QFileDialog::getOpenFileName(nullptr,"Scegli immagine","","tutti(*.*);;JPEG(*.jpg,*.jpeg);;PNG(*.png);;TIFF(*.tif)");
 
 
+    if(QMessageBox::question(this,QApplication::applicationName(),"Confermare?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
+    {
 
 
-
-        QImage image(filename);
-        image=image.scaled(209,297);
-
-
-        QPixmap pixmap=QPixmap::fromImage(image);
+    QImage image(filename);
+    image=image.scaled(209,297);
 
 
-        ui->lbImg->setPixmap(pixmap);
-        ui->lbImgPath->setText(filename);
+    QPixmap pixmap=QPixmap::fromImage(image);
 
 
+    ui->lbImg->setPixmap(pixmap);
+    ui->lbImgPath->setText(filename);
 
+    }
 
 
 }
@@ -204,8 +205,8 @@ void FTOperate::chooseImage()
 
 void FTOperate::on_pbSave_clicked()
 {
-   saveOp();
-   close();
+    saveOp();
+    close();
 }
 
 
@@ -220,19 +221,19 @@ void FTOperate::on_pbClose_clicked()
 
 void FTOperate::on_rbCarico_toggled(bool checked)
 {
-   // ui->cbStampatore->setVisible(checked);
+    // ui->cbStampatore->setVisible(checked);
     int six=ui->cbStampatore->findText("NESSUNO STAMPATORE");
     ui->cbStampatore->setCurrentIndex(six);
 
     if(checked)
-   {
-      /* int six=ui->cbStampatore->findText("NESSUNO STAMPATORE");
+    {
+        /* int six=ui->cbStampatore->findText("NESSUNO STAMPATORE");
        ui->cbStampatore->setCurrentIndex(six);*/
-       ui->cbStampatore->setVisible(true);
-       ui->label_4->setVisible(true);
-       ui->label_8->setVisible(true);
-       ui->lbImg->setVisible(true);
-   }
+        ui->cbStampatore->setVisible(true);
+        ui->label_4->setVisible(true);
+        ui->label_8->setVisible(true);
+        ui->lbImg->setVisible(true);
+    }
 
     if(!checked){
 
@@ -254,7 +255,7 @@ void FTOperate::on_pbBolla_clicked()
 void FTOperate::showImage(const QString path)
 {
     FTImage *f=new FTImage(path);
-   // connect(f,SIGNAL(transfer_Barcode(QString)),this,SLOT(setBarcode(QString)));
+    // connect(f,SIGNAL(transfer_Barcode(QString)),this,SLOT(setBarcode(QString)));
     f->show();
 }
 

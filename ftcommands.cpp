@@ -4,13 +4,21 @@
 #include "ftagsmov.h"
 #include "ftoverview.h"
 #include <QGraphicsOpacityEffect>
+#include <QShortcut>
 
 FtCommands::FtCommands(int p_id_tag, QSqlDatabase pdb, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FtCommands)
 {
+
     ui->setupUi(this);
     id_tag=p_id_tag;
+
+    QShortcut *lms=new QShortcut(QKeySequence(Qt::Key_Left),this);
+    connect(lms,SIGNAL(activated()),this,SLOT(on_pbOverview_clicked()));
+    QShortcut *cms=new QShortcut(QKeySequence(Qt::Key_Right),this);
+    connect(cms,SIGNAL(activated()),this,SLOT(on_pbMov_clicked()));
+
     this->setWindowFlags(Qt::CustomizeWindowHint);
     this->setMouseTracking(true);
 

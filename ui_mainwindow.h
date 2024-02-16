@@ -174,23 +174,32 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "CLTags", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags 2.2 <span style=\" font-size:12pt;\">001</span></p><p><a href=\"https://github.com/fblabs/CLTags\"><span style=\" font-size:12pt; text-decoration: underline; color:#007af4;\">Repository sorgenti</span></a></p></body></html>", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p>CLTags 2.2 <span style=\" font-size:7pt;\">003</span></p><p><a href=\"https://github.com/fblabs/CLTags\"><span style=\" font-size:12pt; text-decoration: underline; color:#007af4;\">Repository sorgenti</span></a></p></body></html>", nullptr));
 #if QT_CONFIG(tooltip)
         pbSettings->setToolTip(QCoreApplication::translate("MainWindow", "Impostazioni", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbSettings->setText(QString());
 #if QT_CONFIG(tooltip)
-        pbLabels->setToolTip(QCoreApplication::translate("MainWindow", "Etichette e sigilli", nullptr));
+        pbLabels->setToolTip(QCoreApplication::translate("MainWindow", "Etichette e sigilli (F2)", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbLabels->setText(QString());
+#if QT_CONFIG(shortcut)
+        pbLabels->setShortcut(QCoreApplication::translate("MainWindow", "F2", nullptr));
+#endif // QT_CONFIG(shortcut)
 #if QT_CONFIG(tooltip)
-        pbContainers->setToolTip(QCoreApplication::translate("MainWindow", "Gestione vasi e tappi", nullptr));
+        pbContainers->setToolTip(QCoreApplication::translate("MainWindow", "Gestione vasi e tappi (F3)", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbContainers->setText(QString());
+#if QT_CONFIG(shortcut)
+        pbContainers->setShortcut(QCoreApplication::translate("MainWindow", "F3", nullptr));
+#endif // QT_CONFIG(shortcut)
 #if QT_CONFIG(tooltip)
-        pbRaw->setToolTip(QCoreApplication::translate("MainWindow", "Consultazione e stampe", nullptr));
+        pbRaw->setToolTip(QCoreApplication::translate("MainWindow", "Consultazione e stampe (F4)", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbRaw->setText(QString());
+#if QT_CONFIG(shortcut)
+        pbRaw->setShortcut(QCoreApplication::translate("MainWindow", "F4", nullptr));
+#endif // QT_CONFIG(shortcut)
         pbExit->setText(QCoreApplication::translate("MainWindow", "ESci", nullptr));
     } // retranslateUi
 

@@ -22,9 +22,8 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QPrinter>
-
-
 #include <QStandardItem>
+#include <QShortcut>
 
 
 FTOverview::FTOverview(QSqlDatabase pdb, QWidget *parent) :
@@ -46,6 +45,11 @@ FTOverview::~FTOverview()
 void FTOverview::setup()
 {
 
+    QShortcut *det=new QShortcut(QKeySequence(Qt::Key_Right),this);
+    connect(det,SIGNAL(activated()),this,SLOT(show_movements()));
+    QShortcut *ms=new QShortcut(QKeySequence(Qt::Key_Left),this);
+    connect(ms,SIGNAL(activated()),this,SLOT(hide_movements()));
+
     ui->pbFilter->setVisible(false);
     ui->pbNoFilters->setVisible(false);
 
@@ -53,9 +57,13 @@ void FTOverview::setup()
     ui->deAl->setDate(QDate::currentDate());
 
     tagsmod=buildModel();
-
-
     ui->tvTags->setModel(tagsmod);
+    QPalette p = ui->tvTags->palette();
+    p.setBrush(p.Inactive, p.Highlight, p.brush(p.Highlight));
+    ui->tvTags->setPalette(p);
+   /* QPalette m = ui->tvTags_mov->palette();
+    m.setBrush(m.Inactive, m.Highlight, m.brush(m.Highlight));*/
+    ui->tvTags_mov->setPalette(p);
 
 
     ui->tvTags->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
@@ -244,6 +252,7 @@ HTagsRelationalTableModel* FTOverview::buildModel()
     local_model->select();
 
 
+    ui->tvTags->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     local_model->setHeaderData(1,Qt::Horizontal,"BARCODE");
     local_model->setHeaderData(2,Qt::Horizontal,"CLIENTE");
     local_model->setHeaderData(3,Qt::Horizontal,"PRODOTTO");
@@ -252,8 +261,10 @@ HTagsRelationalTableModel* FTOverview::buildModel()
     local_model->setHeaderData(6,Qt::Horizontal,"IMMAGINE");
     local_model->setHeaderData(7,Qt::Horizontal,"GIACENZA");
     local_model->setHeaderData(8,Qt::Horizontal,"NOTE");
-    local_model->setHeaderData(10,Qt::Horizontal,"GIACENZA MINIMA");
+    local_model->setHeaderData(10,Qt::Horizontal," GIACENZA MINIMA ");
     local_model->setHeaderData(11,Qt::Horizontal,"VISIBILE");
+    local_model->setHeaderData(12,Qt::Horizontal,"FUSTELLA");
+
 
     return  local_model;
 }
@@ -700,6 +711,16 @@ void FTOverview::on_pbReset_clicked()
     ui->deDal->setDate(QDate::currentDate().addYears(-1));
     ui->deAl->setDate(QDate::currentDate());
 
+}
+
+void FTOverview::show_movements()
+{
+    ui->tvTags_mov->setVisible(true);
+}
+
+void FTOverview::hide_movements()
+{
+    ui->tvTags_mov->setVisible(false);
 }
 
 

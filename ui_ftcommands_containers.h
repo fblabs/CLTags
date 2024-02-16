@@ -95,14 +95,23 @@ public:
         pbContainersOverview->setToolTip(QCoreApplication::translate("FtCommands_Containers", "Panoramica", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbContainersOverview->setText(QString());
+#if QT_CONFIG(shortcut)
+        pbContainersOverview->setShortcut(QCoreApplication::translate("FtCommands_Containers", "Left", nullptr));
+#endif // QT_CONFIG(shortcut)
 #if QT_CONFIG(tooltip)
         pbLoad->setToolTip(QCoreApplication::translate("FtCommands_Containers", "Carico", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbLoad->setText(QString());
+#if QT_CONFIG(shortcut)
+        pbLoad->setShortcut(QCoreApplication::translate("FtCommands_Containers", "Up", nullptr));
+#endif // QT_CONFIG(shortcut)
 #if QT_CONFIG(tooltip)
         pbUnload->setToolTip(QCoreApplication::translate("FtCommands_Containers", "Scarico", nullptr));
 #endif // QT_CONFIG(tooltip)
         pbUnload->setText(QString());
+#if QT_CONFIG(shortcut)
+        pbUnload->setShortcut(QCoreApplication::translate("FtCommands_Containers", "Right", nullptr));
+#endif // QT_CONFIG(shortcut)
         pbClose->setText(QString());
     } // retranslateUi
 

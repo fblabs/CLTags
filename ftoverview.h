@@ -32,6 +32,7 @@ private:
     int current_tag_id;
     int GENERIC_CUSTOMER;
     int GENERIC_PRODUCT;
+    bool b_showdetails;
 
 private slots:
     void setup();
@@ -70,6 +71,9 @@ private slots:
     void print(bool p_pdf);
 
     void on_pbReset_clicked();
+
+    void hide_movements();
+    void show_movements();
 
 
 

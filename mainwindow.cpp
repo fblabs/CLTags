@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QDesktopServices>
+#include <QShortcut>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -78,6 +79,8 @@ void MainWindow::setup()
 {
     qDebug()<<"setup"<<server;
 
+
+
     readSettings();
 
     db.close();
@@ -111,9 +114,9 @@ void MainWindow::on_pbLabels_clicked()
 {
 
 
-   FtCommands *f=new FtCommands(-1);
-   QPoint x=QCursor::pos();
-   QPoint pcorrect(x.x()-f->width()/2,x.y()-200);
+  FtCommands *f=new FtCommands(-1);
+   QPoint px(ui->pbLabels->x(),ui->pbLabels->y());
+  QPoint pcorrect(px.x()-ui->pbLabels->width()/2,ui->pbLabels->y()-120);
 
    f->move(pcorrect);
    f->show();
@@ -131,8 +134,8 @@ void MainWindow::on_pbSettings_clicked()
 void MainWindow::on_pbContainers_clicked()
 {
    FtCommands_Containers *f=new FtCommands_Containers(-1,db);
-   QPoint x=QCursor::pos();
-   QPoint pcorrect(x.x()-f->width()/2,x.y()-200);
+   QPoint px(ui->pbContainers->x(),ui->pbContainers->y());
+   QPoint pcorrect(px.x()-ui->pbContainers->width()/2,ui->pbContainers->y()-120);
 
    f->move(pcorrect);
 

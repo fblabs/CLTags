@@ -93,7 +93,7 @@ void FTModMov::setup()
     int s=ui->cbStampatori->findText(mod->index(0,2).data(0).toString());
     qDebug()<<"S:"<<s;
     ui->cbStampatori->setCurrentIndex(s);
-     connect(this,SIGNAL(imageClicked(QString)),this,SLOT(showImage(QString)));
+    connect(this,SIGNAL(imageClicked(QString)),this,SLOT(showImage(QString)));
 
 
 
@@ -167,6 +167,10 @@ void FTModMov::on_pbSave_clicked()
 void FTModMov::chooseImage()
 {
     QString filename= QFileDialog::getOpenFileName(nullptr,"Scegli immagine","","tutti(*.*);;JPEG(*.jpg,*.jpeg);;PNG(*.png);;TIFF(*.tif)");
+
+    if(QMessageBox::question(this,QApplication::applicationName(),"Confermare?",QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Ok)
+    {
+
     QImage image(filename);
     image=image.scaled(200,400,Qt::KeepAspectRatio);
 
@@ -179,6 +183,8 @@ void FTModMov::chooseImage()
 
   //  ui->lbImg->setPixmap(pixmap);
     ui->lbImgPath->setText(filename);
+
+    }
 
 }
 

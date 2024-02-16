@@ -82,7 +82,7 @@
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CLTags 2.2 &lt;span style=&quot; font-size:12pt;&quot;&gt;001&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/fblabs/CLTags&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#007af4;&quot;&gt;Repository sorgenti&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CLTags 2.2 &lt;span style=&quot; font-size:7pt;&quot;&gt;003&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/fblabs/CLTags&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#007af4;&quot;&gt;Repository sorgenti&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -159,7 +159,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Etichette e sigilli</string>
+         <string>Etichette e sigilli (F2)</string>
         </property>
         <property name="text">
          <string/>
@@ -173,6 +173,9 @@
           <width>65</width>
           <height>65</height>
          </size>
+        </property>
+        <property name="shortcut">
+         <string>F2</string>
         </property>
         <property name="flat">
          <bool>true</bool>
@@ -194,7 +197,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Gestione vasi e tappi</string>
+         <string>Gestione vasi e tappi (F3)</string>
         </property>
         <property name="text">
          <string/>
@@ -208,6 +211,9 @@
           <width>65</width>
           <height>65</height>
          </size>
+        </property>
+        <property name="shortcut">
+         <string>F3</string>
         </property>
         <property name="flat">
          <bool>true</bool>
@@ -229,7 +235,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Consultazione e stampe</string>
+         <string>Consultazione e stampe (F4)</string>
         </property>
         <property name="text">
          <string/>
@@ -243,6 +249,9 @@
           <width>48</width>
           <height>48</height>
          </size>
+        </property>
+        <property name="shortcut">
+         <string>F4</string>
         </property>
         <property name="flat">
          <bool>true</bool>
