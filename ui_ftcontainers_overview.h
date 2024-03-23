@@ -61,7 +61,7 @@ public:
     {
         if (FtContainers_Overview->objectName().isEmpty())
             FtContainers_Overview->setObjectName(QString::fromUtf8("FtContainers_Overview"));
-        FtContainers_Overview->setWindowModality(Qt::ApplicationModal);
+        FtContainers_Overview->setWindowModality(Qt::NonModal);
         FtContainers_Overview->resize(1319, 485);
         verticalLayout = new QVBoxLayout(FtContainers_Overview);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));

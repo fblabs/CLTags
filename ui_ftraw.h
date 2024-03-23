@@ -43,7 +43,7 @@ public:
     {
         if (FtRaw->objectName().isEmpty())
             FtRaw->setObjectName(QString::fromUtf8("FtRaw"));
-        FtRaw->setWindowModality(Qt::ApplicationModal);
+        FtRaw->setWindowModality(Qt::NonModal);
         FtRaw->resize(1122, 431);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/8712509_chart_graph_diagram_report_icon.png"), QSize(), QIcon::Normal, QIcon::Off);
