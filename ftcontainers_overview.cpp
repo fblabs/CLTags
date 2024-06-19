@@ -74,7 +74,7 @@ void FtContainers_Overview::getContainerOperations()
 
     QSqlQuery q(db);
     QSqlQueryModel *mod_details=new QSqlQueryModel();
-    QString sql="select tags_containers_mov.ID,tags_containers_mov.ID_tags_container,tags_containers_mov.data as'DATA', prodotti.descrizione as 'PRODOTTO', anagrafica.ragione_sociale as 'FORNITORE',azioni.descrizione as 'AZIONE',tags_containers_mov.amount as 'QUANTITA',tags_containers_mov.bolla as 'BOLLA',tags_containers_mov.note as 'NOTE' \
+    QString sql="select tags_containers_mov.ID,tags_containers_mov.ID_tags_container,tags_containers_mov.data as'DATA', prodotti.descrizione as 'PRODOTTO', anagrafica.ragione_sociale as 'FORNITORE',azioni.ID,azioni.descrizione as 'AZIONE',tags_containers_mov.amount as 'QUANTITA',tags_containers_mov.bolla as 'BOLLA',tags_containers_mov.note as 'NOTE' \
         from tags_containers_mov,tags_containers, prodotti, anagrafica,azioni\
                                                    where tags_containers.ID = tags_containers_mov.ID_tags_container\
                                                          and anagrafica.ID=tags_containers_mov.ID_supplier  \
@@ -87,12 +87,34 @@ void FtContainers_Overview::getContainerOperations()
     q.bindValue(":dt",ui->deAl->date().addDays(1));
 
     q.exec();
+    qDebug()<<q.lastError().text();
 
     mod_details->setQuery(q);
     ui->tvDetails->setModel(mod_details);
     ui->tvDetails->setColumnHidden(0,true);
     ui->tvDetails->setColumnHidden(1,true);
+    ui->tvDetails->setColumnHidden(5,true);
     ui->tvDetails->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    int tot_scarico=0;
+    int tot_carico=0;
+    for(int r=0;r<mod_details->rowCount();++r)
+    {
+        int q=mod_details->index(r,5).data().toInt();
+
+        if(q==1)
+        {
+            tot_carico+=mod_details->index(r,7).data().toInt();
+        }
+        else if (q==2)
+        {
+            tot_scarico+=mod_details->index(r,7).data().toInt();
+        }
+
+    }
+
+    ui->lbTot_load->setText(QString::number(tot_carico));
+    ui->lbTot_unload->setText(QString::number(tot_scarico));
 
 }
 

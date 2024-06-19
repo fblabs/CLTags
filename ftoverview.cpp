@@ -61,7 +61,7 @@ void FTOverview::setup()
     QPalette p = ui->tvTags->palette();
     p.setBrush(p.Inactive, p.Highlight, p.brush(p.Highlight));
     ui->tvTags->setPalette(p);
-   /* QPalette m = ui->tvTags_mov->palette();
+    /* QPalette m = ui->tvTags_mov->palette();
     m.setBrush(m.Inactive, m.Highlight, m.brush(m.Highlight));*/
     ui->tvTags_mov->setPalette(p);
 
@@ -83,7 +83,7 @@ void FTOverview::setup()
     ui->cbCliente->completer()->setCompletionMode(QCompleter::PopupCompletion);
 
 
-    connect(ui->tvTags->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(findTagsMov()));
+
     clientimod=new QSqlTableModel(nullptr,db);
     clientimod->setTable("anagrafica");
     clientimod->setFilter("cliente>0");
@@ -99,12 +99,15 @@ void FTOverview::setup()
 
 
     QModelIndex ix=tagsmod->index(0,0);
-    ui->tvTags->setCurrentIndex(ix);
+
+    if(ix.isValid()) ui->tvTags->setCurrentIndex(ix);
 
     ui->tvTags->selectionModel()->setCurrentIndex(ix,QItemSelectionModel::Select);
     connect(ui->cbCliente->lineEdit(),SIGNAL(returnPressed()),this,SLOT(buildFilter()));
     connect(ui->deDal,SIGNAL(dateChanged(QDate)),this,SLOT(findTagsMov()));
     connect(ui->deAl,SIGNAL(dateChanged(QDate)),this,SLOT(findTagsMov()));
+
+    connect(ui->tvTags->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(findTagsMov()));
 
 
 }
@@ -118,10 +121,10 @@ void FTOverview::findTagsMov()
     QString sql=QString();
 
     sql="SELECT tags_mov.ID,tags_mov.ID_tags,tags_mov.data as DATA, tags.barcode as BARCODE,prodotti.ID as IDProdotto,prodotti.descrizione as PRODOTTO,clienti.ID as IDCliente,clienti.ragione_sociale as CLIENTE,\
-            stampatori.ID as IDStampatore,stampatori.ragione_sociale as STAMPATORE,azione as IDAZIONE,azioni.descrizione as AZIONE,tags_mov.amount as QUANT,tags_mov.note\
-            FROM tags,tags_mov,anagrafica as stampatori,anagrafica as clienti,azioni,prodotti\
-            WHERE tags_mov.ID_tags=tags.ID and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags_mov.data between :df and :dt and tags.ID =:id order by tags_mov.data DESC";
-            q.prepare(sql);
+          stampatori.ID as IDStampatore,stampatori.ragione_sociale as STAMPATORE,azione as IDAZIONE,azioni.descrizione as AZIONE,tags_mov.amount as QUANT,tags_mov.note\
+                                                                                                                          FROM tags,tags_mov,anagrafica as stampatori,anagrafica as clienti,azioni,prodotti\
+                                                                       WHERE tags_mov.ID_tags=tags.ID and stampatori.ID=tags_mov.IDStampatore AND azioni.ID=tags_mov.azione and prodotti.ID=tags.IDProdotto and clienti.ID=tags.IDCliente and tags_mov.data between :df and :dt and tags.ID =:id order by tags_mov.data DESC";
+                                                                                                                                                                                                                                                                                     q.prepare(sql);
     q.bindValue(":id", current_tag_id);
     q.bindValue(":idprodotto", tagsmod->index(ui->tvTags->currentIndex().row(),3).data(0).toString());
     q.bindValue(":df", ui->deDal->date());
@@ -129,25 +132,26 @@ void FTOverview::findTagsMov()
 
     if (!q.exec())
     {
+        qDebug()<<q.lastError().text()<<q.boundValue(":df").toString()<<q.boundValue(":dt").toString();
     }
-    qDebug()<<q.lastError().text()<<q.boundValue(":df").toString()<<q.boundValue(":dt").toString();
+
 
     tagsmovmod->setQuery(q);
-    ui->tvTags_mov->setModel(tagsmovmod);
+     ui->tvTags_mov->setModel(tagsmovmod);
+
     ui->tvTags_mov->setColumnHidden(0,true);
     ui->tvTags_mov->setColumnHidden(1,true);
     ui->tvTags_mov->setColumnHidden(3,true);
     ui->tvTags_mov->setColumnHidden(4,true);
-  //  ui->tvTags_mov->setColumnHidden(5,true);
-    ui->tvTags_mov->setColumnHidden(6,true);
+    //  ui->tvTags_mov->setColumnHidden(5,true);
+     ui->tvTags_mov->setColumnHidden(6,true);
     ui->tvTags_mov->setColumnHidden(8,true);
     ui->tvTags_mov->setColumnHidden(10,true);
 
 
-
     ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 
-    ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
+      ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
     ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(1,QHeaderView::ResizeToContents);
     ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(2,QHeaderView::ResizeToContents);
     ui->tvTags_mov->horizontalHeader()->setSectionResizeMode(3,QHeaderView::ResizeToContents);
@@ -167,6 +171,25 @@ void FTOverview::findTagsMov()
 
     ui->cbProdotto->completer()->setCompletionColumn(1);
     ui->cbProdotto->completer()->setCompletionMode(QCompleter::PopupCompletion);
+
+    int tot_carico=0;
+    int tot_scarico=0;
+    for (int r=0;r<tagsmovmod->rowCount();++r)
+    {
+        int az=tagsmovmod->index(r,10).data().toInt();
+        if(az==1)
+        {
+            tot_carico+=tagsmovmod->index(r,12).data().toInt();
+        }
+        else if (az==2)
+        {
+            tot_scarico+= tagsmovmod->index(r,12).data().toInt();
+        }
+
+    }
+
+    ui->lb_tot_carico->setText(QString::number(tot_carico));
+    ui->lb_tot_scarico->setText(QString::number(tot_scarico));
 
 
 
@@ -324,7 +347,7 @@ void FTOverview::on_tvTags_mov_doubleClicked(const QModelIndex &index)
 
 void FTOverview::on_pbPrint_clicked()
 {
-   /* QAbstractItemModel *modToPrint =static_cast<QAbstractItemModel*> (tagsmod);
+    /* QAbstractItemModel *modToPrint =static_cast<QAbstractItemModel*> (tagsmod);
     QStringList coltitles;
     coltitles<<"BARCODE"<<"CLIENTE"<<"PRODOTTO"<<"TIPO"<<"SPECIFICA"<<"IMMAGINE"<<"GIACENZA"<<"NOTE";
     QList<int> hiddencols;
@@ -563,8 +586,8 @@ void FTOverview::print(bool p_pdf=true){
         out << "</tr>\n";
     }
     out <<  "</table>\n"
-            "</body>\n"
-            "</html>\n";
+           "</body>\n"
+           "</html>\n";
 
     QTextDocument *document = new QTextDocument();
     qDebug()<<strStream;
@@ -572,25 +595,25 @@ void FTOverview::print(bool p_pdf=true){
 
     QString filename;
 
-        // qDebug()<<"filename="<<filename;
-        filename= QFileDialog::getSaveFileName(this,"Scegli il nome del file",QString(),"Pdf (*.pdf)");
+    // qDebug()<<"filename="<<filename;
+    filename= QFileDialog::getSaveFileName(this,"Scegli il nome del file",QString(),"Pdf (*.pdf)");
 
-        if (filename.isEmpty() && filename.isNull()){
-            //  qDebug()<<"annullato";
-            return;
-        }
+    if (filename.isEmpty() && filename.isNull()){
+        //  qDebug()<<"annullato";
+        return;
+    }
 
-        QPrinter printer;
-        printer.setOrientation(QPrinter::Landscape);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setPaperSize(QPrinter::A4);
-        printer.setOutputFileName(filename);
+    QPrinter printer;
+    printer.setOrientation(QPrinter::Landscape);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(filename);
 
-        document->print(&printer);
+    document->print(&printer);
 
-        delete document;
+    delete document;
 
-        QDesktopServices::openUrl(filename);
+    QDesktopServices::openUrl(filename);
 
 
 
@@ -627,17 +650,14 @@ void FTOverview::on_rbCust_toggled(bool checked)
 {
     int idc=-1;
 
-    if(ui->rbCust->isChecked()) {
-        int ix=ui->cbCliente->findText(ui->cbCliente->currentText());
-        idc=ui->cbCliente->model()->index(ui->cbCliente->currentIndex(),0).data().toInt();
-    }
-
-
-
-        if (checked) {
-        getProdotti(idc);
-    }
+     if (checked) {
+            int ix=ui->cbCliente->findText(ui->cbCliente->currentText());
+            ui->cbCliente->setCurrentIndex(ix);
+            idc=ui->cbCliente->model()->index(ui->cbCliente->currentIndex(),0).data().toInt();
+            getProdotti(idc);
+     }
 }
+
 
 
 void FTOverview::on_rbAnyProd_toggled(bool checked)
@@ -661,7 +681,7 @@ void FTOverview::on_rbSigilli_toggled(bool checked)
 
 void FTOverview::on_rbNoProd_toggled(bool checked)
 {
-   /* if (checked){t*/tagsmod->setFilter(buildFilter());
+    /* if (checked){t*/tagsmod->setFilter(buildFilter());
 }
 
 

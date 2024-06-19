@@ -25,6 +25,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -34,7 +35,7 @@ QT_BEGIN_NAMESPACE
 class Ui_FTOverview
 {
 public:
-    QVBoxLayout *verticalLayout_3;
+    QVBoxLayout *verticalLayout_4;
     QHBoxLayout *horizontalLayout_3;
     QRadioButton *rbLabels;
     QRadioButton *rbSigilli;
@@ -61,9 +62,16 @@ public:
     QLabel *label;
     QDateEdit *deAl;
     QPushButton *pbReset;
-    QHBoxLayout *horizontalLayout_6;
+    QSplitter *splitter;
     QTableView *tvTags;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_3;
     QTableView *tvTags_mov;
+    QGridLayout *gridLayout_2;
+    QLabel *label_3;
+    QLabel *lb_tot_carico;
+    QLabel *label_5;
+    QLabel *lb_tot_scarico;
     QHBoxLayout *horizontalLayout_5;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
@@ -89,8 +97,8 @@ public:
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/resources/icons/8644322_graphic_chart_graph_bam_icon (1).png"), QSize(), QIcon::Normal, QIcon::Off);
         FTOverview->setWindowIcon(icon);
-        verticalLayout_3 = new QVBoxLayout(FTOverview);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_4 = new QVBoxLayout(FTOverview);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         rbLabels = new QRadioButton(FTOverview);
@@ -205,7 +213,7 @@ public:
         horizontalLayout_3->addItem(horizontalSpacer_3);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_3);
+        verticalLayout_4->addLayout(horizontalLayout_3);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
@@ -252,11 +260,12 @@ public:
         horizontalLayout_2->addLayout(gridLayout);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_2);
+        verticalLayout_4->addLayout(horizontalLayout_2);
 
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
-        tvTags = new QTableView(FTOverview);
+        splitter = new QSplitter(FTOverview);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setOrientation(Qt::Horizontal);
+        tvTags = new QTableView(splitter);
         tvTags->setObjectName(QString::fromUtf8("tvTags"));
         tvTags->setMinimumSize(QSize(0, 0));
         tvTags->setStyleSheet(QString::fromUtf8("selection-color: rgb(255, 255, 255);\n"
@@ -266,15 +275,18 @@ public:
         tvTags->setSelectionMode(QAbstractItemView::SingleSelection);
         tvTags->setSelectionBehavior(QAbstractItemView::SelectRows);
         tvTags->setSortingEnabled(true);
+        splitter->addWidget(tvTags);
         tvTags->horizontalHeader()->setCascadingSectionResizes(true);
         tvTags->horizontalHeader()->setStretchLastSection(true);
         tvTags->verticalHeader()->setVisible(false);
         tvTags->verticalHeader()->setCascadingSectionResizes(true);
         tvTags->verticalHeader()->setHighlightSections(false);
-
-        horizontalLayout_6->addWidget(tvTags);
-
-        tvTags_mov = new QTableView(FTOverview);
+        widget = new QWidget(splitter);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        verticalLayout_3 = new QVBoxLayout(widget);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        tvTags_mov = new QTableView(widget);
         tvTags_mov->setObjectName(QString::fromUtf8("tvTags_mov"));
         tvTags_mov->setMinimumSize(QSize(0, 0));
         tvTags_mov->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -288,10 +300,38 @@ public:
         tvTags_mov->verticalHeader()->setVisible(false);
         tvTags_mov->verticalHeader()->setCascadingSectionResizes(true);
 
-        horizontalLayout_6->addWidget(tvTags_mov);
+        verticalLayout_3->addWidget(tvTags_mov);
+
+        gridLayout_2 = new QGridLayout();
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        label_3 = new QLabel(widget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout_2->addWidget(label_3, 0, 0, 1, 1);
+
+        lb_tot_carico = new QLabel(widget);
+        lb_tot_carico->setObjectName(QString::fromUtf8("lb_tot_carico"));
+        lb_tot_carico->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 127);"));
+
+        gridLayout_2->addWidget(lb_tot_carico, 0, 1, 1, 1);
+
+        label_5 = new QLabel(widget);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        gridLayout_2->addWidget(label_5, 0, 2, 1, 1);
+
+        lb_tot_scarico = new QLabel(widget);
+        lb_tot_scarico->setObjectName(QString::fromUtf8("lb_tot_scarico"));
+        lb_tot_scarico->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 127);"));
+
+        gridLayout_2->addWidget(lb_tot_scarico, 0, 3, 1, 1);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_6);
+        verticalLayout_3->addLayout(gridLayout_2);
+
+        splitter->addWidget(widget);
+
+        verticalLayout_4->addWidget(splitter);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -400,7 +440,7 @@ public:
         horizontalLayout_5->addLayout(horizontalLayout_4);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_5);
+        verticalLayout_4->addLayout(horizontalLayout_5);
 
 
         retranslateUi(FTOverview);
@@ -424,6 +464,10 @@ public:
         label_2->setText(QCoreApplication::translate("FTOverview", "e il:", nullptr));
         label->setText(QCoreApplication::translate("FTOverview", "Tra il:", nullptr));
         pbReset->setText(QCoreApplication::translate("FTOverview", "Reset", nullptr));
+        label_3->setText(QCoreApplication::translate("FTOverview", "Tot. carichi:", nullptr));
+        lb_tot_carico->setText(QCoreApplication::translate("FTOverview", "TextLabel", nullptr));
+        label_5->setText(QCoreApplication::translate("FTOverview", "Tot. scarichi", nullptr));
+        lb_tot_scarico->setText(QCoreApplication::translate("FTOverview", "TextLabel", nullptr));
         pbDefinizioni->setText(QCoreApplication::translate("FTOverview", "Definizioni", nullptr));
         pbModTag->setText(QCoreApplication::translate("FTOverview", "Modifica Selezionato", nullptr));
         pbPrint->setText(QCoreApplication::translate("FTOverview", "Stampa", nullptr));

@@ -35,11 +35,11 @@ FtCommands::~FtCommands()
 
 void FtCommands::on_pbOverview_clicked()
 {
+
+
     FTOverview *f=new FTOverview(db);
-    emit accepted();
+    emit sig_close();
     f->showMaximized();
-
-
 
 }
 
@@ -48,7 +48,7 @@ void FtCommands::on_pbMov_clicked()
 {
 
     FTagsMov *f=new FTagsMov(0,id_tag,QString(),db);
-    emit accepted();
+   // emit accepted();
     f->show();
 
 }

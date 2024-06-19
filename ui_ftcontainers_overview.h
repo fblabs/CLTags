@@ -31,7 +31,7 @@ QT_BEGIN_NAMESPACE
 class Ui_FtContainers_Overview
 {
 public:
-    QVBoxLayout *verticalLayout;
+    QVBoxLayout *verticalLayout_3;
     QGridLayout *gridLayout;
     QLabel *label;
     QLineEdit *leSearch;
@@ -46,7 +46,14 @@ public:
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_2;
     QTableView *tvOverview;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout;
     QTableView *tvDetails;
+    QGridLayout *gridLayout_2;
+    QLabel *label_4;
+    QLabel *lbTot_load;
+    QLabel *label_6;
+    QLabel *lbTot_unload;
     QHBoxLayout *horizontalLayout;
     QPushButton *pbAddContainer;
     QPushButton *pbModify;
@@ -63,8 +70,8 @@ public:
             FtContainers_Overview->setObjectName(QString::fromUtf8("FtContainers_Overview"));
         FtContainers_Overview->setWindowModality(Qt::NonModal);
         FtContainers_Overview->resize(1319, 485);
-        verticalLayout = new QVBoxLayout(FtContainers_Overview);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout_3 = new QVBoxLayout(FtContainers_Overview);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         label = new QLabel(FtContainers_Overview);
@@ -121,7 +128,7 @@ public:
         gridLayout->addWidget(cbAttivi, 0, 8, 1, 1);
 
 
-        verticalLayout->addLayout(gridLayout);
+        verticalLayout_3->addLayout(gridLayout);
 
         splitter = new QSplitter(FtContainers_Overview);
         splitter->setObjectName(QString::fromUtf8("splitter"));
@@ -146,17 +153,52 @@ public:
         verticalLayout_2->addWidget(tvOverview);
 
         splitter->addWidget(layoutWidget);
-        tvDetails = new QTableView(splitter);
+        widget = new QWidget(splitter);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        tvDetails = new QTableView(widget);
         tvDetails->setObjectName(QString::fromUtf8("tvDetails"));
         tvDetails->setEditTriggers(QAbstractItemView::NoEditTriggers);
         tvDetails->setAlternatingRowColors(true);
         tvDetails->setSelectionMode(QAbstractItemView::SingleSelection);
         tvDetails->setSelectionBehavior(QAbstractItemView::SelectRows);
-        splitter->addWidget(tvDetails);
         tvDetails->horizontalHeader()->setStretchLastSection(true);
         tvDetails->verticalHeader()->setVisible(false);
 
-        verticalLayout->addWidget(splitter);
+        verticalLayout->addWidget(tvDetails);
+
+        gridLayout_2 = new QGridLayout();
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        label_4 = new QLabel(widget);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout_2->addWidget(label_4, 0, 0, 1, 1);
+
+        lbTot_load = new QLabel(widget);
+        lbTot_load->setObjectName(QString::fromUtf8("lbTot_load"));
+        lbTot_load->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 127);"));
+
+        gridLayout_2->addWidget(lbTot_load, 0, 1, 1, 1);
+
+        label_6 = new QLabel(widget);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+
+        gridLayout_2->addWidget(label_6, 0, 2, 1, 1);
+
+        lbTot_unload = new QLabel(widget);
+        lbTot_unload->setObjectName(QString::fromUtf8("lbTot_unload"));
+        lbTot_unload->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 127);"));
+
+        gridLayout_2->addWidget(lbTot_unload, 0, 3, 1, 1);
+
+
+        verticalLayout->addLayout(gridLayout_2);
+
+        splitter->addWidget(widget);
+
+        verticalLayout_3->addWidget(splitter);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -208,7 +250,7 @@ public:
         horizontalLayout->addWidget(pbDelete);
 
 
-        verticalLayout->addLayout(horizontalLayout);
+        verticalLayout_3->addLayout(horizontalLayout);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -233,7 +275,7 @@ public:
         horizontalLayout_5->addWidget(pbClose);
 
 
-        verticalLayout->addLayout(horizontalLayout_5);
+        verticalLayout_3->addLayout(horizontalLayout_5);
 
 
         retranslateUi(FtContainers_Overview);
@@ -249,6 +291,10 @@ public:
         label_3->setText(QCoreApplication::translate("FtContainers_Overview", "e il:", nullptr));
         pbReset->setText(QCoreApplication::translate("FtContainers_Overview", "Reset", nullptr));
         cbAttivi->setText(QCoreApplication::translate("FtContainers_Overview", "Attivi", nullptr));
+        label_4->setText(QCoreApplication::translate("FtContainers_Overview", "Tot: carichi:", nullptr));
+        lbTot_load->setText(QCoreApplication::translate("FtContainers_Overview", "TextLabel", nullptr));
+        label_6->setText(QCoreApplication::translate("FtContainers_Overview", "Tot. scarichi:", nullptr));
+        lbTot_unload->setText(QCoreApplication::translate("FtContainers_Overview", "TextLabel", nullptr));
         pbAddContainer->setText(QCoreApplication::translate("FtContainers_Overview", "Aggiungi", nullptr));
 #if QT_CONFIG(tooltip)
         pbModify->setToolTip(QCoreApplication::translate("FtContainers_Overview", "<html><head/><body><p>modifica operazione selezionata</p><p><br/></p></body></html>", nullptr));
